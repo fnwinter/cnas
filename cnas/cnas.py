@@ -1,9 +1,12 @@
 from flask import Flask
-from flask import render_template
+
+from genhtml.genhtml import GenHTML
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template('login.html')
+  gh = GenHTML()
+  gh.header()
+  return gh.output()
 
