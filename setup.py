@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-# Copyright 2022 fnwinter@gmail.com
+# Copyright 2024 fnwinter@gmail.com
 
-from cherrynas.requirements import req
+#from cnas import req
 from setuptools import setup, find_packages
 
-VERSION = open("./cherrynas/config/version.txt").readline()
+#VERSION = open("./cnas/version.txt").readline()
 
 setup(name='cherrynas',
-      version=VERSION,
+      version="1.0.1",
 
-      url='https://github.com/fnwinter/cherrynas',
+      url='https://github.com/fnwinter/cnas',
       author='JungJik Lee',
       author_email='fnwinter@gmail.com',
 
@@ -17,9 +17,9 @@ setup(name='cherrynas',
       long_description='',
 
       packages=find_packages(),
-      package_dir={'cherrynas': 'cherrynas'},
+      package_dir={'cherrynas': 'cnas'},
 
       zip_safe=False,
-      install_requires=req,
+      #install_requires=req,
       include_package_data=True
       )
