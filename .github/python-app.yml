@@ -26,27 +26,24 @@ jobs:
         pip install -r requirements.txt
     - name: Run test
       run: |
-        pushd cherrynas
-        chmod +x ./scripts/run_test.sh
+        pushd cnas
         echo "------------------------------"
         echo "Run test"
         echo "------------------------------"
-        ./scripts/run_test.sh
+        ./doc_test.py
         popd
     - name: Run pylint
       run: |
-        pushd cherrynas
-        pip install pylint
-        chmod +x ./scripts/run_pylint.sh
+        pushd cnas
         echo "------------------------------"
         echo "Run pylint"
         echo "------------------------------"
-        ./scripts/run_pylint.sh
+        ./pylint_test.py
         popd
     - name: Version up
       run: |
-        pushd cherrynas
-        chmod +x ./scripts/version_up.sh
+        pushd cnas
+        chmod +x ./version_up.py
         echo "------------------------------"
         echo "Version up"
         echo "------------------------------"
