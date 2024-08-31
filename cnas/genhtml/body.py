@@ -1,17 +1,18 @@
 from genhtml.tag import tag
 
+
 class body(tag):
-  def __init__(self):
-    """
-    create body tag
+    def __init__(self, *args, **kwargs):
+        """
+        create body tag
 
-    >>> from genhtml.body import body
-    >>> _body = body()
-    >>> _body.output()
-    '<body></body>'
+        >>> from genhtml.body import body
+        >>> _body = body()
+        >>> _body.output()
+        '<body></body>'
 
-    """
+        """
 
-    super().__init__()
-    self.tags = ["<body>", "</body>"]
-
+        super().__init__(*args, **kwargs)
+        self.tags = ["<body>", "</body>"]
+        self.make_tag()

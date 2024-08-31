@@ -22,4 +22,4 @@ setup(name='cherrynas',
       zip_safe=False,
       install_requires=req,
       include_package_data=True
-)
+      )
