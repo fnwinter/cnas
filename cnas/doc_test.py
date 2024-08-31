@@ -11,7 +11,7 @@ def run_doctests_in_directory(directory):
                 file_path = os.path.join(root, file)
                 print(f"Running doctest for {file_path}")
                 result = doctest.testfile(file_path, module_relative=False)
-                assert(result.failed == 0)
+                assert result.failed == 0
 
 
 
