@@ -8,7 +8,7 @@ class body(tag):
 
         >>> from genhtml.body import body
         >>> _body = body()
-        >>> _body.output()
+        >>> str(_body)
         '<body></body>'
 
         """
