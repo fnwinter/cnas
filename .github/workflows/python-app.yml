@@ -43,15 +43,15 @@ jobs:
     - name: Version up
       run: |
         pushd cnas
-        chmod +x ./version_up.py
         echo "------------------------------"
         echo "Version up"
         echo "------------------------------"
-        echo "./scripts/version_up.sh"
+        ./version_up.py
         popd
     - name: Build
       run: |
-        python setup.py sdist
+        #python setup.py sdist
+        echo "setup"
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v3
       with:
