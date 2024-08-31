@@ -50,8 +50,10 @@ jobs:
         popd
     - name: Build
       run: |
-        #python setup.py sdist
-        echo "setup"
+        echo "------------------------------"
+        echo "Setup"
+        echo "------------------------------"
+        python setup.py sdist
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v3
       with:

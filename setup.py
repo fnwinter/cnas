@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 # Copyright 2024 fnwinter@gmail.com
 
-#from cnas import req
 from setuptools import setup, find_packages
+from cnas.version_up import VERSION
 
-#VERSION = open("./cnas/version.txt").readline()
+def read_package():
+    with open("cnas/requirements.txt") as f:
+        lines = [item.strip() for item in f.readlines()]
+        return lines
 
 setup(name='cherrynas',
-      version="1.0.1",
+      version=VERSION,
 
       url='https://github.com/fnwinter/cnas',
       author='JungJik Lee',
@@ -20,6 +23,6 @@ setup(name='cherrynas',
       package_dir={'cherrynas': 'cnas'},
 
       zip_safe=False,
-      #install_requires=req,
+      install_requires=read_package(),
       include_package_data=True
       )
