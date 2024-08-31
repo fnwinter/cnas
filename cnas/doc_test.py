@@ -10,7 +10,9 @@ def run_doctests_in_directory(directory):
             if file.endswith(".py"):
                 file_path = os.path.join(root, file)
                 print(f"Running doctest for {file_path}")
-                doctest.testfile(file_path, module_relative=False)
+                result = doctest.testfile(file_path, module_relative=False)
+                assert(result.failed == 0)
+
 
 
 if __name__ == "__main__":
