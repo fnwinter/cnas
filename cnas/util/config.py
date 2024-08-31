@@ -1,6 +1,7 @@
 import os
 import json
 
+
 class config:
     """
     Load and Save CNAS config
@@ -16,6 +17,7 @@ class config:
     '1234'
 
     """
+
     def __init__(self):
         home_path = os.path.expanduser('~')
         self.config_path = os.path.join(home_path, ".cnas")
@@ -25,16 +27,18 @@ class config:
         # create folder and file
         os.makedirs(self.config_path, exist_ok=True)
         if not os.path.exists(self.config_file):
-            with open(self.config_file, 'w') as f:
+            with open(self.config_file, 'w', encoding='utf-8') as f:
                 f.write('')
 
     def load(self):
-        with open(self.config_file) as f:
-            self.config_data = json.load(f) 
+        if not os.path.exists(self.config_file):
+            assert False, "no config file"
+        with open(self.config_file, encoding='utf-8') as f:
+            self.config_data = json.load(f)
 
     def save(self):
-        with open(self.config_file, 'w') as f:
-            json.dump(self.config_data, f, indent=4) 
+        with open(self.config_file, 'w', encoding='utf-8') as f:
+            json.dump(self.config_data, f, indent=4)
 
     def get(self, key):
         return self.config_data.get(key)

@@ -14,7 +14,6 @@ def run_doctests_in_directory(directory):
                 assert result.failed == 0
 
 
-
 if __name__ == "__main__":
     _directory = os.path.abspath(os.path.dirname(__file__))
     run_doctests_in_directory(_directory)
