@@ -18,7 +18,7 @@ class config:
 
     """
 
-    def __init__(self):
+    def __init__(self, early_load=True):
         home_path = os.path.expanduser('~')
         self.config_path = os.path.join(home_path, ".cnas")
         self.config_file = os.path.join(self.config_path, "config.json")
@@ -29,12 +29,18 @@ class config:
         if not os.path.exists(self.config_file):
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 f.write('')
+        if early_load:
+            self.load()
+
 
     def load(self):
         if not os.path.exists(self.config_file):
             assert False, "no config file"
-        with open(self.config_file, encoding='utf-8') as f:
-            self.config_data = json.load(f)
+        try:
+            with open(self.config_file, encoding='utf-8') as f:
+                self.config_data = json.load(f)
+        except Exception as e:
+            print("config error :" + e)
 
     def save(self):
         with open(self.config_file, 'w', encoding='utf-8') as f:
@@ -44,4 +50,7 @@ class config:
         return self.config_data.get(key)
 
     def set(self, key, value):
-        self.config_data[key] = value
+      self.config_data[key] = value
+
+CONFIG = config()
+
