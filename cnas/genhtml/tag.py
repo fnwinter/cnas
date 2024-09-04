@@ -4,9 +4,6 @@ class tag:
         base object for all tags
 
         >>> from genhtml.tag import tag
-        >>> t = tag(content = "test")
-        >>> str(t)
-        'test'
         >>> t = tag(src = "http://cnas.com")
         >>> t._tags = ["<test>","</test>"]
         >>> t = t.make_element()
@@ -37,6 +34,19 @@ class tag:
                 self._attributes[key] = value
 
     def set_content(self, content):
+        """
+        set content in the element
+
+        >>> from genhtml.tag import tag
+        >>> t = tag(content = "test")
+        >>> str(t)
+        'test'
+        >>> t = tag().set_content("Hello World!") \
+        ...     .set_tags(["<test>","</test>"]).make_element()
+        >>> str(t)
+        '<test>Hello World!</test>'
+
+        """
         self._content = content
         return self
 
@@ -61,14 +71,14 @@ class tag:
             self._close_tag = self._tags[1]
         return self
 
+    def append(self, new_element):
+        self._children.append(str(new_element))
+
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         pass
-
-    def append(self, new_element):
-        self._children.append(str(new_element))
 
     def __str__(self):
         return self._open_tag + self._content + \
