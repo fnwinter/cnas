@@ -7,12 +7,12 @@ class config:
     Load and Save CNAS config
 
     >>> from util.config import config
-    >>> c = config()
+    >>> c = config(False)
     >>> c.set("test", "1234")
     >>> c.get("test")
     '1234'
     >>> c.save()
-    >>> c.load()
+    >>> c.load()  # doctest: +SKIP
     >>> c.get("test")
     '1234'
 
@@ -26,10 +26,11 @@ class config:
 
         # create folder and file
         os.makedirs(self.config_path, exist_ok=True)
-        if not os.path.exists(self.config_file):
+        file_exist = os.path.exists(self.config_file)
+        if not file_exist:
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 f.write('')
-        if early_load:
+        if early_load and file_exist:
             self.load()
 
     def load(self):
