@@ -1,9 +1,9 @@
 from pages.page import page
 
-from genhtml.html import html
-from genhtml.head import head
-from genhtml.body import body
-from cnas.genhtml.para import para
+from genhtml.w3c.html import html
+from genhtml.w3c.head import head
+from genhtml.w3c.body import body
+from genhtml.w3c.para import para
 
 
 class index(page):
@@ -11,7 +11,7 @@ class index(page):
         pass
 
     def __str__(self):
-        with html(head(cnas_title="cnas")) as _html:
+        with html(head()) as _html:
             with body() as _body:
                 _body.append(para(content="index"))
             _html.append(_body)

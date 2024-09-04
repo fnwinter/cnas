@@ -1,4 +1,4 @@
-from genhtml.tag import tag
+from genhtml.w3c.tag import tag
 
 
 class body(tag):
