@@ -32,7 +32,6 @@ class config:
         if early_load:
             self.load()
 
-
     def load(self):
         if not os.path.exists(self.config_file):
             assert False, "no config file"
@@ -50,7 +49,7 @@ class config:
         return self.config_data.get(key)
 
     def set(self, key, value):
-      self.config_data[key] = value
+        self.config_data[key] = value
+
 
 CONFIG = config()
-
