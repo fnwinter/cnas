@@ -12,9 +12,9 @@ def increase_version():
 
 
 def make_commit():
-    execute_command(f"git add --all")
+    execute_command("git add --all")
     execute_command(f"git commit -m \"update version {VERSION}\"")
-    execute_command(f"git push origin main")
+    execute_command("git push origin main")
 
 
 def execute_command(command):

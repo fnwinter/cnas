@@ -24,6 +24,7 @@ class tag:
         self._tags = []
         self._children = []
         self._attributes = {}
+        self._is_void_element = False
         for _t in args:
             if isinstance(_t, tag):
                 self._children.append(str(_t))
@@ -52,10 +53,10 @@ class tag:
 
     def set_tags(self, tags):
         self._tags = tags
+        self._is_void_element = len(self._tags) == 1
         return self
 
     def make_element(self):
-        self._is_void_element = True if len(self._tags) == 1 else False
         if self._is_void_element:
             self._open_tag = self._tags[0][0:-2]
             for _key, _value in self._attributes.items():
@@ -73,6 +74,9 @@ class tag:
 
     def append(self, new_element):
         self._children.append(str(new_element))
+
+    def get_attributes(self, key):
+        return self._attributes.get(key)
 
     def __enter__(self):
         return self

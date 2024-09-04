@@ -29,7 +29,7 @@ def fix_autopep8_on_directory(directory: str):
 if __name__ == "__main__":
     _directory = os.path.abspath(os.path.dirname(__file__))
 
-    if len(sys.argv) > 1 and sys.argv[1] == '--fix':
+    if '--fix' in sys.argv:
         fix_autopep8_on_directory(_directory)
     else:
         run_pylint_on_directory(_directory)
