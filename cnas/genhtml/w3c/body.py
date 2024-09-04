@@ -6,7 +6,7 @@ class body(tag):
         """
         create body tag
 
-        >>> from genhtml.body import body
+        >>> from genhtml.w3c.body import body
         >>> _body = body()
         >>> str(_body)
         '<body></body>'

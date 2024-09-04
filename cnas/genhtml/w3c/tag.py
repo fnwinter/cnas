@@ -3,7 +3,7 @@ class tag:
         """
         base object for all tags
 
-        >>> from genhtml.tag import tag
+        >>> from genhtml.w3c.tag import tag
         >>> t = tag(src = "http://cnas.com")
         >>> t._tags = ["<test>","</test>"]
         >>> t = t.make_element()
@@ -38,7 +38,7 @@ class tag:
         """
         set content in the element
 
-        >>> from genhtml.tag import tag
+        >>> from genhtml.w3c.tag import tag
         >>> t = tag(content = "test")
         >>> str(t)
         'test'
