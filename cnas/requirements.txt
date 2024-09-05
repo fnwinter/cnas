@@ -10,6 +10,7 @@ itsdangerous==2.2.0
 Jinja2==3.1.4
 MarkupSafe==2.1.5
 mccabe==0.7.0
+pillow==10.4.0
 platformdirs==4.2.2
 pylint==3.2.6
 tomli==2.0.1

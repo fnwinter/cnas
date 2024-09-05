@@ -1,6 +1,7 @@
 import os
 import json
 
+from util.system_path import get_cnas_path
 
 class config:
     """
@@ -19,13 +20,11 @@ class config:
     """
 
     def __init__(self, early_load=True):
-        home_path = os.path.expanduser('~')
-        self.config_path = os.path.join(home_path, ".cnas")
+        self.config_path = get_cnas_path()
         self.config_file = os.path.join(self.config_path, "config.json")
         self.config_data = {}
 
         # create folder and file
-        os.makedirs(self.config_path, exist_ok=True)
         file_exist = os.path.exists(self.config_file)
         if not file_exist:
             with open(self.config_file, 'w', encoding='utf-8') as f:

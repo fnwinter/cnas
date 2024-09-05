@@ -7,4 +7,4 @@ class gallery(page):
         pass
 
     def __str__(self):
-        return f"image {CONFIG.get('gallery_path')}"
+        return f"image <img src='gallery_file/20221230_162921.jpg'/>"
