@@ -60,14 +60,12 @@ class tag:
         if self._is_void_element:
             self._open_tag = self._tags[0][0:-2]
             for _key, _value in self._attributes.items():
-                if "cnas_" not in _key:
-                    self._open_tag += f" {_key}={_value}"
+                self._open_tag += f" {_key}={_value}"
             self._open_tag += "/>"
         else:
             self._open_tag = self._tags[0][0:-1]
             for _key, _value in self._attributes.items():
-                if "cnas_" not in _key:
-                    self._open_tag += f" {_key}={_value}"
+                self._open_tag += f" {_key}={_value}"
             self._open_tag += ">"
             self._close_tag = self._tags[1]
         return self
