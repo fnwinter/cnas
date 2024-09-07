@@ -5,15 +5,13 @@ class tag:
 
         >>> from genhtml.w3c.tag import tag
         >>> t = tag(src = "http://cnas.com")
-        >>> t._tags = ["<test>","</test>"]
-        >>> t = t.make_element()
-        >>> str(t)
+        >>> str(t.set_tag("test").make_element())
         '<test src=http://cnas.com></test>'
         >>> t = tag().set_content("hello world")
-        >>> t = t.set_tags(["<tag>","</tag>"]).make_element()
+        >>> t = t.set_tag("tag").make_element()
         >>> str(t)
         '<tag>hello world</tag>'
-        >>> t = tag().set_tags(["<tag/>"]).make_element()
+        >>> t = tag().set_tag("tag", True).make_element()
         >>> str(t)
         '<tag/>'
 
@@ -21,10 +19,10 @@ class tag:
         self._open_tag = ""
         self._close_tag = ""
         self._content = ""
-        self._tags = []
+        self._tag = ""
+        self._is_void_element = False
         self._children = []
         self._attributes = {}
-        self._is_void_element = False
         for _t in args:
             if isinstance(_t, tag):
                 self._children.append(str(_t))
@@ -43,7 +41,7 @@ class tag:
         >>> str(t)
         'test'
         >>> t = tag().set_content("Hello World!") \
-        ...     .set_tags(["<test>","</test>"]).make_element()
+        ...     .set_tag("test").make_element()
         >>> str(t)
         '<test>Hello World!</test>'
 
@@ -51,23 +49,21 @@ class tag:
         self._content = content
         return self
 
-    def set_tags(self, tags):
-        self._tags = tags
-        self._is_void_element = len(self._tags) == 1
+    def set_tag(self, tag, is_void_element = False):
+        self._tag = tag
+        self._is_void_element = is_void_element
         return self
 
     def make_element(self):
+        _attr = ""
+        for _key, _value in self._attributes.items():
+                _attr += f" {_key}={_value}"
+
         if self._is_void_element:
-            self._open_tag = self._tags[0][0:-2]
-            for _key, _value in self._attributes.items():
-                self._open_tag += f" {_key}={_value}"
-            self._open_tag += "/>"
+            self._open_tag = f"<{self._tag}{_attr}/>"
         else:
-            self._open_tag = self._tags[0][0:-1]
-            for _key, _value in self._attributes.items():
-                self._open_tag += f" {_key}={_value}"
-            self._open_tag += ">"
-            self._close_tag = self._tags[1]
+            self._open_tag = f"<{self._tag}{_attr}>"
+            self._close_tag = f"</{self._tag}>"
         return self
 
     def append(self, new_element):

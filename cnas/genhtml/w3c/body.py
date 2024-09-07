@@ -14,5 +14,4 @@ class body(tag):
         """
 
         super().__init__(*args, **kwargs)
-        self.set_tags(["<body>", "</body>"])\
-            .make_element()
+        self.set_tag("body").make_element()
