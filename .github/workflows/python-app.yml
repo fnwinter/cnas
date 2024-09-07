@@ -46,6 +46,8 @@ jobs:
         echo "------------------------------"
         echo "Version up"
         echo "------------------------------"
+        git config --global user.email "fnwinter@gmail.com"
+        git config --global user.name "Action"
         ./version_up.py
         popd
     - name: Build
