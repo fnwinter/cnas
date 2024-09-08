@@ -2,7 +2,7 @@
 import os
 import subprocess
 
-VERSION = "0.0.13"
+VERSION = "0.0.14"
 
 
 def increase_version():
