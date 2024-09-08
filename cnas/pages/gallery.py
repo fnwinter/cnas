@@ -17,20 +17,20 @@ class gallery(page):
         pass
 
     def __str__(self):
-        _d = div(_class="'columns is-multiline'")
-        _d.append(
+        _div = div(class_="'columns is-multiline'")
+        _div.append(
             photo_builder(src="static/images/up.png"))
 
         _gallery_path = CONFIG.get("gallery_path")
         for root,dirs,files in os.walk(_gallery_path):
             for f in files:
               if "jpg" == f[-3:]:
-                      _d.append(
+                      _div.append(
                           photo_builder(src="gallery_file/" + f)
                           )
 
-        _s = section(
-            div(class_="container").append(_d),
+        _section = section(
+            div(class_="container").append(_div),
             class_="section")
 
         return str(
@@ -38,7 +38,7 @@ class gallery(page):
                 head_builder(title="Gallery"),
                 body_builder(
                     navibar_builder(),
-                    _s
+                    _section
                 )
             )
         )

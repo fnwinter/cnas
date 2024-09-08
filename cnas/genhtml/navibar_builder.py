@@ -11,7 +11,7 @@ f"""
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">
+        <a class="navbar-item" href='/'>
           Home
         </a>
 
@@ -20,6 +20,9 @@ f"""
             More
           </a>
           <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Create folder
+            </a>
             <a class="navbar-item">
               Select
             </a>
@@ -31,11 +34,17 @@ f"""
             </a>
             <hr class="navbar-divider">
             <a class="navbar-item">
-              Upload
+              Smaller thumbnails
+            </a>
+            <a class="navbar-item">
+              Bigger thumbnails
+            </a>
+            <a class="navbar-item">
+              Update thumbnails
             </a>
           </div>
-
         </div>
+
       </div>
     </div>
   </nav>
