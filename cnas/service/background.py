@@ -6,12 +6,7 @@ from PIL import Image, ExifTags
 
 from util.config import CONFIG
 from util.system_path import get_gallery_thumbnail_path
-
-def is_image_file(file_name):
-    _, file_extension = os.path.splitext(file_name)
-    if file_extension == '.png' or file_extension == '.jpg':
-        return True
-    return False
+from util.file_util import is_image_file
 
 def correct_image_orientation(image):
     try:

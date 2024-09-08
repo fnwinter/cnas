@@ -24,7 +24,7 @@ f"""
               Create folder
             </a>
             <a class="navbar-item">
-              Select
+              Select/Deselect
             </a>
             <a class="navbar-item">
               Delete
@@ -32,6 +32,10 @@ f"""
             <a class="navbar-item">
               Upload
             </a>
+            <a class="navbar-item">
+              Download
+            </a>
+
             <hr class="navbar-divider">
             <a class="navbar-item">
               Smaller thumbnails
@@ -44,6 +48,10 @@ f"""
             </a>
           </div>
         </div>
+
+        <a class="navbar-item" href='/'>
+          Help
+        </a>
 
       </div>
     </div>

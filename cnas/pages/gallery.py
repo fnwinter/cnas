@@ -1,7 +1,9 @@
 import os
 
 from pages.page import page
-from util.config import CONFIG
+
+from util.file_util import is_image_file
+from util.system_path import get_gallery_path
 
 from genhtml.w3c.html import html
 from genhtml.w3c.section import section
@@ -20,30 +22,32 @@ class gallery(page):
         pass
 
     def __str__(self):
-        _path_div = div(
+        _gallery_path = get_gallery_path()
+        if _gallery_path == None or not os.path.exists(_gallery_path):
+            return str("No gallery path")
+
+        _title_div = div(
             para(class_="'title is-1 is-spaced'").set_content("Gallery"),
             para(class_="'subtitle is-3'").set_content("/root"),
             br()
         )
  
         _div = div(
+            photo_builder(src="static/images/up.png"),
             class_="'columns is-multiline'"
         )
  
-        _div.append(
-            photo_builder(src="static/images/up.png")
-        )
-
-        _gallery_path = CONFIG.get("gallery_path")
         for root,dirs,files in os.walk(_gallery_path):
-            for f in files:
-              if "jpg" == f[-3:]:
-                      _div.append(
-                          photo_builder(src="gallery_file/" + f)
-                          )
+            for _d in dirs:
+                pass
+            for _f in files:
+                if is_image_file(_f):
+                  _div.append(
+                      photo_builder(src="gallery_file/" + _f)
+                  )
 
         _section = section(
-            div(_path_div, class_="container").append(_div),
+            div(_title_div, class_="container").append(_div),
             class_="section")
 
         return str(
