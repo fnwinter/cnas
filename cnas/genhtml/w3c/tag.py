@@ -55,9 +55,14 @@ class tag:
         return self
 
     def make_element(self):
+        if self._tag == "":
+            return self
+
         _attr = ""
         for _key, _value in self._attributes.items():
-                _attr += f" {_key}={_value}"
+            # class is python keyword
+            _key = "class" if "class_" == _key else _key
+            _attr += f" {_key}={_value}"
 
         if self._is_void_element:
             self._open_tag = f"<{self._tag}{_attr}/>"
@@ -68,6 +73,7 @@ class tag:
 
     def append(self, new_element):
         self._children.append(str(new_element))
+        return self
 
     def get_attributes(self, key):
         return self._attributes.get(key)
