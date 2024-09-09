@@ -1,7 +1,5 @@
 import os
 
-from util.config import CONFIG
-
 def get_cnas_path():
     home_path = os.path.expanduser('~')
     config_path = os.path.join(home_path, ".cnas")

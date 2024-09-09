@@ -6,6 +6,7 @@ from PIL import Image, ExifTags
 
 from util.config import CONFIG
 from util.system_path import get_gallery_thumbnail_path
+from util.config_path import get_gallery_path
 from util.file_util import is_image_file
 
 def correct_image_orientation(image):
@@ -48,7 +49,7 @@ def create_thumbnail(root_folder, image_folder, file_path, size=(256, 256)):
 
 
 def generate_thumbnail():
-    gallery_root = CONFIG.get('gallery_path')
+    gallery_path = get_gallery_path()
     assert gallery_root, "No gallery root"
     for file_root, _, files in os.walk(gallery_root):
         for _file in files:

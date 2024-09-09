@@ -3,7 +3,7 @@ import os
 from pages.page import page
 
 from util.file_util import is_image_file
-from util.system_path import get_gallery_path
+from util.config_path import get_gallery_path
 
 from genhtml.w3c.html import html
 from genhtml.w3c.section import section
@@ -17,6 +17,8 @@ from genhtml.navibar_builder import navibar_builder
 from genhtml.photo_builder import photo_builder
 from genhtml.footer_builder import footer_builder
 
+from pages.error import error
+
 class gallery(page):
     def __init__(self):
         pass
@@ -24,7 +26,7 @@ class gallery(page):
     def __str__(self):
         _gallery_path = get_gallery_path()
         if _gallery_path == None or not os.path.exists(_gallery_path):
-            return str("No gallery path")
+            return str(error("no gallery path"))
 
         _title_div = div(
             para(class_="'title is-1 is-spaced'").set_content("Gallery"),
@@ -54,7 +56,7 @@ class gallery(page):
             html(
                 head_builder(title="Gallery"),
                 body_builder(
-                    navibar_builder(),
+                    navibar_builder().set_menu([]),
                     _section,
                     footer_builder()
                 )
