@@ -2,6 +2,7 @@ from flask import send_from_directory
 
 from pages.index import index
 from pages.gallery import gallery
+from pages.error import error
 
 from util.config import CONFIG
 from util.system_path import get_gallery_thumbnail_path
@@ -25,3 +26,6 @@ def route(app):
         directory = get_gallery_thumbnail_path()
         return send_from_directory(directory, filename)
 
+    @app.route("/error")
+    def error_page() -> str:
+        return str(error("error page"))

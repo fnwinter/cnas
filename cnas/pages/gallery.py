@@ -56,7 +56,14 @@ class gallery(page):
             html(
                 head_builder(title="Gallery"),
                 body_builder(
-                    navibar_builder().set_menu([]),
+                    navibar_builder().set_menu({
+                        "Create Folder":"",
+                        "Select":"/",
+                        "Deselect":"",
+                        "Delete":"",
+                        "Download":"",
+                        "Upload":"",
+                      }),
                     _section,
                     footer_builder()
                 )

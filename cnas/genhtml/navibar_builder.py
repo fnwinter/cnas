@@ -1,22 +1,7 @@
 from genhtml.w3c.tag import tag
+from genhtml.w3c.anchor import anchor
 
-class navibar_builder(tag):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        _drop_down_menu =\
-"""
-            <a class="navbar-item">
-             %s 
-            </a>
-"""
-        test = ["test","test2","test3"]
-        self.t = ""
-        for t in test:
-            self.t += _drop_down_menu % t
-
-
-    def set_menu(self, menu):
-        self.set_content(
+__NAVIBAR_HEAD__ =\
 f"""
   <!--start navibar-->
   <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -28,28 +13,58 @@ f"""
           Home
         </a>
 """
+__NAVIBAR_MORE__ =\
 """
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             More
           </a>
           <div class="navbar-dropdown">
-"""
-+ self.t +
-"""
+            %s
           </div>
         </div>
 """
-"""
+__NAVIBAR_TAIL__ =\
+f"""
         <a class="navbar-item" href='/'>
           Help
         </a>
-
       </div>
     </div>
   </nav>
   <!--end navibar-->
 """
 
+
+class navibar_builder(tag):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.drop_list = []
+        self.set_content(
+            __NAVIBAR_HEAD__
+            + __NAVIBAR_TAIL__
+        ).make_element()
+
+    def set_menu(self, drop_menu):
+        assert drop_menu, "No drop down menu"
+        assert type(drop_menu) == type({}), "Drop down menu should be dict type"
+
+        self.drop_list = []
+        for _title, _url in drop_menu.items():
+            if _title == "divider":
+                self.drop_list.append(hr(class_="'navbar-divider'"))
+            else:
+                _anchor = anchor(class_="'navbar-item'", href=f"'{_url}'")
+                _anchor.set_content(_title)
+                self.drop_list.append(_anchor)
+
+        _drop_str = ""
+        for d in self.drop_list:
+            _drop_str += str(d)
+
+        self.set_content(
+            __NAVIBAR_HEAD__
+            + __NAVIBAR_MORE__ % _drop_str
+            + __NAVIBAR_TAIL__
         ).make_element()
         return self
