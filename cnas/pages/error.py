@@ -2,6 +2,7 @@ from pages.page import page
 
 from genhtml.w3c.html import html
 from genhtml.w3c.head import head
+from genhtml.w3c.button import button
 from genhtml.w3c.body import body
 from genhtml.w3c.para import para
 from genhtml.w3c.div import div
@@ -11,23 +12,39 @@ from genhtml.body_builder import body_builder
 from genhtml.navibar_builder import navibar_builder
 from genhtml.footer_builder import footer_builder
 
+__ERROR_MSG__ =\
+"""
+<article class="message is-danger">
+  <div class="message-header">
+    <p>Danger</p>
+    <button class="delete" aria-label="delete"></button>
+  </div>
+  <div class="message-body">
+  %s
+  </div>
+</article>
+"""
+
+__CONTENT_STYLE__ = "'display: flex;justify-content: center;"\
+"align-items: center;text-align: center;height: 78vh;'"
+
 class error(page):
     def __init__(self, error_message):
         self.error_message = error_message
         pass
 
     def __str__(self):
-        content_style = "'display: flex;justify-content: center;"\
-            "align-items: center;text-align: center;height: 75vh;'"
+        msg = __ERROR_MSG__ % self.error_message
+
         return str(
             html(
                 head_builder(title="Error"),
                 body_builder(
                     navibar_builder(),
                     div(
-                        div(class_="'notification is-danger'")\
-                            .set_content(self.error_message),
-                        style=content_style),
+                        div()
+                            .set_content(msg),
+                    style=__CONTENT_STYLE__),
                     footer_builder()
                 )
             )

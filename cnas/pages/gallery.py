@@ -26,7 +26,7 @@ class gallery(page):
     def __str__(self):
         _gallery_path = get_gallery_path()
         if _gallery_path == None or not os.path.exists(_gallery_path):
-            return str(error("no gallery path"))
+            return str(error("No gallery path"))
 
         _title_div = div(
             para(class_="'title is-1 is-spaced'").set_content("Gallery"),
@@ -41,12 +41,12 @@ class gallery(page):
  
         for root,dirs,files in os.walk(_gallery_path):
             for _d in dirs:
-                pass
+                _div.append(
+                    photo_builder(src="static/images/folder.png"))
             for _f in files:
                 if is_image_file(_f):
-                  _div.append(
-                      photo_builder(src="gallery_file/" + _f)
-                  )
+                    _div.append(
+                        photo_builder(src="gallery_file/" + _f))
 
         _section = section(
             div(_title_div, class_="container").append(_div),

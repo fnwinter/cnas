@@ -50,10 +50,10 @@ def create_thumbnail(root_folder, image_folder, file_path, size=(256, 256)):
 
 def generate_thumbnail():
     gallery_path = get_gallery_path()
-    assert gallery_root, "No gallery root"
-    for file_root, _, files in os.walk(gallery_root):
+    assert gallery_path, "No gallery root"
+    for file_root, _, files in os.walk(gallery_path):
         for _file in files:
-            rel_path = os.path.relpath(gallery_root, file_root)
+            rel_path = os.path.relpath(gallery_path, file_root)
             if is_image_file(_file):
                 create_thumbnail(file_root, rel_path, _file)
 
