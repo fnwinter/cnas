@@ -21,9 +21,12 @@ from pages.error import error
 
 class gallery(page):
     def __init__(self):
-        pass
+        super().__init__()
 
     def __str__(self):
+        if self.json_data:
+            print(self.json_data.get("path"))
+
         _gallery_path = get_gallery_path()
         if _gallery_path == None or not os.path.exists(_gallery_path):
             return str(error("No gallery path"))
@@ -35,18 +38,30 @@ class gallery(page):
         )
  
         _div = div(
-            photo_builder(src="static/images/up.png"),
+            photo_builder(src="static/images/up.png", path=".."),
             class_="'columns is-multiline'"
         )
- 
-        for root,dirs,files in os.walk(_gallery_path):
-            for _d in dirs:
+
+        for _f in os.listdir(_gallery_path):
+            _path = os.path.join(_gallery_path, _f)
+            if not os.path.isdir(_path):
+                continue
+            _div.append(
+                photo_builder(
+                    src="static/images/folder.png",
+                    path=_path))
+
+        for _f in os.listdir(_gallery_path):
+            _path = os.path.join(_gallery_path, _f)
+            if not os.path.isfile(_path) and is_image_file(_f):
                 _div.append(
-                    photo_builder(src="static/images/folder.png"))
-            for _f in files:
-                if is_image_file(_f):
-                    _div.append(
-                        photo_builder(src="gallery_file/" + _f))
+                    photo_builder(src="static/images/no_cache.png"))
+                continue
+            if is_image_file(_f):
+                _div.append(
+                    photo_builder(
+                        src="gallery_file/" + _f,
+                        path=_path))
 
         _section = section(
             div(_title_div, class_="container").append(_div),

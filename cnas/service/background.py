@@ -30,32 +30,32 @@ def correct_image_orientation(image):
     return image
 
 
-def create_thumbnail(root_folder, image_folder, file_path, size=(256, 256)):
-    full_path = os.path.join(*[root_folder, image_folder, file_path])
+def create_thumbnail(root_, rel_, file_, size=(256, 256)):
+    full_path = os.path.join(*[root_, rel_, file_])
 
-    gallery_thumbnail_path = get_gallery_thumbnail_path()
+    thumb_ = get_gallery_thumbnail_path()
 
-    thumbnail_path = os.path.join(gallery_thumbnail_path, image_folder)
+    full_thumb_ = os.path.join(thumb_, rel_)
 
-    os.makedirs(thumbnail_path, exist_ok=True)
+    os.makedirs(full_thumb_, exist_ok=True)
 
-    output_image_path = os.path.join(*[gallery_thumbnail_path, image_folder, file_path])
+    output_ = os.path.join(*[thumb_, rel_, file_])
 
-    if not os.path.exists(output_image_path):
+    if os.path.exists(full_path):
         with Image.open(full_path) as img:
             img.thumbnail(size)
             img = correct_image_orientation(img)
-            img.save(output_image_path)
+            img.save(output_)
 
 
 def generate_thumbnail():
     gallery_path = get_gallery_path()
     assert gallery_path, "No gallery root"
-    for file_root, _, files in os.walk(gallery_path):
+    for _root, _, files in os.walk(gallery_path):
         for _file in files:
-            rel_path = os.path.relpath(gallery_path, file_root)
+            rel_path = os.path.relpath(_root, gallery_path)
             if is_image_file(_file):
-                create_thumbnail(file_root, rel_path, _file)
+                create_thumbnail(gallery_path, rel_path, _file)
 
 def background_task():
     while True:

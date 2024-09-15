@@ -12,7 +12,7 @@ def route(app):
     def index_page() -> str:
         return str(index())
 
-    @app.route("/gallery")
+    @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:
         return str(gallery())
 

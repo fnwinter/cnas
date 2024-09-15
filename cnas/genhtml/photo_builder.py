@@ -6,11 +6,13 @@ class photo_builder(tag):
         # no inheritance
         super().__init__([], {})
         image_file = kwargs.get("src")
+        file_path = kwargs.get("path")
         self.set_content(
 f"""
-      <div class="column is-one-quarter">
+      <div data-path="{file_path}" class="column is-one-quarter picture">
         <figure class="image is-square">
-            <img src="{image_file}" class="rounded" alt="Placeholder image">
+            <img src="{image_file}" class="rounded" alt="Placeholder image" style="z-index:-1;">
+        <div style="overflow: hidden;text-overflow: ellipsis;white-space: wrap;">{file_path}</div>
         </figure>
       </div>
 """
