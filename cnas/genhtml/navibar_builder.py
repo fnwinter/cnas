@@ -1,11 +1,13 @@
 from genhtml.w3c.tag import tag
 from genhtml.w3c.anchor import anchor
+from genhtml.w3c.hr import hr
 
 __NAVIBAR_HEAD__ =\
-f"""
+"""
   <!--start navibar-->
   <nav class="navbar" role="navigation" aria-label="main navigation">
-    <image style="float:left; padding: 8px 8px 8px 8px;"  src="static/images/cherry.png" width="50" height="50"/>
+    <image style="float:left; padding: 8px 8px 8px 8px;"
+            src="static/images/cherry.png" width="50" height="50"/>
 
     <div id="navbar-menu" class="navbar-menu">
       <div class="navbar-start">
@@ -25,7 +27,7 @@ __NAVIBAR_MORE__ =\
         </div>
 """
 __NAVIBAR_TAIL__ =\
-f"""
+"""
         <a class="navbar-item" href='/'>
           Help
         </a>
@@ -47,7 +49,7 @@ class navibar_builder(tag):
 
     def set_menu(self, drop_menu):
         assert drop_menu, "No drop down menu"
-        assert type(drop_menu) == type({}), "Drop down menu should be dict type"
+        assert isinstance(drop_menu) == isinstance({}), "Drop down menu should be dict type"
 
         self.drop_list = []
         for _title, _url in drop_menu.items():

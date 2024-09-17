@@ -1,10 +1,6 @@
 from pages.page import page
 
 from genhtml.w3c.html import html
-from genhtml.w3c.head import head
-from genhtml.w3c.button import button
-from genhtml.w3c.body import body
-from genhtml.w3c.para import para
 from genhtml.w3c.div import div
 
 from genhtml.head_builder import head_builder

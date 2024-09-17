@@ -1,4 +1,3 @@
-from genhtml.w3c.head import head
 from genhtml.w3c.tag import tag
 
 class photo_builder(tag):

@@ -49,8 +49,8 @@ class tag:
         self._content = content
         return self
 
-    def set_tag(self, tag, is_void_element = False):
-        self._tag = tag
+    def set_tag(self, tag_, is_void_element = False):
+        self._tag = tag_
         self._is_void_element = is_void_element
         return self
 

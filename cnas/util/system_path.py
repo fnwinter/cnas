@@ -5,11 +5,8 @@ def get_cnas_path():
     config_path = os.path.join(home_path, ".cnas")
 
     if not os.path.exists(config_path):
-      os.makedirs(config_path, exist_ok=True)
+        os.makedirs(config_path, exist_ok=True)
     return config_path
-
-def get_gallery_path():
-    return CONFIG.get("gallery_path")
 
 def get_gallery_thumbnail_path():
     config_path = get_cnas_path()

@@ -1,6 +1,7 @@
 import os
 
 from pages.page import page
+from pages.error import error
 
 from util.file_util import is_image_file
 from util.config_path import get_gallery_path
@@ -17,8 +18,6 @@ from genhtml.navibar_builder import navibar_builder
 from genhtml.photo_builder import photo_builder
 from genhtml.footer_builder import footer_builder
 
-from pages.error import error
-
 class gallery(page):
     def __init__(self):
         super().__init__()
@@ -28,7 +27,7 @@ class gallery(page):
             print(self.json_data.get("path"))
 
         _gallery_path = get_gallery_path()
-        if _gallery_path == None or not os.path.exists(_gallery_path):
+        if _gallery_path is None or not os.path.exists(_gallery_path):
             return str(error("No gallery path"))
 
         _title_div = div(
@@ -36,7 +35,7 @@ class gallery(page):
             para(class_="'subtitle is-3'").set_content("/root"),
             br()
         )
- 
+
         _div = div(
             photo_builder(src="static/images/up.png", path=".."),
             class_="'columns is-multiline'"

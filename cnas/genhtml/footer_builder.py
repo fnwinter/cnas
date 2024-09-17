@@ -1,10 +1,7 @@
 from genhtml.w3c.tag import tag
 
-class footer_builder(tag):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.set_content(
-f"""
+__FOOTER__ =\
+"""
 <footer class="footer">
   <div class="content has-text-centered">
     <p>
@@ -19,4 +16,8 @@ f"""
   </div>
 </footer>
 """
-      ).make_element()
+
+class footer_builder(tag):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.set_content(__FOOTER__).make_element()

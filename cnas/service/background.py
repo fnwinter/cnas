@@ -2,30 +2,29 @@ import os
 import threading
 import time
 
-from PIL import Image, ExifTags
+from PIL import Image
 
-from util.config import CONFIG
 from util.system_path import get_gallery_thumbnail_path
 from util.config_path import get_gallery_path
 from util.file_util import is_image_file
 
 def correct_image_orientation(image):
     try:
-        for orientation in ExifTags.TAGS.keys():
-            if ExifTags.TAGS[orientation] == 'Orientation':
-                break
+        _exif = image.getexif()
+        if _exif is None:
+            return image
+ 
+        ORIENTATION = "Orientation"
+        _orientation = _exif.get(ORIENTATION) if _exif.has(ORIENTATION) else 0
 
-        exif = image._getexif()
-
-        if exif and orientation in exif:
-            if exif[orientation] == 3:
-                image = image.rotate(180, expand=True)
-            elif exif[orientation] == 6:
-                image = image.rotate(270, expand=True)
-            elif exif[orientation] == 8:
-                image = image.rotate(90, expand=True)
+        if _orientation == 3:
+            image = image.rotate(180, expand=True)
+        elif _orientation == 6:
+            image = image.rotate(270, expand=True)
+        elif _orientation == 8:
+            image = image.rotate(90, expand=True)
     except (AttributeError, KeyError, IndexError):
-        pass
+        print("error while rotating tumbnail")
 
     return image
 
