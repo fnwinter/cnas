@@ -13,7 +13,7 @@ def correct_image_orientation(image):
         _exif = image.getexif()
         if _exif is None:
             return image
- 
+
         ORIENTATION = "Orientation"
         _orientation = _exif.get(ORIENTATION) if _exif.has(ORIENTATION) else 0
 

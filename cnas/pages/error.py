@@ -27,7 +27,6 @@ __CONTENT_STYLE__ = "'display: flex;justify-content: center;"\
 class error(page):
     def __init__(self, error_message):
         self.error_message = error_message
-        pass
 
     def __str__(self):
         msg = __ERROR_MSG__ % self.error_message
