@@ -49,7 +49,7 @@ class navibar_builder(tag):
 
     def set_menu(self, drop_menu):
         assert drop_menu, "No drop down menu"
-        assert isinstance(drop_menu) == isinstance({}), "Drop down menu should be dict type"
+        assert isinstance(drop_menu, dict), "Drop down menu should be dict type"
 
         self.drop_list = []
         for _title, _url in drop_menu.items():

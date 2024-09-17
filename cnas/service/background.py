@@ -15,7 +15,7 @@ def correct_image_orientation(image):
             return image
 
         ORIENTATION = "Orientation"
-        _orientation = _exif.get(ORIENTATION) if _exif.has(ORIENTATION) else 0
+        _orientation = _exif.get(ORIENTATION)
 
         if _orientation == 3:
             image = image.rotate(180, expand=True)
@@ -23,8 +23,8 @@ def correct_image_orientation(image):
             image = image.rotate(270, expand=True)
         elif _orientation == 8:
             image = image.rotate(90, expand=True)
-    except (AttributeError, KeyError, IndexError):
-        print("error while rotating tumbnail")
+    except (AttributeError, KeyError, IndexError) as e:
+        print(f"error while rotating tumbnail {e}")
 
     return image
 
