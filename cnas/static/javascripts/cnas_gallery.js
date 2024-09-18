@@ -11,6 +11,7 @@ $(document).ready(function(){
             data: JSON.stringify(data),
             success: function(response) {
               console.log(response)
+              document.body.innerHTML = response
             },
             error: function(xhr, status, error) {
               console.log(error)

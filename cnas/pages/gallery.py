@@ -21,15 +21,49 @@ from genhtml.footer_builder import footer_builder
 class gallery(page):
     def __init__(self):
         super().__init__()
+        self.pictures = []
 
-    def __str__(self):
-        if self.json_data:
-            print(self.json_data.get("path"))
+    def get_path(self):
+        _gallery_path = None
+        if self.json_data and self.json_data.get("path"):
+            _gallery_path = self.json_data.get("path")
+        else:
+          _gallery_path = get_gallery_path()
+        print(_gallery_path)
 
-        _gallery_path = get_gallery_path()
         if _gallery_path is None or not os.path.exists(_gallery_path):
             return str(error("No gallery path"))
 
+    def get_list(self):
+        # folder
+        for _folder in os.listdir(self.current_path):
+            _path = os.path.join(self.current_path, _folder)
+            if os.path.isdir(_path):
+                _div.append(
+                    photo_builder(
+                        src="static/images/folder.png",
+                        path=_folder))
+
+        # images
+        for _file in os.listdir(self.current_path):
+            _path = os.path.join(self.current_path, _file)
+            _rel_path = ""
+            _thumb_nail_path = ""
+            if not is_image_file(_file):
+                continue
+            if not os.path.exists(_path):
+                continue
+            if os.path.exist(_thumb_nail_path):
+                _div.append(
+                    photo_builder(
+                        src="gallery_thumbnail/" + _rel_path,
+                        path=_file))
+            else:
+                _div.append(
+                    photo_builder(src="static/images/no_cache.png"))
+ 
+
+    def __str__(self):
         _title_div = div(
             para(class_="'title is-1 is-spaced'").set_content("Gallery"),
             para(class_="'subtitle is-3'").set_content("/root"),
@@ -41,26 +75,8 @@ class gallery(page):
             class_="'columns is-multiline'"
         )
 
-        for _f in os.listdir(_gallery_path):
-            _path = os.path.join(_gallery_path, _f)
-            if not os.path.isdir(_path):
-                continue
-            _div.append(
-                photo_builder(
-                    src="static/images/folder.png",
-                    path=_path))
-
-        for _f in os.listdir(_gallery_path):
-            _path = os.path.join(_gallery_path, _f)
-            if not os.path.isfile(_path) and is_image_file(_f):
-                _div.append(
-                    photo_builder(src="static/images/no_cache.png"))
-                continue
-            if is_image_file(_f):
-                _div.append(
-                    photo_builder(
-                        src="gallery_file/" + _f,
-                        path=_path))
+        for pic in self.pictures:
+            _div.append(pic)
 
         _section = section(
             div(_title_div, class_="container").append(_div),
