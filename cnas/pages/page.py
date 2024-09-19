@@ -6,11 +6,11 @@ class page:
         if request.is_json:
             self.json_data = request.get_json()
 
-    def set_session(key, value):
+    def set_session(self, key, value):
         session[key] = value
 
-    def get_session(key):
+    def get_session(self, key):
         return session.get(key)
 
-    def clear_session(key):
+    def clear_session(self, key):
         session.pop(key, None)

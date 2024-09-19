@@ -5,6 +5,7 @@ from pages.error import error
 
 from util.file_util import is_image_file
 from util.config_path import get_gallery_path
+from util.system_path import get_gallery_thumbnail_path
 
 from genhtml.w3c.html import html
 from genhtml.w3c.section import section
@@ -23,23 +24,32 @@ class gallery(page):
         super().__init__()
         self.pictures = []
 
-    def get_path(self):
-        _gallery_path = None
-        if self.json_data and self.json_data.get("path"):
-            _gallery_path = self.json_data.get("path")
-        else:
-          _gallery_path = get_gallery_path()
-        print(_gallery_path)
+        self.gallery_path = get_gallery_path()
+        self.thumbnail_path = get_gallery_thumbnail_path()
+        self.current_path = self.get_session("current_path")
+        if not self.current_path:
+            self.current_path = self.gallery_path
+        if not os.path.abspath(self.gallery_path) in\
+            os.path.abspath(self.current_path):
+            self.current_path = self.gallery_path
 
-        if _gallery_path is None or not os.path.exists(_gallery_path):
-            return str(error("No gallery path"))
+        self.get_path()
+        self.get_list()
+
+    def get_path(self):
+        if self.json_data and self.json_data.get("path"):
+            _rel_path = self.json_data.get("path")
+            _full = os.path.join(self.current_path, _rel_path)
+            self.set_session("current_path", os.path.abspath(_full))
+            print(_full)
+            print(_rel_path)
 
     def get_list(self):
         # folder
         for _folder in os.listdir(self.current_path):
             _path = os.path.join(self.current_path, _folder)
             if os.path.isdir(_path):
-                _div.append(
+                self.pictures.append(
                     photo_builder(
                         src="static/images/folder.png",
                         path=_folder))
@@ -47,19 +57,20 @@ class gallery(page):
         # images
         for _file in os.listdir(self.current_path):
             _path = os.path.join(self.current_path, _file)
-            _rel_path = ""
-            _thumb_nail_path = ""
             if not is_image_file(_file):
                 continue
-            if not os.path.exists(_path):
-                continue
-            if os.path.exist(_thumb_nail_path):
-                _div.append(
+
+            _rel_path = os.path.relpath(self.current_path, self.gallery_path)
+            _rel_full = os.path.join(_rel_path, _file)
+            _thumb_nail_path = os.path.join(self.thumbnail_path, _rel_path)
+
+            if os.path.exists(_thumb_nail_path):
+                self.pictures.append(
                     photo_builder(
-                        src="gallery_thumbnail/" + _rel_path,
+                        src="gallery_thumbnail/" + _rel_full,
                         path=_file))
             else:
-                _div.append(
+                self.pictures.append(
                     photo_builder(src="static/images/no_cache.png"))
  
 

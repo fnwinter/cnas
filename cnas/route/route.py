@@ -16,12 +16,12 @@ def route(app):
     def gallery_page() -> str:
         return str(gallery())
 
-    @app.route('/gallery_file/<filename>')
+    @app.route('/gallery_file/<path:filename>')
     def gallery_file(filename):
         directory = CONFIG.get('gallery_path')
         return send_from_directory(directory, filename)
 
-    @app.route('/gallery_thumbnail/<filename>')
+    @app.route('/gallery_thumbnail/<path:filename>')
     def gallery_thumbnail(filename):
         directory = get_gallery_thumbnail_path()
         return send_from_directory(directory, filename)

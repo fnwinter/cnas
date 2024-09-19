@@ -10,8 +10,8 @@ $(document).ready(function(){
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function(response) {
-              console.log(response)
               document.body.innerHTML = response
+              window.location.reload();
             },
             error: function(xhr, status, error) {
               console.log(error)
