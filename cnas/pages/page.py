@@ -2,7 +2,7 @@ from flask import request, session
 
 class page:
     def __init__(self):
-        self.json_data = None
+        self.json_data = {}
         if request.is_json:
             self.json_data = request.get_json()
 

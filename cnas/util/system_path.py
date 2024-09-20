@@ -14,3 +14,4 @@ def get_gallery_thumbnail_path():
     if not os.path.exists(thumbnail_path):
         os.makedirs(thumbnail_path, exist_ok=True)
     return thumbnail_path
+
