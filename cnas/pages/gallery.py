@@ -51,6 +51,10 @@ class gallery(page):
             self.set_session("current_path", _full)
 
     def get_files(self):
+        if self.current_path != self.gallery_path:
+            self.files.append(
+                photo_builder(src="static/images/up.png", path=".."))
+
         # folder
         for _folder in os.listdir(self.current_path):
             _path = os.path.join(self.current_path, _folder)
@@ -87,10 +91,7 @@ class gallery(page):
             br()
         )
 
-        _div = div(
-            photo_builder(src="static/images/up.png", path=".."),
-            class_="'columns is-multiline'"
-        )
+        _div = div(class_="'columns is-multiline'")
 
         for _file in self.files:
             _div.append(_file)
