@@ -53,7 +53,9 @@ class gallery(page):
     def get_files(self):
         if self.current_path != self.gallery_path:
             self.files.append(
-                photo_builder(src="static/images/up.png", path=".."))
+                photo_builder(
+                    src="static/images/up.png",
+                    path="..", style="folder"))
 
         # folder
         for _folder in os.listdir(self.current_path):
@@ -62,7 +64,8 @@ class gallery(page):
                 self.files.append(
                     photo_builder(
                         src="static/images/folder.png",
-                        path=_folder))
+                        path=_folder,
+                        style="folder"))
 
         # images
         for _file in os.listdir(self.current_path):

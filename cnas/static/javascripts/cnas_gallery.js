@@ -29,4 +29,14 @@ $(document).ready(function(){
         handleClick(path);
     });
 
+    $('.hoverArea').hover(
+      function() {
+          const targetDiv = $(this).data('target');
+          $('#' + targetDiv).stop(true, true).fadeIn(500);
+      },
+      function() {
+          const targetDiv = $(this).data('target');
+          $('#' + targetDiv).stop(true, true).fadeOut(500);
+      }
+    );
 });
