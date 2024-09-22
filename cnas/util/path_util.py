@@ -9,6 +9,7 @@ def rel_path(path, base_path, debug=False):
     None
     >>> print(rel_path("/abc/def/xyz/", "/abc", True))
     def/xyz
+
     """
     if not os.path.exists(base_path) and debug is False:
         return None
