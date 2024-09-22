@@ -27,6 +27,8 @@ class tag:
             if isinstance(_t, tag):
                 self._children.append(str(_t))
         for key, value in kwargs.items():
+            if key == "data_path":
+                key = "data-path"
             if key == "content":
                 self._content = value
             else:

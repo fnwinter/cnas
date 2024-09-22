@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    function handleClick(_path) {
+    function handleFolder(_path) {
         var data = {
           "path": _path
         };
@@ -19,14 +19,29 @@ $(document).ready(function(){
         });
     }
 
+    function showModal(_path) {
+        $('.modal').addClass('is-active');
+        var rel_path = $('#rel_path').data('path');
+        $('#full_image').attr('src',
+          "/gallery_file/"+rel_path+"/"+_path);
+    };
+
+    function hideModal() {
+        $('.modal').removeClass('is-active');
+    }
+
     $('.picture').click(function() {
         var path = $(this).data('path');
-        handleClick(path);
+        showModal(path);
+    });
+
+    $('.modal-close').click(function() {
+        hideModal();
     });
 
     $('.folder').click(function() {
         var path = $(this).data('path');
-        handleClick(path);
+        handleFolder(path);
     });
 
     $('.hoverArea').hover(

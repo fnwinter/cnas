@@ -3,3 +3,17 @@
 .rounded {
   border-radius: 15px;
 }
+
+.center-text {
+  display: flex;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-bottom {
+  align-items: flex-end;
+  display: flex;
+}
