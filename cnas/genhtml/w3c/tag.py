@@ -29,6 +29,8 @@ class tag:
         for key, value in kwargs.items():
             if key == "data_path":
                 key = "data-path"
+            if key == "py_click":
+                key = "py-click"
             if key == "content":
                 self._content = value
             else:
