@@ -20,20 +20,20 @@ class index(page):
                 _body.append(para(content="index"))
                 _body.append(
                     script(
-                        type="py",
+                        type_="py",
                         src="'static/main.py'",
                         config="'static/pyscript.toml'"
                     )
                 )
                 _body.append(
                     button(
-                        id="get_joke",
+                        id_="get_joke",
                         py_click="get_joke"
                     ).set_content("button")
                 )
                 _body.append(
                     div(
-                        id="jokes"
+                        id_="jokes"
                     )
                 )
 

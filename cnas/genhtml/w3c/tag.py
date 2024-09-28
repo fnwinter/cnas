@@ -27,10 +27,8 @@ class tag:
             if isinstance(_t, tag):
                 self._children.append(str(_t))
         for key, value in kwargs.items():
-            if key == "data_path":
-                key = "data-path"
-            if key == "py_click":
-                key = "py-click"
+            if key in ["data_path", "py_click", "data_target"]:
+                key = key.replace("_", "-")
             if key == "content":
                 self._content = value
             else:
@@ -58,20 +56,33 @@ class tag:
         self._is_void_element = is_void_element
         return self
 
+    def safe_value(self, value):
+        if " " in value:
+            return f"'{value}'"
+        return value
+
+    def safe_key(self, key):
+        reserved_ = ["class_", "type_", "id_"]
+        if key in reserved_:
+            key = key[:-1]
+        return key
+
     def make_element(self):
         if self._tag == "":
             return self
 
         _attr = ""
         for _key, _value in self._attributes.items():
-            # class is python keyword
-            _key = "class" if "class_" == _key else _key
-            _attr += f" {_key}={_value}"
+            # if key is reserved python keyword,
+            # remove the underscore at the end of the keyword.
+            __key = self.safe_key(_key)
+            __value = self.safe_value(_value)
+            _attr += f" {__key}={__value}"
 
         if self._is_void_element:
-            self._open_tag = f"<{self._tag}{_attr}/>"
+            self._open_tag = f"<{self._tag} {_attr} />"
         else:
-            self._open_tag = f"<{self._tag}{_attr}>"
+            self._open_tag = f"<{self._tag} {_attr} >"
             self._close_tag = f"</{self._tag}>"
         return self
 

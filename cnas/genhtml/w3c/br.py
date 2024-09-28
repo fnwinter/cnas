@@ -1,5 +1,6 @@
 from genhtml.w3c.tag import tag
 
+
 class br(tag):
     def __init__(self, *args, **kwargs):
         super().__init__([], {})

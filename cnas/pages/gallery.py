@@ -98,7 +98,7 @@ class gallery(page):
             br()
         )
 
-        _div = div(class_="'columns is-multiline'")
+        _div = div(class_="columns is-multiline")
         _div.append(
             div(id="rel_path", data_path=f"{self.r_path}"))
 
