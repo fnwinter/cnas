@@ -21,8 +21,8 @@ __ERROR_MSG__ =\
 </article>
 """
 
-__CONTENT_STYLE__ = "'display: flex;justify-content: center;"\
-"align-items: center;text-align: center;height: 78vh;'"
+__CONTENT_STYLE__ = "display: flex;justify-content: center;"\
+"align-items: center;text-align: center;height: 78vh;"
 
 class error(page):
     def __init__(self, error_message):

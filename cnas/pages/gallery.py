@@ -61,7 +61,7 @@ class gallery(page):
             self.files.append(
                 photo_builder(
                     src="static/images/up.png",
-                    path="..", style="folder"))
+                    path="..", type_="folder"))
 
         # folder
         for _folder in os.listdir(self.current_path):
@@ -71,7 +71,7 @@ class gallery(page):
                     photo_builder(
                         src="static/images/folder.png",
                         path=_folder,
-                        style="folder"))
+                        type_="folder"))
 
         # images
         for _file in os.listdir(self.current_path):
@@ -85,7 +85,7 @@ class gallery(page):
                     photo_builder(
                         src="gallery_thumbnail/" + _rel_file,
                         path=_file,
-                        style="picture"))
+                        type_="picture"))
             else:
                 self.files.append(
                     photo_builder(src="static/images/no_cache.png"))
@@ -93,8 +93,8 @@ class gallery(page):
 
     def __str__(self):
         _title_div = div(
-            para(class_="'title is-1 is-spaced'").set_content("Gallery"),
-            para(class_="'subtitle is-3'").set_content(f"/gallery/{self.r_path}"),
+            para(class_="title is-1 is-spaced").set_content("Gallery"),
+            para(class_="subtitle is-3").set_content(f"/gallery/{self.r_path}"),
             br()
         )
 

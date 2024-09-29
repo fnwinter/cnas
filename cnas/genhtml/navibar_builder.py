@@ -54,9 +54,9 @@ class navibar_builder(tag):
         self.drop_list = []
         for _title, _url in drop_menu.items():
             if _url == "divider":
-                self.drop_list.append(hr(class_="'navbar-divider'"))
+                self.drop_list.append(hr(class_="navbar-divider"))
             else:
-                _anchor = anchor(class_="'navbar-item'", href=f"'{_url}'")
+                _anchor = anchor(class_="navbar-item", href=f"{_url}")
                 _anchor.set_content(_title)
                 self.drop_list.append(_anchor)
 

@@ -14,10 +14,10 @@ class photo_builder(tag):
 
         image_file = kwargs.get("src")
         file_path = kwargs.get("path")
-        file_type = kwargs.get("type")
+        file_type = kwargs.get("type_")
 
+        div_id = ""
         if file_type == "folder":
-            div_id = ""
             display_class = "display:visible;"
         else:
             div_id = f"photo_{photo_builder.auto_index}"
@@ -35,16 +35,19 @@ class photo_builder(tag):
                         content=f"{file_path}"),
                     id_=f"{div_id}",
                     class_="box is-align-content-center",
-                    style=f"{display_class} width:100%;"\
+                    style=f"{display_class} width:100%; "\
                           f"background-color:rgba(0,0,0,0.6);",
 
                     ),
-                    class_="image is-squre div-bottom",
+                    class_="image is-square div-bottom",
                 ),
                 data_target=f"{div_id}",
                 data_path=f"{file_path}",
-                class_=f"column is-one-quarter modal-button"\
+                class_=f"column is-one-quarter modal-button "\
                       f"js-modal-trigger hoverArea {file_type}"
             )
  
         self.append(_div)
+
+    def __str__(self):
+          return super().__str__() + "\n"

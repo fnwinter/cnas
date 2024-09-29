@@ -56,16 +56,11 @@ class tag:
         self._is_void_element = is_void_element
         return self
 
-    def safe_value(self, value):
-        if " " in value:
-            return f"'{value}'"
-        return value
-
-    def safe_key(self, key):
+    def safe_key(self, key_):
         reserved_ = ["class_", "type_", "id_"]
-        if key in reserved_:
-            key = key[:-1]
-        return key
+        if key_ in reserved_:
+            key_ = key_[:-1]
+        return key_
 
     def make_element(self):
         if self._tag == "":
@@ -76,8 +71,8 @@ class tag:
             # if key is reserved python keyword,
             # remove the underscore at the end of the keyword.
             __key = self.safe_key(_key)
-            __value = self.safe_value(_value)
-            _attr += f" {__key}={__value}"
+            _attr += f" {__key}='{_value}'"
+            print(f" {__key}='{_value}'")
 
         if self._is_void_element:
             self._open_tag = f"<{self._tag} {_attr} />"
