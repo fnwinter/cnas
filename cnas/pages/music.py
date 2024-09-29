@@ -10,7 +10,7 @@ from genhtml.w3c.button import button
 
 from genhtml.head_builder import head_builder
 
-class index(page):
+class music(page):
     def __init__(self):
         pass
 
