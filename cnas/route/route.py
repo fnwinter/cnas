@@ -46,3 +46,9 @@ def route(app):
     @app.route("/music")
     def music_page() -> str:
         return str(music())
+
+    @app.route('/music_file/<path:filename>')
+    def music_file(filename):
+        directory = CONFIG.get('music_path')
+        return send_from_directory(directory, filename)
+

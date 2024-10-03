@@ -3,9 +3,7 @@ import os
 from pages.page import page
 from pages.error import error
 
-from util.file_util import is_image_file
-from util.config_path import get_gallery_path
-from util.system_path import get_gallery_thumbnail_path
+from util.config_path import get_music_path
 from util.path_util import rel_path
 
 from genhtml.w3c.html import html
@@ -23,9 +21,17 @@ from genhtml.footer_builder import footer_builder
 
 from genhtml.bulma.image_modal import image_modal
 
+__MUSIC_TEST__ =\
+"""
+    <audio id='music_player'>
+        <source src="/music_file/Daft Punk_Contact.MP3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+"""
 
 class music(page):
     def __init__(self):
+        self.music_path = get_music_path()
         pass
 
     def __str__(self):
@@ -44,11 +50,21 @@ class music(page):
         _div.append(music_builder())
         _div.append(music_builder())
 
+        for __file in os.listdir(self.music_path):
+            __path = os.path.join(self.music_path, __file)
+            print(f"{__file}")
+            if os.path.isdir(__path):
+                print("album")
+            else:
+                print("file")
+
         _section = section(
             div(_title_div, class_="container").append(_div),
             class_="section")
 
         _modal = image_modal()
+        __music = div()
+        __music.set_content(__MUSIC_TEST__)
 
         return str(
             html(
@@ -63,6 +79,7 @@ class music(page):
                       }),
                     _section,
                     _modal,
+                    __music,
                     footer_builder()
                 )
             )
