@@ -1,4 +1,4 @@
-from genhtml.w3c.tag import tag
+from genhtml.web.tag import tag
 
 
 class image(tag):

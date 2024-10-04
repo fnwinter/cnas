@@ -1,5 +1,5 @@
-from genhtml.w3c.head import head
-from genhtml.w3c.tag import tag
+from genhtml.web.head import head
+from genhtml.web.tag import tag
 
 __HEAD__=\
 """

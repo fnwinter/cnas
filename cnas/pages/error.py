@@ -1,7 +1,7 @@
 from pages.page import page
 
-from genhtml.w3c.html import html
-from genhtml.w3c.div import div
+from genhtml.web.html import html
+from genhtml.web.div import div
 
 from genhtml.head_builder import head_builder
 from genhtml.body_builder import body_builder

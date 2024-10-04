@@ -6,11 +6,11 @@ from pages.error import error
 from util.config_path import get_music_path
 from util.path_util import rel_path
 
-from genhtml.w3c.html import html
-from genhtml.w3c.section import section
-from genhtml.w3c.div import div
-from genhtml.w3c.para import para
-from genhtml.w3c.br import br
+from genhtml.web.html import html
+from genhtml.web.section import section
+from genhtml.web.div import div
+from genhtml.web.para import para
+from genhtml.web.br import br
 
 from genhtml.head_builder import head_builder
 from genhtml.body_builder import body_builder

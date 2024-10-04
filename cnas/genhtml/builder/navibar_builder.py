@@ -1,6 +1,6 @@
-from genhtml.w3c.tag import tag
-from genhtml.w3c.anchor import anchor
-from genhtml.w3c.hr import hr
+from genhtml.web.tag import tag
+from genhtml.web.anchor import anchor
+from genhtml.web.hr import hr
 
 __NAVIBAR_HEAD__ =\
 """

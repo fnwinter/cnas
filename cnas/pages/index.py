@@ -1,12 +1,12 @@
 from pages.page import page
 
-from genhtml.w3c.html import html
-from genhtml.w3c.body import body
-from genhtml.w3c.para import para
-from genhtml.w3c.div import div
+from genhtml.web.html import html
+from genhtml.web.body import body
+from genhtml.web.para import para
+from genhtml.web.div import div
 
-from genhtml.w3c.script import script
-from genhtml.w3c.button import button
+from genhtml.web.script import script
+from genhtml.web.button import button
 
 from genhtml.head_builder import head_builder
 

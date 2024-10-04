@@ -1,5 +1,5 @@
-from genhtml.w3c.tag import tag
-from genhtml.w3c.div import div
+from genhtml.web.tag import tag
+from genhtml.web.div import div
 
 __IMAGE_MODAL__=\
 """
