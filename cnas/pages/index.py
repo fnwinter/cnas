@@ -8,7 +8,7 @@ from genhtml.web.div import div
 from genhtml.web.script import script
 from genhtml.web.button import button
 
-from genhtml.head_builder import head_builder
+from genhtml.builder.head_builder import head_builder
 
 class index(page):
     def __init__(self):
