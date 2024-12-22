@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost Password</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Lost Password</h1>
+      <form action="/send_pin" method="post">
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" name="email" placeholder="Enter your email" required>
+          </div>
+        </div>
+        <div class="control">
+          <button class="button is-link" type="submit">Send PIN</button>
+        </div>
+      </form>
+      <form action="/reset_password" method="post" style="margin-top: 20px;">
+        <div class="field">
+          <label class="label">PIN</label>
+          <div class="control">
+            <input class="input" type="text" name="pin" placeholder="Enter the PIN" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">New Password</label>
+          <div class="control">
+            <input class="input" type="password" name="new_password" placeholder="Enter new password" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Confirm Password</label>
+          <div class="control">
+            <input class="input" type="password" name="confirm_password" placeholder="Confirm new password" required>
+          </div>
+        </div>
+        <div class="control">
+          <button class="button is-link" type="submit">Reset Password</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</body>
+</html>
