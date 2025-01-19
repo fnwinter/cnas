@@ -23,9 +23,6 @@ def route(app):
     def error_page() -> str:
         return str(error("error page"))
 
-    """
-    Gallery page
-    """
     @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:
         return str(gallery())
@@ -40,9 +37,6 @@ def route(app):
         directory = get_gallery_thumbnail_path()
         return send_from_directory(directory, filename)
 
-    """
-    Music page
-    """
     @app.route("/music")
     def music_page() -> str:
         return str(music())
@@ -51,4 +45,3 @@ def route(app):
     def music_file(filename):
         directory = CONFIG.get('music_path')
         return send_from_directory(directory, filename)
-

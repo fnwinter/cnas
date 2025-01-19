@@ -57,7 +57,7 @@ class tag:
     def safe_key(self, key_):
         if key_ in ["data_path", "py_click", "data_target"]:
             key_ = key_.replace("_", "-")
- 
+
         reserved_ = ["class_", "type_", "id_"]
         if key_ in reserved_:
             key_ = key_[:-1]

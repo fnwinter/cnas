@@ -15,10 +15,10 @@ def rel_path(path, base_path, debug=False):
         return None
     if not os.path.exists(path) and debug is False:
         return None
-    abs_path = os.path.abspath(path)
-    abs_base_path = os.path.abspath(base_path)
-    rel_path = os.path.relpath(abs_path, abs_base_path)
-    if ".." in rel_path:
+    _abs_path = os.path.abspath(path)
+    _abs_base_path = os.path.abspath(base_path)
+    _rel_path = os.path.relpath(_abs_path, _abs_base_path)
+    if ".." in _rel_path:
         # wrong base path
         return None
-    return rel_path
+    return _rel_path

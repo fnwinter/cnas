@@ -46,8 +46,8 @@ class photo_builder(tag):
                 class_=f"column is-one-quarter modal-button "\
                       f"js-modal-trigger hoverArea {file_type}"
             )
- 
+
         self.append(_div)
 
     def __str__(self):
-          return super().__str__() + "\n"
+        return super().__str__() + "\n"

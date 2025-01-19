@@ -3,8 +3,8 @@ from genhtml.web.tag import tag
 __FOOTER__ =\
 """
 <footer class="footer">
-  <div class="content has-text-centered">
-    <p>
+    <div class="content has-text-centered">
+      <p>
       <strong>CherryNAS</strong> by <a href="https://fnwinter.github.io">JungJik Lee</a>.
       The source code is licensed
       <a href="https://opensource.org/license/mit">MIT</a>. The

@@ -50,4 +50,4 @@ class music_builder(tag):
         self.set_content(__MUSIC_CARD__)
 
     def __str__(self):
-          return super().__str__() + "\n"
+        return super().__str__() + "\n"

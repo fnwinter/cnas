@@ -10,11 +10,23 @@ def run_pylint_on_directory(directory: str):
         for file in files:
             if file.endswith('.py'):
                 file_path = os.path.join(root, file)
-                print(f"Running pylint on {file_path}")
+                output = ""
                 try:
-                    subprocess.run(['pylint', file_path], check=True)
+                    output = subprocess.run(['pylint', file_path],
+                                            check=True,
+                                            capture_output=True,
+                                            text=True)
+                    #print(output)
+                    #output = result.stdout.replace(b'\\n', b'\n').decode()
+                    #print(result)
+                    #print(output)
+                    if not "10.00/10" in output.stdout:
+                        #print(f"Running pylint on {file_path}")
+                        #print(output)
+                        pass
                 except subprocess.CalledProcessError as e:
-                    print(f"error while pylint {str(e)}")
+                    #print(f"error while pylint {str(e)}")
+                    print(output.stdout)
 
 
 def fix_autopep8_on_directory(directory: str):
