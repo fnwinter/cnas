@@ -5,7 +5,6 @@ from genhtml.web.body import body
 from genhtml.web.para import para
 from genhtml.web.div import div
 
-from genhtml.web.script import script
 from genhtml.web.button import button
 
 from genhtml.builder.head_builder import head_builder

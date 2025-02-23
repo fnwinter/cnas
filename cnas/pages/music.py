@@ -1,10 +1,8 @@
 import os
 
 from pages.page import page
-from pages.error import error
 
 from util.config_path import get_music_path
-from util.path_util import rel_path
 
 from genhtml.web.html import html
 from genhtml.web.section import section
@@ -31,12 +29,11 @@ __MUSIC_TEST__ =\
 class music(page):
     def __init__(self):
         self.music_path = get_music_path()
-        pass
 
     def __str__(self):
         _title_div = div(
             para(class_="title is-1 is-spaced").set_content("Music"),
-            para(class_="subtitle is-3").set_content(f"/music/path"),
+            para(class_="subtitle is-3").set_content("/music/path"),
             br()
         )
 

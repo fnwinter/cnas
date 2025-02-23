@@ -1,7 +1,6 @@
 import os
 
 from pages.page import page
-from pages.error import error
 
 from util.file_util import is_image_file
 from util.config_path import get_gallery_path
@@ -89,7 +88,6 @@ class gallery(page):
             else:
                 self.files.append(
                     photo_builder(src="static/images/no_cache.png"))
- 
 
     def __str__(self):
         _title_div = div(

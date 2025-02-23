@@ -1,7 +1,4 @@
 from genhtml.web.tag import tag
-from genhtml.web.figure import figure
-from genhtml.web.div import div
-from genhtml.web.image import image
 
 __MUSIC_CARD__ =\
 """
