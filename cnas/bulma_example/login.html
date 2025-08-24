@@ -1,41 +1,224 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>로그인 - CNAS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .login-container {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .login-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .logo i {
+      font-size: 3rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    .field:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+    .button.is-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      transition: all 0.3s ease;
+    }
+    .button.is-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    .input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.125em rgba(102, 126, 234, 0.25);
+    }
+    .help-links {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .help-links a {
+      color: #667eea;
+      text-decoration: none;
+      margin: 0 0.5rem;
+      font-size: 0.9rem;
+    }
+    .help-links a:hover {
+      text-decoration: underline;
+    }
+    .divider {
+      margin: 1.5rem 0;
+      text-align: center;
+      position: relative;
+    }
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #dbdbdb;
+    }
+    .divider span {
+      background: white;
+      padding: 0 1rem;
+      color: #7a7a7a;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-  <section class="hero is-fullheight">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-4-desktop">
-            <form class="box">
-              <h1 class="title has-text-centered">Login</h1>
-              <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                  <input class="input" type="email" placeholder="e.g. alex@example.com" required>
+  <div class="login-container">
+    <section class="hero is-fullheight">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-centered">
+            <div class="column is-4-desktop is-6-tablet">
+              <div class="login-box">
+                <!-- 로고 및 제목 -->
+                <div class="logo">
+                  <i class="fas fa-user-circle"></i>
+                  <h1 class="title has-text-centered has-text-grey-dark">로그인</h1>
+                  <p class="subtitle is-6 has-text-centered has-text-grey">CNAS 계정으로 로그인하세요</p>
+                </div>
+
+                <!-- 로그인 폼 -->
+                <form id="loginForm">
+                  <!-- 이메일 입력 필드 -->
+                  <div class="field">
+                    <label class="label has-text-grey-dark">
+                      <span class="icon is-small">
+                        <i class="fas fa-envelope"></i>
+                      </span>
+                      이메일
+                    </label>
+                    <div class="control has-icons-left">
+                      <input 
+                        class="input" 
+                        type="email" 
+                        id="email"
+                        placeholder="example@email.com" 
+                        required
+                      >
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- 패스워드 입력 필드 -->
+                  <div class="field">
+                    <label class="label has-text-grey-dark">
+                      <span class="icon is-small">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                      비밀번호
+                    </label>
+                    <div class="control has-icons-left">
+                      <input 
+                        class="input" 
+                        type="password" 
+                        id="password"
+                        placeholder="••••••••" 
+                        required
+                      >
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- 로그인 유지 체크박스 -->
+                  <div class="field">
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" id="rememberMe">
+                        로그인 상태 유지
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- 로그인 버튼 -->
+                  <div class="field">
+                    <div class="control">
+                      <button type="submit" class="button is-primary is-fullwidth is-medium">
+                        <span class="icon">
+                          <i class="fas fa-sign-in-alt"></i>
+                        </span>
+                        <span>로그인</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+                <!-- 구분선 -->
+                <div class="divider">
+                  <span>또는</span>
+                </div>
+
+                <!-- 도움말 링크들 -->
+                <div class="help-links">
+                  <a href="create_account.html">
+                    <span class="icon is-small">
+                      <i class="fas fa-user-plus"></i>
+                    </span>
+                    계정 만들기
+                  </a>
+                  <span class="has-text-grey">|</span>
+                  <a href="lost_pwd.html">
+                    <span class="icon is-small">
+                      <i class="fas fa-key"></i>
+                    </span>
+                    비밀번호 찾기
+                  </a>
                 </div>
               </div>
-              <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                  <input class="input" type="password" placeholder="********" required>
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <button class="button is-primary is-fullwidth">Login</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+      
+      // 로그인 처리 로직
+      console.log('로그인 시도:', { email, password, rememberMe });
+      
+      // 여기에 실제 로그인 API 호출 코드를 추가할 수 있습니다
+      // 예시: fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) })
+      
+      // 임시로 성공 메시지 표시
+      alert('로그인 요청이 전송되었습니다!');
+    });
+
+    // 입력 필드 포커스 효과
+    document.querySelectorAll('.input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.classList.add('is-focused');
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.classList.remove('is-focused');
+      });
+    });
+  </script>
 </body>
 </html>

@@ -11,7 +11,7 @@ __HEAD__=\
     <script type="text/javascript" src="static/jquery/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="static/javascripts/cnas.js"></script>
     <script type="text/javascript" src="static/javascripts/cnas_gallery.js"></script>
-    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <script type="module" src="https://pyscript.net/releases/2024.5.2/core.js"></script>
 """
 
 class head_builder(tag):

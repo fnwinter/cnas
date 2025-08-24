@@ -21,6 +21,7 @@ class login(page):
                     _div.append(para("Email"))
                     _div.append(para("Password"))
                     _div.append(button("Login"))
+                _body.append(_div)
 
             _html.append(_body)
             return str(_html)

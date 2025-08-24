@@ -1,50 +1,443 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lost Password</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <title>비밀번호 찾기 - CNAS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .reset-container {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .reset-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .logo i {
+      font-size: 3rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    .field:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+    .button.is-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      transition: all 0.3s ease;
+    }
+    .button.is-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    .input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.125em rgba(102, 126, 234, 0.25);
+    }
+    .help-links {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .help-links a {
+      color: #667eea;
+      text-decoration: none;
+      margin: 0 0.5rem;
+      font-size: 0.9rem;
+    }
+    .help-links a:hover {
+      text-decoration: underline;
+    }
+    .divider {
+      margin: 1.5rem 0;
+      text-align: center;
+      position: relative;
+    }
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #dbdbdb;
+    }
+    .divider span {
+      background: white;
+      padding: 0 1rem;
+      color: #7a7a7a;
+      font-size: 0.9rem;
+    }
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      margin: 0 1rem;
+    }
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #dbdbdb;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    .step.active .step-number {
+      background: #667eea;
+    }
+    .step.completed .step-number {
+      background: #48c774;
+    }
+    .step-text {
+      font-size: 0.9rem;
+      color: #7a7a7a;
+    }
+    .step.active .step-text {
+      color: #667eea;
+      font-weight: bold;
+    }
+    .step.completed .step-text {
+      color: #48c774;
+    }
+    .form-step {
+      display: none;
+    }
+    .form-step.active {
+      display: block;
+    }
+    .info-box {
+      background: #f0f8ff;
+      border-left: 4px solid #667eea;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-  <section class="section">
-    <div class="container">
-      <h1 class="title">Lost Password</h1>
-      <form action="/send_pin" method="post">
-        <div class="field">
-          <label class="label">Email</label>
-          <div class="control">
-            <input class="input" type="email" name="email" placeholder="Enter your email" required>
+  <div class="reset-container">
+    <section class="hero is-fullheight">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-centered">
+            <div class="column is-4-desktop is-6-tablet">
+              <div class="reset-box">
+                <!-- 로고 및 제목 -->
+                <div class="logo">
+                  <i class="fas fa-key"></i>
+                  <h1 class="title has-text-centered has-text-grey-dark">비밀번호 찾기</h1>
+                  <p class="subtitle is-6 has-text-centered has-text-grey">계정에 등록된 이메일로 비밀번호를 재설정하세요</p>
+                </div>
+
+                <!-- 단계 표시 -->
+                <div class="step-indicator">
+                  <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-text">이메일 입력</div>
+                  </div>
+                  <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-text">인증번호 확인</div>
+                  </div>
+                  <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-text">새 비밀번호 설정</div>
+                  </div>
+                </div>
+
+                <!-- 1단계: 이메일 입력 -->
+                <div class="form-step active" id="step1Form">
+                  <div class="info-box">
+                    <p><i class="fas fa-info-circle"></i> 등록된 이메일 주소를 입력하시면 인증번호를 발송해드립니다.</p>
+                  </div>
+                  
+                  <form id="emailForm">
+                    <div class="field">
+                      <label class="label has-text-grey-dark">
+                        <span class="icon is-small">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                        이메일 주소
+                      </label>
+                      <div class="control has-icons-left">
+                        <input 
+                          class="input" 
+                          type="email" 
+                          id="email"
+                          placeholder="example@email.com" 
+                          required
+                        >
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <div class="control">
+                        <button type="submit" class="button is-primary is-fullwidth is-medium">
+                          <span class="icon">
+                            <i class="fas fa-paper-plane"></i>
+                          </span>
+                          <span>인증번호 발송</span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <!-- 2단계: 인증번호 확인 -->
+                <div class="form-step" id="step2Form">
+                  <div class="info-box">
+                    <p><i class="fas fa-info-circle"></i> 이메일로 발송된 6자리 인증번호를 입력해주세요.</p>
+                  </div>
+                  
+                  <form id="pinForm">
+                    <div class="field">
+                      <label class="label has-text-grey-dark">
+                        <span class="icon is-small">
+                          <i class="fas fa-shield-alt"></i>
+                        </span>
+                        인증번호
+                      </label>
+                      <div class="control has-icons-left">
+                        <input 
+                          class="input" 
+                          type="text" 
+                          id="pin"
+                          placeholder="123456" 
+                          maxlength="6"
+                          required
+                        >
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-shield-alt"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <div class="control">
+                        <button type="submit" class="button is-primary is-fullwidth is-medium">
+                          <span class="icon">
+                            <i class="fas fa-check"></i>
+                          </span>
+                          <span>인증번호 확인</span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <!-- 3단계: 새 비밀번호 설정 -->
+                <div class="form-step" id="step3Form">
+                  <div class="info-box">
+                    <p><i class="fas fa-info-circle"></i> 새로운 비밀번호를 설정해주세요.</p>
+                  </div>
+                  
+                  <form id="passwordForm">
+                    <div class="field">
+                      <label class="label has-text-grey-dark">
+                        <span class="icon is-small">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                        새 비밀번호
+                      </label>
+                      <div class="control has-icons-left">
+                        <input 
+                          class="input" 
+                          type="password" 
+                          id="newPassword"
+                          placeholder="••••••••" 
+                          required
+                        >
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label class="label has-text-grey-dark">
+                        <span class="icon is-small">
+                          <i class="fas fa-check-circle"></i>
+                        </span>
+                        새 비밀번호 확인
+                      </label>
+                      <div class="control has-icons-left">
+                        <input 
+                          class="input" 
+                          type="password" 
+                          id="confirmNewPassword"
+                          placeholder="••••••••" 
+                          required
+                        >
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-check-circle"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <div class="control">
+                        <button type="submit" class="button is-primary is-fullwidth is-medium">
+                          <span class="icon">
+                            <i class="fas fa-save"></i>
+                          </span>
+                          <span>비밀번호 변경</span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <!-- 구분선 -->
+                <div class="divider">
+                  <span>또는</span>
+                </div>
+
+                <!-- 도움말 링크들 -->
+                <div class="help-links">
+                  <a href="login.html">
+                    <span class="icon is-small">
+                      <i class="fas fa-sign-in-alt"></i>
+                    </span>
+                    로그인으로 돌아가기
+                  </a>
+                  <span class="has-text-grey">|</span>
+                  <a href="create_account.html">
+                    <span class="icon is-small">
+                      <i class="fas fa-user-plus"></i>
+                    </span>
+                    계정 만들기
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="control">
-          <button class="button is-link" type="submit">Send PIN</button>
-        </div>
-      </form>
-      <form action="/reset_password" method="post" style="margin-top: 20px;">
-        <div class="field">
-          <label class="label">PIN</label>
-          <div class="control">
-            <input class="input" type="text" name="pin" placeholder="Enter the PIN" required>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">New Password</label>
-          <div class="control">
-            <input class="input" type="password" name="new_password" placeholder="Enter new password" required>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Confirm Password</label>
-          <div class="control">
-            <input class="input" type="password" name="confirm_password" placeholder="Confirm new password" required>
-          </div>
-        </div>
-        <div class="control">
-          <button class="button is-link" type="submit">Reset Password</button>
-        </div>
-      </form>
-    </div>
-  </section>
+      </div>
+    </section>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    // 1단계: 이메일 발송
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      console.log('이메일 발송:', email);
+      
+      // 여기에 실제 이메일 발송 API 호출 코드를 추가할 수 있습니다
+      // 예시: fetch('/api/send-pin', { method: 'POST', body: JSON.stringify({ email }) })
+      
+      // 다음 단계로 이동
+      goToStep(2);
+    });
+
+    // 2단계: 인증번호 확인
+    document.getElementById('pinForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const pin = document.getElementById('pin').value;
+      console.log('인증번호 확인:', pin);
+      
+      // 여기에 실제 인증번호 확인 API 호출 코드를 추가할 수 있습니다
+      // 예시: fetch('/api/verify-pin', { method: 'POST', body: JSON.stringify({ pin }) })
+      
+      // 다음 단계로 이동
+      goToStep(3);
+    });
+
+    // 3단계: 비밀번호 변경
+    document.getElementById('passwordForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+      
+      if (newPassword !== confirmNewPassword) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+      }
+      
+      if (newPassword.length < 8) {
+        alert('비밀번호는 최소 8자 이상이어야 합니다.');
+        return;
+      }
+      
+      console.log('비밀번호 변경:', newPassword);
+      
+      // 여기에 실제 비밀번호 변경 API 호출 코드를 추가할 수 있습니다
+      // 예시: fetch('/api/reset-password', { method: 'POST', body: JSON.stringify({ password: newPassword }) })
+      
+      alert('비밀번호가 성공적으로 변경되었습니다!');
+      window.location.href = 'login.html';
+    });
+
+    // 단계 이동 함수
+    function goToStep(step) {
+      // 현재 단계 숨기기
+      document.querySelector(`#step${currentStep}Form`).classList.remove('active');
+      document.querySelector(`#step${currentStep}`).classList.remove('active');
+      
+      // 이전 단계들 완료 표시
+      for (let i = 1; i < step; i++) {
+        document.querySelector(`#step${i}`).classList.add('completed');
+      }
+      
+      // 새 단계 표시
+      document.querySelector(`#step${step}Form`).classList.add('active');
+      document.querySelector(`#step${step}`).classList.add('active');
+      
+      currentStep = step;
+    }
+
+    // 입력 필드 포커스 효과
+    document.querySelectorAll('.input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.classList.add('is-focused');
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.classList.remove('is-focused');
+      });
+    });
+
+    // 인증번호 입력 필드 숫자만 입력
+    document.getElementById('pin').addEventListener('input', function() {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    // 새 비밀번호 확인 실시간 검증
+    document.getElementById('confirmNewPassword').addEventListener('input', function() {
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmNewPassword = this.value;
+      
+      if (confirmNewPassword && newPassword !== confirmNewPassword) {
+        this.classList.add('is-danger');
+      } else {
+        this.classList.remove('is-danger');
+      }
+    });
+  </script>
 </body>
 </html>

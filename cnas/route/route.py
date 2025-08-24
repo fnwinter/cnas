@@ -5,6 +5,7 @@ from pages.error import error
 
 from pages.gallery import gallery
 from pages.music import music
+from pages.login.login import login
 
 from util.config import CONFIG
 from util.system_path import get_gallery_thumbnail_path
@@ -22,6 +23,10 @@ def route(app):
     @app.route("/error")
     def error_page() -> str:
         return str(error("error page"))
+
+    @app.route("/login")
+    def login_page() -> str:
+        return str(login())
 
     @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:
