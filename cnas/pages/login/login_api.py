@@ -3,13 +3,15 @@ from flask import request, jsonify, session
 from pages.page import page
 
 class login_api(page):
-    def __init__(self):
-        super().__init__()
-    
-    def __call__(self):
+    def __init__(self, filename="login.html"):
+        super().__init__(filename)
+
+    def check_login(self):
         try:
             # JSON 데이터 파싱
+            print("check_login ??? ")
             data = request.get_json()
+            print("data",data)
             
             if not data:
                 return jsonify({
@@ -20,6 +22,7 @@ class login_api(page):
             email = data.get('email')
             password = data.get('password')
             remember_me = data.get('rememberMe', False)
+            print(email, password, remember_me)
             
             # 필수 필드 검증
             if not email or not password:
@@ -75,3 +78,6 @@ class login_api(page):
             return True
         
         return False
+    def __str__(self):
+        self.check_login()
+        return self.html

@@ -202,11 +202,33 @@
       // 로그인 처리 로직
       console.log('로그인 시도:', { email, password, rememberMe });
       
-      // 여기에 실제 로그인 API 호출 코드를 추가할 수 있습니다
-      // 예시: fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) })
-      
-      // 임시로 성공 메시지 표시
-      alert('로그인 요청이 전송되었습니다!');
+      // API 호출
+      fetch('/api/login_api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email: email, 
+          password: password, 
+          rememberMe: rememberMe 
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // 로그인 성공
+          alert('로그인 성공!');
+          window.location.href = '/'; // 메인 페이지로 리다이렉트
+        } else {
+          // 로그인 실패
+          alert('로그인 실패: ' + (data.message || '이메일 또는 비밀번호를 확인해주세요.'));
+        }
+      })
+      .catch(error => {
+        console.error('로그인 오류:', error);
+        alert('로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
+      });
     });
 
     // 입력 필드 포커스 효과
