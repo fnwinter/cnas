@@ -39,7 +39,7 @@ class config:
             with open(self.config_file, encoding='utf-8') as f:
                 self.config_data = json.load(f)
         except Exception as e:
-            print("config error :" + e)
+            print(e)
 
     def save(self):
         with open(self.config_file, 'w', encoding='utf-8') as f:

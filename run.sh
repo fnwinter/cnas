@@ -14,7 +14,7 @@ python3 -m pip install -r cnas/requirements.txt
 
 echo "# run cherrynas"
 pushd cnas
-flask --app cnas run
+flask --app cnas run --host=0.0.0.0 --port=5000
 popd
 
 popd
