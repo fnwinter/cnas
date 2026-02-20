@@ -1,16 +1,45 @@
 #!/bin/bash
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-pushd $SCRIPT_DIR
+pushd "$SCRIPT_DIR"
+
+DO_UPDATE=false
+DO_INSTALL=false
+
+for arg in "$@"; do
+  case "$arg" in
+    --update)
+      DO_UPDATE=true
+      ;;
+    --install)
+      DO_INSTALL=true
+      ;;
+  esac
+done
 
 echo "# update code"
-git pull origin main
+if [ "$DO_UPDATE" = true ]; then
+  git pull origin main
+else
+  echo "skip git pull (no --update)"
+fi
 
 echo "# set venv"
-python3 -m pip install virtualenv
-python3 -m virtualenv venv
+if [ "$DO_INSTALL" = true ]; then
+  python3 -m pip install virtualenv
+fi
+
+if [ ! -d venv ]; then
+  python3 -m virtualenv venv
+fi
 source ./venv/bin/activate
-python3 -m pip install --upgrade pip
-python3 -m pip install -r cnas/requirements.txt
+
+echo "# install dependencies"
+if [ "$DO_INSTALL" = true ]; then
+  python3 -m pip install --upgrade pip
+  python3 -m pip install -r cnas/requirements.txt
+else
+  echo "skip pip install (no --install)"
+fi
 
 echo "# run cherrynas"
 pushd cnas
