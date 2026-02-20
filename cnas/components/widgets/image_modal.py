@@ -1,5 +1,5 @@
-from components.web.tag import tag
-from components.web.div import div
+from components.elements.tag import tag
+from components.elements.div import div
 
 __IMAGE_MODAL__=\
 """

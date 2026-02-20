@@ -1,4 +1,4 @@
-from components.web.tag import tag
+from components.elements.tag import tag
 
 
 class hr(tag):

@@ -1,14 +1,14 @@
 from pages.page import page
 
-from components.web.html import html
-from components.web.body import body
-from components.web.para import para
-from components.web.div import div
+from components.elements.html import html
+from components.elements.body import body
+from components.elements.para import para
+from components.elements.div import div
 
-from components.web.script import script
-from components.web.button import button
+from components.elements.script import script
+from components.elements.button import button
 
-from components.builder.head_builder import head_builder
+from components.widgets.head_builder import head_builder
 
 class index(page):
     def __init__(self):

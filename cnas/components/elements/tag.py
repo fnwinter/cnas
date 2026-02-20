@@ -3,7 +3,7 @@ class tag:
         """
         base object for all tags
 
-        >>> from components.web.tag import tag
+        >>> from components.elements.tag import tag
         >>> t = tag(src = "http://cnas.com")
         >>> str(t.set_tag("test").make_element())
         "<test src='http://cnas.com'></test>"
@@ -36,7 +36,7 @@ class tag:
         """
         set content in the element
 
-        >>> from components.web.tag import tag
+        >>> from components.elements.tag import tag
         >>> t = tag(content = "test")
         >>> str(t)
         'test'

@@ -1,4 +1,4 @@
-from components.web.tag import tag
+from components.elements.tag import tag
 
 class body_builder(tag):
     def __init__(self, *args, **kwargs):
