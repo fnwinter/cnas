@@ -1,5 +1,5 @@
-from genhtml.web.head import head
-from genhtml.web.tag import tag
+from components.web.head import head
+from components.web.tag import tag
 
 __HEAD__=\
 """

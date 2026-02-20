@@ -1,4 +1,4 @@
-from genhtml.web.tag import tag
+from components.web.tag import tag
 
 
 class body(tag):
@@ -6,7 +6,7 @@ class body(tag):
         """
         create body tag
 
-        >>> from genhtml.web.body import body
+        >>> from components.web.body import body
         >>> _body = body()
         >>> str(_body)
         '<body></body>'

@@ -4,19 +4,19 @@ from pages.page import page
 
 from util.config_path import get_music_path
 
-from genhtml.web.html import html
-from genhtml.web.section import section
-from genhtml.web.div import div
-from genhtml.web.para import para
-from genhtml.web.br import br
+from components.web.html import html
+from components.web.section import section
+from components.web.div import div
+from components.web.para import para
+from components.web.br import br
 
-from genhtml.builder.head_builder import head_builder
-from genhtml.builder.body_builder import body_builder
-from genhtml.builder.navibar_builder import navibar_builder
-from genhtml.builder.music_builder import music_builder
-from genhtml.builder.footer_builder import footer_builder
+from components.builder.head_builder import head_builder
+from components.builder.body_builder import body_builder
+from components.builder.navibar_builder import navibar_builder
+from components.builder.music_builder import music_builder
+from components.builder.footer_builder import footer_builder
 
-from genhtml.bulma.image_modal import image_modal
+from components.bulma.image_modal import image_modal
 
 __MUSIC_TEST__ =\
 """

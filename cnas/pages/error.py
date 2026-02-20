@@ -1,12 +1,12 @@
 from pages.page import page
 
-from genhtml.web.html import html
-from genhtml.web.div import div
+from components.web.html import html
+from components.web.div import div
 
-from genhtml.builder.head_builder import head_builder
-from genhtml.builder.body_builder import body_builder
-from genhtml.builder.navibar_builder import navibar_builder
-from genhtml.builder.footer_builder import footer_builder
+from components.builder.head_builder import head_builder
+from components.builder.body_builder import body_builder
+from components.builder.navibar_builder import navibar_builder
+from components.builder.footer_builder import footer_builder
 
 __ERROR_MSG__ =\
 """

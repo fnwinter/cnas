@@ -1,7 +1,7 @@
-from genhtml.web.tag import tag
-from genhtml.web.figure import figure
-from genhtml.web.div import div
-from genhtml.web.image import image
+from components.web.tag import tag
+from components.web.figure import figure
+from components.web.div import div
+from components.web.image import image
 
 class photo_builder(tag):
     auto_index = 0
