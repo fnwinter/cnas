@@ -3,6 +3,11 @@ from flask import Flask
 from route.route import route
 from service.background import background
 from util.config import CONFIG
+from util.setup import setup
+
+if not setup():
+    print("setup failed")
+    exit(1)
 
 app = Flask(__name__)
 
