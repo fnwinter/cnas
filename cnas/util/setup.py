@@ -1,19 +1,38 @@
 import getpass
 import os
+import re
 
 from util.config import config
+from util.hash_string import hash_string
 from util.system_path import get_cnas_path
+
+_EMAIL_PATTERN = re.compile(
+    r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+)
+
+
+def _is_valid_email(value: str) -> bool:
+    """Return True if value looks like a valid email address."""
+    if not value or len(value) > 254:
+        return False
+    return _EMAIL_PATTERN.match(value) is not None
 
 
 def _prompt_admin_credentials() -> tuple[str, str]:
-    """Prompt for admin_id and admin_password (masked, twice). Return (admin_id, admin_password)."""
-    admin_id = input("admin_id: ").strip()
-    if not admin_id:
-        raise ValueError("admin_id cannot be empty")
+    """Prompt for email (admin_id) and admin_password (masked, twice). Return (email, admin_password)."""
+    while True:
+        admin_id = input("admin_id (email): >").strip()
+        if not admin_id:
+            print("admin_id (email) cannot be empty.")
+            continue
+        if not _is_valid_email(admin_id):
+            print("Invalid admin_id (email) format. Try again.")
+            continue
+        break
 
     while True:
-        password = getpass.getpass("admin_password: ")
-        password_again = getpass.getpass("admin_password (again): ")
+        password = getpass.getpass("admin_password: >")
+        password_again = getpass.getpass("admin_password (again): >")
         if password != password_again:
             print("Passwords do not match. Try again.")
             continue
@@ -46,9 +65,9 @@ def setup() -> bool:
     # 4. Ensure admin_id and admin_password; prompt if missing
     if not cfg.get("admin_id") or not cfg.get("admin_password"):
         try:
-            admin_id, admin_password = _prompt_admin_credentials()
-            cfg.set("admin_id", admin_id)
-            cfg.set("admin_password", admin_password)
+            email, admin_password = _prompt_admin_credentials()
+            cfg.set("admin_id", email)
+            cfg.set("admin_password", hash_string(admin_password))
             cfg.save()
         except (ValueError, EOFError) as e:
             print(e)

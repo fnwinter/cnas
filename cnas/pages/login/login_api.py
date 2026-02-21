@@ -1,6 +1,8 @@
 import json
 from flask import request, jsonify, session
 from pages.page import page
+from util.config import CONFIG
+from util.hash_string import verify_string, hash_string
 
 class login_api(page):
     def __init__(self, filename="login.html"):
@@ -60,24 +62,20 @@ class login_api(page):
                 'message': f'서버 오류가 발생했습니다: {str(e)}'
             }), 500
     
-    def verify_login(self, email, password):
-        """
-        로그인 검증 함수
-        실제 구현에서는 데이터베이스에서 사용자 정보를 확인해야 합니다.
-        현재는 임시로 하드코딩된 값으로 검증합니다.
-        """
-        # 임시 테스트 계정 (실제로는 데이터베이스에서 확인)
-        test_accounts = {
-            'fnwinter@gmail.com': 'test1234',
-            'admin@cnas.com': 'admin123',
-            'user@cnas.com': 'user123'
-        }
-        
-        # 이메일과 비밀번호 확인
-        if email in test_accounts and test_accounts[email] == password:
-            return True
-        
-        return False
+    def verify_login(self, email: str, password: str) -> bool:
+        """Check admin_id (email) and admin_password (hashed) from config."""
+        admin_id = CONFIG.get("admin_id")
+        stored_hash = CONFIG.get("admin_password")
+        print("password", password)
+        print("stored_hash", stored_hash)
+        hash_password = hash_string(password)
+        print("hash_password", hash_password)
+        if not admin_id or not stored_hash:
+            return False
+        if email.strip().lower() != admin_id.strip().lower():
+            return False
+        return verify_string(password, stored_hash)
+
     def __str__(self):
         self.check_login()
         return self.html
