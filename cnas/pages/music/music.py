@@ -10,13 +10,13 @@ from components.elements.div import div
 from components.elements.para import para
 from components.elements.br import br
 
-from components.widgets.head_builder import head_builder
-from components.widgets.body_builder import body_builder
-from components.widgets.navibar_builder import navibar_builder
-from components.widgets.music_builder import music_builder
-from components.widgets.footer_builder import footer_builder
+from components.widgets.head_widget import head_widget
+from components.widgets.body_widget import body_widget
+from components.widgets.navibar_widget import navibar_widget
+from components.widgets.music_widget import music_widget
+from components.widgets.footer_widget import footer_widget
 
-from components.widgets.image_modal import image_modal
+from components.widgets.image_widget import image_widget
 
 __MUSIC_TEST__ =\
 """
@@ -38,13 +38,13 @@ class music(page):
         )
 
         _div = div(class_="columns is-multiline")
-        _div.append(music_builder())
-        _div.append(music_builder())
-        _div.append(music_builder())
-        _div.append(music_builder())
-        _div.append(music_builder())
-        _div.append(music_builder())
-        _div.append(music_builder())
+        _div.append(music_widget())
+        _div.append(music_widget())
+        _div.append(music_widget())
+        _div.append(music_widget())
+        _div.append(music_widget())
+        _div.append(music_widget())
+        _div.append(music_widget())
 
         for __file in os.listdir(self.music_path):
             __path = os.path.join(self.music_path, __file)
@@ -58,15 +58,15 @@ class music(page):
             div(_title_div, class_="container").append(_div),
             class_="section")
 
-        _modal = image_modal()
+        _modal = image_widget()
         __music = div()
         __music.set_content(__MUSIC_TEST__)
 
         return str(
             html(
-                head_builder(title="Music"),
-                body_builder(
-                    navibar_builder().set_menu({
+                head_widget(title="Music"),
+                body_widget(
+                    navibar_widget().set_menu({
                         "Playlist":"",
                         "":"",
                         "Create folder":"",
@@ -76,7 +76,7 @@ class music(page):
                     _section,
                     _modal,
                     __music,
-                    footer_builder()
+                    footer_widget()
                 )
             )
         )

@@ -1,7 +1,7 @@
 from components.elements.tag import tag
 from components.elements.div import div
 
-__IMAGE_MODAL__=\
+__image_widget__=\
 """
 <div class="modal-background"></div>
 <div class="modal-content">
@@ -12,12 +12,12 @@ __IMAGE_MODAL__=\
 <button class="modal-close is-large" aria-label="close"></button>
 """
 
-class image_modal(tag):
+class image_widget(tag):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = ""
 
     def __str__(self):
         return str(div(class_="modal").set_content(
-            __IMAGE_MODAL__ % self.url
+            __image_widget__ % self.url
         ))

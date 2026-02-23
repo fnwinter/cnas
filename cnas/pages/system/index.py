@@ -8,7 +8,7 @@ from components.elements.div import div
 from components.elements.script import script
 from components.elements.button import button
 
-from components.widgets.head_builder import head_builder
+from components.widgets.head_widget import head_widget
 
 class index(page):
     def __init__(self):
@@ -22,7 +22,7 @@ class index(page):
             return self.redirect_to_login()
         
         # 로그인된 경우 기존 인덱스 페이지 표시
-        with html(head_builder()) as _html:
+        with html(head_widget()) as _html:
             with body() as _body:
                 _body.append(para(content="index"))
                 _body.append(

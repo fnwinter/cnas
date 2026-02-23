@@ -7,7 +7,7 @@ from components.elements.div import div
 
 from components.elements.button import button
 
-from components.widgets.head_builder import head_builder
+from components.widgets.head_widget import head_widget
 
 class login(page):
     def __init__(self, filename="login.html"):

@@ -13,13 +13,13 @@ from components.elements.div import div
 from components.elements.para import para
 from components.elements.br import br
 
-from components.widgets.head_builder import head_builder
-from components.widgets.body_builder import body_builder
-from components.widgets.navibar_builder import navibar_builder
-from components.widgets.photo_builder import photo_builder
-from components.widgets.footer_builder import footer_builder
+from components.widgets.head_widget import head_widget
+from components.widgets.body_widget import body_widget
+from components.widgets.navibar_widget import navibar_widget
+from components.widgets.photo_widget import photo_widget
+from components.widgets.footer_widget import footer_widget
 
-from components.widgets.image_modal import image_modal
+from components.widgets.image_widget import image_widget
 
 class gallery(page):
     def __init__(self):
@@ -58,7 +58,7 @@ class gallery(page):
 
         if self.current_path != self.gallery_path:
             self.files.append(
-                photo_builder(
+                photo_widget(
                     src="static/images/up.png",
                     path="..", type_="folder"))
 
@@ -67,7 +67,7 @@ class gallery(page):
             _path = os.path.join(self.current_path, _folder)
             if os.path.isdir(_path):
                 self.files.append(
-                    photo_builder(
+                    photo_widget(
                         src="static/images/folder.png",
                         path=_folder,
                         type_="folder"))
@@ -81,13 +81,13 @@ class gallery(page):
 
             if os.path.exists(_thumb_nail_path):
                 self.files.append(
-                    photo_builder(
+                    photo_widget(
                         src="gallery_thumbnail/" + _rel_file,
                         path=_file,
                         type_="picture"))
             else:
                 self.files.append(
-                    photo_builder(src="static/images/no_cache.png"))
+                    photo_widget(src="static/images/no_cache.png"))
 
     def __str__(self):
         _title_div = div(
@@ -107,13 +107,13 @@ class gallery(page):
             div(_title_div, class_="container").append(_div),
             class_="section")
 
-        _modal = image_modal()
+        _modal = image_widget()
 
         return str(
             html(
-                head_builder(title="Gallery"),
-                body_builder(
-                    navibar_builder().set_menu({
+                head_widget(title="Gallery"),
+                body_widget(
+                    navibar_widget().set_menu({
                         "Create Folder":"",
                         "-":"divider",
                         "Select":"/",
@@ -125,7 +125,7 @@ class gallery(page):
                       }),
                     _section,
                     _modal,
-                    footer_builder()
+                    footer_widget()
                 )
             )
         )

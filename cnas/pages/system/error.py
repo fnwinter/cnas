@@ -3,10 +3,10 @@ from pages.page import page
 from components.elements.html import html
 from components.elements.div import div
 
-from components.widgets.head_builder import head_builder
-from components.widgets.body_builder import body_builder
-from components.widgets.navibar_builder import navibar_builder
-from components.widgets.footer_builder import footer_builder
+from components.widgets.head_widget import head_widget
+from components.widgets.body_widget import body_widget
+from components.widgets.navibar_widget import navibar_widget
+from components.widgets.footer_widget import footer_widget
 
 __ERROR_MSG__ =\
 """
@@ -33,14 +33,14 @@ class error(page):
 
         return str(
             html(
-                head_builder(title="Error"),
-                body_builder(
-                    navibar_builder(),
+                head_widget(title="Error"),
+                body_widget(
+                    navibar_widget(),
                     div(
                         div()
                             .set_content(msg),
                     style=__CONTENT_STYLE__),
-                    footer_builder()
+                    footer_widget()
                 )
             )
         )

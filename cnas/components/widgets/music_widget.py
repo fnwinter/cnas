@@ -38,7 +38,7 @@ __MUSIC_CARD__ =\
 </div>
 """
 
-class music_builder(tag):
+class music_widget(tag):
     auto_index = 0
 
     def __init__(self, *args, **kwargs):

@@ -38,7 +38,7 @@ __NAVIBAR_TAIL__ =\
 """
 
 
-class navibar_builder(tag):
+class navibar_widget(tag):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.drop_list = []

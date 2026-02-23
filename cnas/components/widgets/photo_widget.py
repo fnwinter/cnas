@@ -3,14 +3,14 @@ from components.elements.figure import figure
 from components.elements.div import div
 from components.elements.image import image
 
-class photo_builder(tag):
+class photo_widget(tag):
     auto_index = 0
 
     def __init__(self, *args, **kwargs):
         # no inheritance
         super().__init__([], {})
 
-        photo_builder.auto_index += 1
+        photo_widget.auto_index += 1
 
         image_file = kwargs.get("src")
         file_path = kwargs.get("path")
@@ -20,7 +20,7 @@ class photo_builder(tag):
         if file_type == "folder":
             display_class = "display:visible;"
         else:
-            div_id = f"photo_{photo_builder.auto_index}"
+            div_id = f"photo_{photo_widget.auto_index}"
             display_class = "display:none;"
 
         _div = div(

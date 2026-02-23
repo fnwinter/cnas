@@ -17,7 +17,7 @@ __FOOTER__ =\
 </footer>
 """
 
-class footer_builder(tag):
+class footer_widget(tag):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_content(__FOOTER__).make_element()

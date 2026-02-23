@@ -14,7 +14,7 @@ __HEAD__=\
     <script type="module" src="https://pyscript.net/releases/2024.5.2/core.js"></script>
 """
 
-class head_builder(tag):
+class head_widget(tag):
     def __init__(self, *args, **kwargs):
         super().__init__([], {})
         self.title = kwargs.get("title")
