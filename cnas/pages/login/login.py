@@ -18,3 +18,7 @@ class login(page):
     def __str__(self):
         print(self.pyscript)
         return self.html
+
+
+def test():
+    print("test")
