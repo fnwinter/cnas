@@ -3,37 +3,37 @@ import secrets
 
 
 _PBKDF2_ITERATIONS = 100_000
-_SALT_SIZE = 16
 _HASH_NAME = "sha256"
+# Fixed salt so same string always yields same hash (for client-side hash comparison).
+_FIXED_SALT = b"cnas_config_salt"
 
 
 def hash_string(value: str) -> str:
-    """Hash a string with a random salt. Returns 'salt_hex:hash_hex' for storage.
+    """Hash a string with a fixed salt. Same value always returns the same hash.
 
     >>> from util.hash_string import hash_string, verify_string
     >>> stored = hash_string("my_secret")
     >>> len(stored) > 0
     True
-    >>> stored.count(":")
-    1
+    >>> hash_string("my_secret") == stored
+    True
     >>> verify_string("my_secret", stored)
     True
     >>> verify_string("wrong_value", stored)
     False
 
     """
-    salt = secrets.token_bytes(_SALT_SIZE)
     key = hashlib.pbkdf2_hmac(
         _HASH_NAME,
         value.encode("utf-8"),
-        salt,
+        _FIXED_SALT,
         _PBKDF2_ITERATIONS,
     )
-    return f"{salt.hex()}:{key.hex()}"
+    return key.hex()
 
 
 def verify_string(value: str, stored: str) -> bool:
-    """Verify a string against a stored hash (format 'salt_hex:hash_hex').
+    """Verify a string against a stored hash (hex only, or legacy 'salt_hex:hash_hex').
 
     >>> from util.hash_string import hash_string, verify_string
     >>> h = hash_string("same_value")
@@ -47,8 +47,12 @@ def verify_string(value: str, stored: str) -> bool:
     False
 
     """
-    if not stored or ":" not in stored:
+    if not stored:
         return False
+    # New format: stored is key hex only.
+    if ":" not in stored:
+        return secrets.compare_digest(hash_string(value), stored)
+    # Legacy format: salt_hex:hash_hex
     salt_hex, hash_hex = stored.split(":", 1)
     try:
         salt = bytes.fromhex(salt_hex)

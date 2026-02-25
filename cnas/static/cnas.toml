@@ -1,0 +1,6 @@
+name = "CNAS"
+description = "Web NAS"
+packages = ["cryptography"]
+
+[js_modules.main]
+"cnas.js" = "cnas_js"

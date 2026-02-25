@@ -5,7 +5,8 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class page:
     def __init__(self, filename = None):
-        self.filename = os.path.join(SCRIPT_DIR, "htmls", filename)
+        self.filename = os.path.join(SCRIPT_DIR, filename)
+        self.pyscript = ""
         self.json_data = {}
         if request.is_json:
             self.json_data = request.get_json()

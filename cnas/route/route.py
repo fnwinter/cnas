@@ -1,10 +1,10 @@
 from flask import send_from_directory
 
-from pages.index import index
-from pages.error import error
+from pages.system.index import index
+from pages.system.error import error
 
-from pages.gallery import gallery
-from pages.music import music
+from pages.gallaery.gallery import gallery
+from pages.music.music import music
 from pages.login.login import login
 from pages.login.login_api import login_api
 
