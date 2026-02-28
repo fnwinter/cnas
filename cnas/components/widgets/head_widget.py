@@ -9,8 +9,8 @@ __HEAD__=\
     <link rel="stylesheet" href="static/bulma/css/bulma.min.css">
     <link rel="stylesheet" href="static/css/cnas.css">
     <script type="text/javascript" src="static/jquery/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="static/javascripts/cnas.js"></script>
-    <script type="text/javascript" src="static/javascripts/gallery.js"></script>
+    <script type="text/javascript" src="static/scripts/cnas.js"></script>
+    <script type="text/javascript" src="static/scripts/gallery.js"></script>
     <script type="module" src="https://pyscript.net/releases/2024.5.2/core.js"></script>
 """
 
