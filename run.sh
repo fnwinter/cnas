@@ -25,11 +25,19 @@ fi
 
 echo "# set venv"
 if [ "$DO_INSTALL" = true ]; then
-  python3 -m pip install virtualenv
+  if [[ "$(uname)" == "Darwin" ]]; then
+    pipx install virtualenv
+  else
+    python3 -m pip install virtualenv
+  fi
 fi
 
 if [ ! -d venv ]; then
-  python3 -m virtualenv venv
+  if command -v virtualenv >/dev/null 2>&1; then
+    virtualenv venv
+  else
+    python3 -m virtualenv venv
+  fi
 fi
 source ./venv/bin/activate
 

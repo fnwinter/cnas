@@ -3,7 +3,7 @@ description = "Web NAS"
 packages = ["cryptography"]
 
 [js_modules.main]
-"cnas.js" = "cnas_js"
+"javascripts/cnas.js" = "cnas_js"
 
 [files]
 "./dispatch_event.py" = "dispatch_event.py"
