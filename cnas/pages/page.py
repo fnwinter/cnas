@@ -25,3 +25,8 @@ class page:
 
     def clear_session(self, key):
         session.pop(key, None)
+
+    def get_result(self):
+        if self.api_result is not None:
+            return self.api_result
+        return self.html

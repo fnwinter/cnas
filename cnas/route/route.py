@@ -61,4 +61,4 @@ def route(app):
     @app.route("/test")
     @app.route("/test/api", methods=['POST'])
     def test() -> str:
-        return str(test_page())
+        return test_page().get_result()
