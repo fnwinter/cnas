@@ -31,6 +31,10 @@ def route(app):
     def login_page() -> str:
         return str(login())
 
+    @app.route("/login_api", methods=['POST'])
+    def login_api_page():
+        return login_api().check_login()
+
     @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:
         return str(gallery())

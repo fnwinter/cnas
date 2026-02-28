@@ -5,7 +5,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class page:
     def __init__(self, filename = None):
-        self.filename = os.path.join(SCRIPT_DIR, filename)
+        self.filename = os.path.join(SCRIPT_DIR, filename) if filename is not None else None
         self.pyscript = ""
         self.api_result = None
         self.json_data = {}

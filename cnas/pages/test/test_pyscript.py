@@ -7,14 +7,16 @@ from dispatch_event import register_handler
 async def call_test_api(body=None):
     """POST /test/api 를 호출하고 JSON 응답을 반환합니다."""
     payload = json.dumps(body or {})
-    response = await fetch(
-        "/test/api",
-        method="POST",
-        body=payload,
-        headers={"Content-Type": "application/json"},
-    )
     try:
-        result = await response.json()
+        # PyScript: await fetch(...).text() 체이닝으로 응답 본문을 받음 (이중 await 대신)
+        text = await fetch(
+            "/login_api",
+            method="POST",
+            body=payload,
+            headers={"Content-Type": "application/json"},
+        ).text()
+        result = json.loads(text) if text else None
+        print("test/api response:", result)
         return result
     except Exception as e:
         print(f"Error calling test/api: {e}")

@@ -21,13 +21,15 @@ class test_page(page):
         print("request.get_data(as_text=True):", request.get_data(as_text=True))
         if request.is_json:
             print("request.get_json():", request.get_json())
-        return str(jsonify({"status": "ok"}))
+        return jsonify({"status": "ok"})
 
     @api_call
     def __str__(self):
         print("__str__ is called")
         if self.api_result is not None:
-            return str(self.api_result)
+            print("api_result:", self.api_result)
+            return self.api_result
+        print("result is None")
         return str(html(
             head_widget(title="test page"),
             body_widget(
