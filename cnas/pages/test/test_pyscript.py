@@ -13,7 +13,12 @@ async def call_test_api(body=None):
         body=payload,
         headers={"Content-Type": "application/json"},
     )
-    return await response.json()
+    try:
+        result = await response.json()
+        return result
+    except Exception as e:
+        print(f"Error calling test/api: {e}")
+        return None
 
 
 async def test_button(param1, param2, param3):

@@ -1,4 +1,5 @@
 from flask import jsonify
+from flask import request
 
 from pages.page import page
 from pages.system.pyscript import pyscript
@@ -13,8 +14,14 @@ class test_page(page):
     def __init__(self):
         pass
 
-    def api_call(self):
-        return "result from api_call"
+    def post_api_call(self):
+        print("request.method:", request.method)
+        print("request.url:", request.url)
+        print("request.headers:", dict(request.headers))
+        print("request.get_data(as_text=True):", request.get_data(as_text=True))
+        if request.is_json:
+            print("request.get_json():", request.get_json())
+        return str(jsonify({"status": "ok"}))
 
     @api_call
     def __str__(self):

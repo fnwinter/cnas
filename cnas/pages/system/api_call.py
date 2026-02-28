@@ -19,11 +19,11 @@ def api_call(method):
 
     @wraps(method)
     def wrapper(self, *args, **kwargs):
-        if not has_request_context() or not has_app_context():
-            return ""
+        if not hasattr(self, "api_result"):
+            self.api_result = None
         if request.method == "POST" and _has_post_data():
-            if hasattr(self, "api_call") and callable(getattr(self, "api_call")):
-                self.api_result = self.api_call()
+            if hasattr(self, "post_api_call") and callable(getattr(self, "post_api_call")):
+                self.api_result = self.post_api_call()
                 return self.api_result
         return str(method(self, *args, **kwargs))
 
