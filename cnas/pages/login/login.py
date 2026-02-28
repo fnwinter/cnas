@@ -14,11 +14,6 @@ class login(page):
     def __init__(self, filename="login/htmls/login.html"):
         super().__init__(filename)
 
-    @pyscript("login_ps.py")
+    @pyscript("login_pyscript.py")
     def __str__(self):
-        print(self.pyscript)
-        return self.html
-
-
-def test():
-    print("test")
+        return ""

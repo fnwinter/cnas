@@ -21,7 +21,7 @@ def pyscript(filename: str):
             dir_path = os.path.dirname(os.path.abspath(module_path))
             file_path = os.path.join(dir_path, filename)
             with open(file_path, "r", encoding="utf-8") as f:
-                self.pyscript = "<script type='py' config='./cnas.toml'>\n" + "".join(f.readlines()) + "\n</script>"
+                self.pyscript = "<script type='py' config='static/cnas.toml'>\n" + "".join(f.readlines()) + "\n</script>"
             return method(self, *args, **kwargs)
 
         return wrapper

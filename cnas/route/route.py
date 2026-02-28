@@ -7,6 +7,7 @@ from pages.gallaery.gallery import gallery
 from pages.music.music import music
 from pages.login.login import login
 from pages.login.login_api import login_api
+from pages.test.test_page import test_page
 
 from util.config import CONFIG
 from util.system_path import get_gallery_thumbnail_path
@@ -26,13 +27,9 @@ def route(app):
         return str(error("error page"))
 
     @app.route("/login")
+    @app.route("/login/api", methods=['POST'])
     def login_page() -> str:
         return str(login())
-
-    @app.route("/api/login_api", methods=['POST'])
-    def api_login() -> str:
-        print("api_login")
-        return str(login_api())
 
     @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:
@@ -56,3 +53,8 @@ def route(app):
     def music_file(filename):
         directory = CONFIG.get('music_path')
         return send_from_directory(directory, filename)
+
+    @app.route("/test")
+    @app.route("/test/api", methods=['POST'])
+    def test() -> str:
+        return str(test_page())
