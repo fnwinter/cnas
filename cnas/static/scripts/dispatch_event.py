@@ -1,5 +1,5 @@
+import asyncio
 import json
-import types
 
 from pyscript import when
 from pyscript import document
@@ -22,6 +22,8 @@ def dispatch_event(event):
 
     handler = BUTTON_HANDLERS.get(__function_name)
     if handler is not None:
-        handler(__param1, __param2, __param3)
+        result = handler(__param1, __param2, __param3)
+        if asyncio.iscoroutine(result):
+            asyncio.ensure_future(result)
     else:
         print(f"No handler registered for: {__function_name}")
