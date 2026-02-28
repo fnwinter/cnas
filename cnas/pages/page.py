@@ -7,6 +7,7 @@ class page:
     def __init__(self, filename = None):
         self.filename = os.path.join(SCRIPT_DIR, filename)
         self.pyscript = ""
+        self.api_result = None
         self.json_data = {}
         if request.is_json:
             self.json_data = request.get_json()

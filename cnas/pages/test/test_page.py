@@ -14,11 +14,13 @@ class test_page(page):
         pass
 
     def api_call(self):
-        """POST 요청 시 호출되며, 반환값이 응답으로 사용됩니다."""
-        data = getattr(self, "json_data", None) or {}
-        return str("test")#str(jsonify({"message": "api_call", "data": data}))
+        return "result from api_call"
 
+    @api_call
     def __str__(self):
+        print("__str__ is called")
+        if self.api_result is not None:
+            return str(self.api_result)
         return str(html(
             head_widget(title="test page"),
             body_widget(

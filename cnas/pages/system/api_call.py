@@ -1,4 +1,4 @@
-"""api_call annotation: POST 요청이 있으면 api_call() 반환값을 __str__ 결과로 사용합니다."""
+"""api_call annotation: POST 요청이 있으면 api_call() 결과를 self.api_result에 넣습니다 (pyscript처럼)."""
 from functools import wraps
 
 from flask import request
@@ -15,7 +15,7 @@ def _has_post_data() -> bool:
 
 
 def api_call(method):
-    """POST body가 있으면 self.api_call() 반환값을, 없으면 원래 __str__ 반환값을 사용하는 데코레이터."""
+    """POST body가 있으면 self.api_call() 결과를 self.api_result에 넣고, 원래 __str__ 반환값을 그대로 반환합니다."""
 
     @wraps(method)
     def wrapper(self, *args, **kwargs):
@@ -23,7 +23,8 @@ def api_call(method):
             return ""
         if request.method == "POST" and _has_post_data():
             if hasattr(self, "api_call") and callable(getattr(self, "api_call")):
-                return self.api_call()
-        return method(self, *args, **kwargs)
+                self.api_result = self.api_call()
+                return self.api_result
+        return str(method(self, *args, **kwargs))
 
     return wrapper
