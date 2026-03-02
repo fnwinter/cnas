@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>로그인 - CNAS</title>
+  <title>Login - CNAS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -85,22 +85,22 @@
           <div class="columns is-centered">
             <div class="column is-4-desktop is-6-tablet">
               <div class="login-box">
-                <!-- 로고 및 제목 -->
+                <!-- Logo and title -->
                 <div class="logo">
                   <i class="fas fa-user-circle"></i>
-                  <h1 class="title has-text-centered has-text-grey-dark">로그인</h1>
-                  <p class="subtitle is-6 has-text-centered has-text-grey">CNAS 계정으로 로그인하세요</p>
+                  <h1 class="title has-text-centered has-text-grey-dark">Login</h1>
+                  <p class="subtitle is-6 has-text-centered has-text-grey">Sign in with your CNAS account</p>
                 </div>
 
-                <!-- 로그인 폼 -->
+                <!-- Login form -->
                 <form id="loginForm">
-                  <!-- 이메일 입력 필드 -->
+                  <!-- Email field -->
                   <div class="field">
                     <label class="label has-text-grey-dark">
                       <span class="icon is-small">
                         <i class="fas fa-envelope"></i>
                       </span>
-                      이메일
+                      Email
                     </label>
                     <div class="control has-icons-left">
                       <input 
@@ -116,13 +116,13 @@
                     </div>
                   </div>
 
-                  <!-- 패스워드 입력 필드 -->
+                  <!-- Password field -->
                   <div class="field">
                     <label class="label has-text-grey-dark">
                       <span class="icon is-small">
                         <i class="fas fa-lock"></i>
                       </span>
-                      비밀번호
+                      Password
                     </label>
                     <div class="control has-icons-left">
                       <input 
@@ -138,48 +138,48 @@
                     </div>
                   </div>
 
-                  <!-- 로그인 유지 체크박스 -->
+                  <!-- Remember me checkbox -->
                   <div class="field">
                     <div class="control">
                       <label class="checkbox">
                         <input type="checkbox" id="rememberMe">
-                        로그인 상태 유지
+                        Remember me
                       </label>
                     </div>
                   </div>
 
-                  <!-- 로그인 버튼 -->
+                  <!-- Login button -->
                   <div class="field">
                     <div class="control">
                       <button type="submit" class="button is-primary is-fullwidth is-medium">
                         <span class="icon">
                           <i class="fas fa-sign-in-alt"></i>
                         </span>
-                        <span>로그인</span>
+                        <span>Login</span>
                       </button>
                     </div>
                   </div>
                 </form>
 
-                <!-- 구분선 -->
+                <!-- Divider -->
                 <div class="divider">
-                  <span>또는</span>
+                  <span>or</span>
                 </div>
 
-                <!-- 도움말 링크들 -->
+                <!-- Help links -->
                 <div class="help-links">
                   <a href="create_account.html">
                     <span class="icon is-small">
                       <i class="fas fa-user-plus"></i>
                     </span>
-                    계정 만들기
+                    Create account
                   </a>
                   <span class="has-text-grey">|</span>
                   <a href="lost_pwd.html">
                     <span class="icon is-small">
                       <i class="fas fa-key"></i>
                     </span>
-                    비밀번호 찾기
+                    Forgot password
                   </a>
                 </div>
               </div>
@@ -201,7 +201,7 @@
       const rememberMe = document.getElementById('rememberMe').checked;
       
       if (!email || !password) {
-        alert('이메일과 비밀번호를 모두 입력해주세요.');
+        alert('Please enter both email and password.');
         return;
       }
 
@@ -209,11 +209,11 @@
       try {
         passwordHash = await hashPassword(password);
       } catch (err) {
-        alert(err.message || '비밀번호 처리 중 오류가 발생했습니다.');
+        alert(err.message || 'An error occurred while processing the password.');
         return;
       }
 
-      // API 호출 (비밀번호는 해시만 전송)
+      // API call (send only hashed password)
       fetch('/api/login_api', {
         method: 'POST',
         headers: {
@@ -228,21 +228,21 @@
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          // 로그인 성공
-          alert('로그인 성공!');
-          window.location.href = '/'; // 메인 페이지로 리다이렉트
+          // Login success
+          alert('Login successful!');
+          window.location.href = '/'; // Redirect to main page
         } else {
-          // 로그인 실패
-          alert('로그인 실패: ' + (data.message || '이메일 또는 비밀번호를 확인해주세요.'));
+          // Login failed
+          alert('Login failed: ' + (data.message || 'Please check your email or password.'));
         }
       })
       .catch(error => {
-        console.error('로그인 오류:', error);
-        alert('로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
+        console.error('Login error:', error);
+        alert('An error occurred during login. Please try again.');
       });
     });
 
-    // 입력 필드 포커스 효과
+    // Input field focus effect
     document.querySelectorAll('.input').forEach(input => {
       input.addEventListener('focus', function() {
         this.parentElement.classList.add('is-focused');

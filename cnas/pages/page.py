@@ -9,7 +9,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def _collect_rest_api_mapping(cls) -> dict:
-    """클래스와 부모 클래스에서 @rest_call 데코레이터가 붙은 메서드를 수집해 {api_path: method_name} dict 반환."""
+    """Collect methods decorated with @rest_call from this class and bases; return {api_path: method_name} dict."""
     mapping = {}
     for c in reversed(cls.__mro__):
         for name, attr in getattr(c, "__dict__", {}).items():

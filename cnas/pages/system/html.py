@@ -1,11 +1,11 @@
-"""html annotation: 데코레이터로 지정한 파일 내용을 self.html에 주입합니다."""
+"""html annotation: Injects file content specified by the decorator into self.html."""
 import os
 import sys
 from functools import wraps
 
 
 def html_file(filename: str):
-    """지정한 파일 내용을 읽어 self.html에 넣은 뒤 원래 메서드를 실행하는 데코레이터."""
+    """Decorator: reads the given file into self.html, then runs the original method."""
 
     def decorator(method):
         @wraps(method)

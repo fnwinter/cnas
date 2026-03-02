@@ -1,11 +1,11 @@
-"""pyscript annotation: 데코레이터로 지정한 파일 내용을 self.__pyscript에 주입합니다."""
+"""pyscript annotation: Injects file content specified by the decorator into self.pyscript."""
 import os
 import sys
 from functools import wraps
 
 
 def pyscript(filename: str):
-    """지정한 파일 내용을 읽어 self.pyscript에 넣은 뒤 원래 메서드를 실행하는 데코레이터."""
+    """Decorator: reads the given file into self.pyscript, then runs the original method."""
 
     def decorator(method):
         @wraps(method)

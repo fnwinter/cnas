@@ -13,32 +13,32 @@ class login_api(page):
             if not data:
                 return jsonify({
                     'success': False,
-                    'message': '요청 데이터가 없습니다.'
+                    'message': 'No request data.'
                 }), 200
             
             email = data.get('email')
             password = data.get('password')
             remember_me = data.get('rememberMe', False)
 
-            # 필수 필드 검증 (password는 클라이언트에서 보낸 해시)
+            # Validate required fields (password is client-sent hash)
             if not email or not password:
                 return jsonify({
                     'success': False,
-                    'message': '이메일과 비밀번호를 모두 입력해주세요.'
+                    'message': 'Please enter both email and password.'
                 }), 200
             
             if self.verify_login(email, password):
-                # 세션에 사용자 정보 저장
+                # Store user info in session
                 self.set_session('user_id', email)
                 self.set_session('user_email', email)
                 
                 if remember_me:
-                    # 로그인 상태 유지 설정 (세션 만료 시간 연장)
+                    # Keep logged in (extend session expiry)
                     session.permanent = True
                 
                 return jsonify({
                     'success': True,
-                    'message': '로그인 성공',
+                    'message': 'Login successful',
                     'user': {
                         'email': email
                     }
@@ -46,13 +46,13 @@ class login_api(page):
             else:
                 return jsonify({
                     'success': False,
-                    'message': '이메일 또는 비밀번호가 올바르지 않습니다.'
+                    'message': 'Invalid email or password.'
                 }), 200
                 
         except Exception as e:
             return jsonify({
                 'success': False,
-                'message': f'서버 오류가 발생했습니다: {str(e)}'
+                'message': f'Server error: {str(e)}'
             }), 200
     
     def verify_login(self, email: str, password_hash: str) -> bool:

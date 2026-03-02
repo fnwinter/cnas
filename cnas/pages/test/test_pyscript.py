@@ -3,12 +3,11 @@ import json
 from pyscript import fetch
 from dispatch_event import register_handler
 
-
 async def call_test_api(body=None):
-    """POST /test/api 를 호출하고 JSON 응답을 반환합니다."""
+    """Call POST /test/api1 and return the JSON response."""
     payload = json.dumps(body or {})
     try:
-        # PyScript: await fetch(...).text() 체이닝으로 응답 본문을 받음 (이중 await 대신)
+        # PyScript: get response body via await fetch(...).text() chaining (instead of double await)
         text = await fetch(
             "/test/api1",
             method="POST",

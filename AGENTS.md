@@ -11,6 +11,7 @@ Key Principles
 - Favor named exports for routes and utility functions.
 - Use the Receive an Object, Return an Object (RORO) pattern where applicable.
 - Do not write code unless instructed
+- All comments should be written in english
 
 Python/Flask
 - Use def for function definitions.

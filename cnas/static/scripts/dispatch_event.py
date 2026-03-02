@@ -4,7 +4,7 @@ import json
 from pyscript import when
 from pyscript import document
 
-# 함수 이름 → 콜백 등록 (순환 import 방지)
+# Function name -> callback registration (avoids circular import)
 BUTTON_HANDLERS = {}
 
 def register_handler(name, callback):

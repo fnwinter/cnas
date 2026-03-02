@@ -1,14 +1,11 @@
 from flask import jsonify
-from flask import request
+from jinja2 import Template
 
 from pages.page import page
 from pages.system.html import html_file
 from pages.system.pyscript import pyscript
 from pages.system.rest_call import rest_call
 
-from components.elements.html import html
-from components.widgets.head_widget import head_widget
-from components.widgets.body_widget import body_widget
 
 class test_page(page):
     def __init__(self):
@@ -18,6 +15,7 @@ class test_page(page):
     @html_file("htmls/test.html")
     @pyscript("test_pyscript.py")
     def load_scripts(self):
+        self.template = Template(self.html)
         return self
 
     @rest_call("test/api1")
@@ -29,4 +27,5 @@ class test_page(page):
         return jsonify({"status": "ok2"}), 200
 
     def body_content(self):
-        return self.template.render(title=self.title, content=self.content)
+        self.html = self.template.render(title="button call test", content="This page is for testing the button call functionality.")
+        return self
