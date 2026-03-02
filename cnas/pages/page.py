@@ -3,8 +3,20 @@ from flask import   request, session
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
+def _collect_rest_api_mapping(cls) -> dict:
+    """클래스와 부모 클래스에서 @rest_call 데코레이터가 붙은 메서드를 수집해 {api_path: method_name} dict 반환."""
+    mapping = {}
+    for c in reversed(cls.__mro__):
+        for name, attr in getattr(c, "__dict__", {}).items():
+            if callable(attr) and getattr(attr, "_rest_api_path", None) is not None:
+                mapping[attr._rest_api_path] = name
+    return mapping
+
+
 class page:
     def __init__(self, filename = None):
+        self.rest_api_mapping = _collect_rest_api_mapping(self.__class__)
         self.filename = os.path.join(SCRIPT_DIR, filename) if filename is not None else None
         self.pyscript = ""
         self.api_result = None
@@ -17,6 +29,14 @@ class page:
         else:
             self.html = ""
 
+    def set_title(self, title):
+        self.title = title
+        return self
+
+    def set_pyscript(self, pyscript):
+        self.pyscript = pyscript
+        return self
+
     def set_session(self, key, value):
         session[key] = value
 
@@ -26,7 +46,7 @@ class page:
     def clear_session(self, key):
         session.pop(key, None)
 
-    def get_result(self):
+    def get_content(self):
         if self.api_result is not None:
             return self.api_result
         return self.html

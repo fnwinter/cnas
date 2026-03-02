@@ -3,43 +3,29 @@ from flask import request
 
 from pages.page import page
 from pages.system.pyscript import pyscript
-from pages.system.api_call import api_call
+from pages.system.rest_call import rest_call
 
 from components.elements.html import html
 from components.widgets.head_widget import head_widget
 from components.widgets.body_widget import body_widget
 
 class test_page(page):
-    @pyscript("test_pyscript.py")
     def __init__(self):
-        pass
+        super().__init__()
+        super().set_title("test page")
 
-    def post_api_call(self):
-        print("request.method:", request.method)
-        print("request.url:", request.url)
-        print("request.headers:", dict(request.headers))
-        print("request.get_data(as_text=True):", request.get_data(as_text=True))
-        if request.is_json:
-            print("request.get_json():", request.get_json())
-        return jsonify({"status": "ok"})
+    @html("test.html")
+    @pyscript("test_pyscript.py")
+    def load_scripts(self):
+        return self
 
-    @api_call
-    def __str__(self):
-        print("__str__ is called")
-        if self.api_result is not None:
-            print("api_result:", self.api_result)
-            return self.api_result
-        print("result is None")
-        return str(html(
-            head_widget(title="test page"),
-            body_widget(
-            ).set_content(
-"""<button id='call_python'></button>
-<button id="test" onclick='test_button()'>test</button>
-<script>
-    function test_button() {
-        callPython("test_button", "param1", "param2", "param3");
-    }
-</script>
-""" + self.pyscript)
-        ))
+    @rest_call("test/api1")
+    def rest_test_api1(self):
+        return jsonify({"status": "ok"}), 200
+
+    @rest_call("test/api2")
+    def post_api_call2(self):
+        return jsonify({"status": "ok2"}), 200
+
+    def body_content(self):
+        return self.template.render(title=self.title, content=self.content)

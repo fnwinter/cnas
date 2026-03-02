@@ -59,6 +59,7 @@ def route(app):
         return send_from_directory(directory, filename)
 
     @app.route("/test")
-    @app.route("/test/api", methods=['POST'])
-    def test() -> str:
+    @app.route("/test/api1", methods=['POST'])
+    @app.route("/test/api2", methods=['POST'])
+    def test():
         return test_page().get_result()
