@@ -14,7 +14,6 @@ class test_page(page):
     @html_file("htmls/test.html")
     @pyscript("test_pyscript.py")
     def load_scripts(self):
-        self.template = Template(self.html)
         return self
 
     @rest_call("test/api1")
@@ -26,5 +25,5 @@ class test_page(page):
         return jsonify({"status": "ok2"}), 200
 
     def body_content(self):
-        self.html = self.template.render(title="button call test", content="This page is for testing the button call functionality.")
+        self.html = Template(self.html).render(title="button call test", content="This page is for testing the button call functionality.")
         return self

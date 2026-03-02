@@ -17,3 +17,9 @@
   align-items: flex-end;
   display: flex;
 }
+
+#loading {
+  outline: none;
+  border: none;
+  background: transparent
+}
