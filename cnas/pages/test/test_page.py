@@ -2,6 +2,7 @@ from flask import jsonify
 from flask import request
 
 from pages.page import page
+from pages.system.html import html_file
 from pages.system.pyscript import pyscript
 from pages.system.rest_call import rest_call
 
@@ -14,7 +15,7 @@ class test_page(page):
         super().__init__()
         super().set_title("test page")
 
-    @html("test.html")
+    @html_file("htmls/test.html")
     @pyscript("test_pyscript.py")
     def load_scripts(self):
         return self

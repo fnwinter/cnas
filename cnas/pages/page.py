@@ -1,6 +1,10 @@
 import os
 from flask import   request, session
 
+from components.elements.html import html
+from components.widgets.head_widget import head_widget
+from components.widgets.body_widget import body_widget
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -47,6 +51,12 @@ class page:
         session.pop(key, None)
 
     def get_content(self):
-        if self.api_result is not None:
-            return self.api_result
-        return self.html
+        __html = html(
+            head_widget(title=self.title),
+            body_widget(
+            ).set_content(
+                self.html +
+                self.pyscript
+            )
+        )
+        return __html
