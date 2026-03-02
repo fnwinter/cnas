@@ -16,13 +16,11 @@ def dispatch_event(event):
     __value = json.loads(event.target.getAttribute("data-value"))
 
     __function_name = __value[0]
-    __param1 = __value[1]
-    __param2 = __value[2]
-    __param3 = __value[3]
+    __params = __value[1:]
 
     handler = BUTTON_HANDLERS.get(__function_name)
     if handler is not None:
-        result = handler(__param1, __param2, __param3)
+        result = handler(*__params)
         if asyncio.iscoroutine(result):
             asyncio.ensure_future(result)
     else:

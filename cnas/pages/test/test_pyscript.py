@@ -23,25 +23,22 @@ async def call_test_api(body=None):
         return None
 
 
-async def test_button1(param1, param2, param3):
+async def test_button1(param1):
     print("test_button is called")
-    print(param1, param2, param3)
+    print(param1)
     data = await call_test_api({
         "action": "test_button1",
         "param1": param1,
-        "param2": param2,
-        "param3": param3,
     })
     print("test/api response:", data)
 
-async def test_button2(param1, param2, param3):
+async def test_button2(param1, param2):
     print("test_button is called")
-    print(param1, param2, param3)
+    print(param1, param2)
     data = await call_test_api({
         "action": "test_button2",
         "param1": param1,
         "param2": param2,
-        "param3": param3,
     })
     print("test/api response:", data)
 
