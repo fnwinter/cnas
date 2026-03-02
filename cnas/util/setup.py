@@ -20,19 +20,22 @@ def _is_valid_email(value: str) -> bool:
 
 def _prompt_admin_credentials() -> tuple[str, str]:
     """Prompt for email (admin_id) and admin_password (masked, twice). Return (email, admin_password)."""
+    print("===============================")
+    print("=== Setup Admin Credentials ===")
+    print("===============================")
     while True:
-        admin_id = input("admin_id (email): >").strip()
+        admin_id = input("Admin ID (email): > ").strip()
         if not admin_id:
-            print("admin_id (email) cannot be empty.")
+            print("Admin ID (email) cannot be empty.")
             continue
         if not _is_valid_email(admin_id):
-            print("Invalid admin_id (email) format. Try again.")
+            print("Invalid Admin ID (email) format. Try again.")
             continue
         break
 
     while True:
-        password = getpass.getpass("admin_password: >")
-        password_again = getpass.getpass("admin_password (again): >")
+        password = getpass.getpass("Admin Password: > ")
+        password_again = getpass.getpass("Admin Password (again): > ")
         if password != password_again:
             print("Passwords do not match. Try again.")
             continue
@@ -66,7 +69,7 @@ def setup() -> bool:
     if not cfg.get("admin_id") or not cfg.get("admin_password"):
         try:
             email, admin_password = _prompt_admin_credentials()
-            cfg.set("admin_id", email)
+            cfg.set("admin_id", hash_string(email))
             cfg.set("admin_password", hash_string(admin_password))
             cfg.save()
         except (ValueError, EOFError) as e:
