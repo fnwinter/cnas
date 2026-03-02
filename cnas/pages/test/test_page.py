@@ -6,7 +6,6 @@ from pages.system.html import html_file
 from pages.system.pyscript import pyscript
 from pages.system.rest_call import rest_call
 
-
 class test_page(page):
     def __init__(self):
         super().__init__()

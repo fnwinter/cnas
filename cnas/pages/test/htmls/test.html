@@ -4,6 +4,7 @@
 <div class="buttons">
   <button id="test1" onclick="test1()" class="button is-primary">Test button 1</button>
   <button id="test2" onclick="test2()" class="button is-link">Test button 2</button>
+  <button id="test3" onclick="test3()" class="button is-link">Test button 3</button>
 </div>
 <script>
   function test1() {
@@ -12,4 +13,11 @@
   function test2() {
     callPython("test_button2", "test2", "test2");
   }
+  function test3() {
+    callPython("test_button3");
+  }
+  function test3_callback() {
+    alert("test3 callback");
+  }
+  window.test3_callback = test3_callback;
 </script>

@@ -1,6 +1,7 @@
 import json
 
 from pyscript import fetch
+from pyscript import window
 from dispatch_event import register_handler
 
 async def call_test_api(body=None):
@@ -41,5 +42,10 @@ async def test_button2(param1, param2):
     })
     print("test/api response:", data)
 
+def test3():
+    window.test3_callback()
+    pass
+
 register_handler("test_button1", test_button1)
 register_handler("test_button2", test_button2)
+register_handler("test_button3", test3)
