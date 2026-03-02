@@ -10,7 +10,7 @@ async def call_test_api(body=None):
     try:
         # PyScript: await fetch(...).text() 체이닝으로 응답 본문을 받음 (이중 await 대신)
         text = await fetch(
-            "/login_api",
+            "/test/api1",
             method="POST",
             body=payload,
             headers={"Content-Type": "application/json"},
@@ -23,16 +23,27 @@ async def call_test_api(body=None):
         return None
 
 
-async def test_button(param1, param2, param3):
+async def test_button1(param1, param2, param3):
     print("test_button is called")
     print(param1, param2, param3)
     data = await call_test_api({
-        "action": "test_button",
+        "action": "test_button1",
         "param1": param1,
         "param2": param2,
         "param3": param3,
     })
     print("test/api response:", data)
 
+async def test_button2(param1, param2, param3):
+    print("test_button is called")
+    print(param1, param2, param3)
+    data = await call_test_api({
+        "action": "test_button2",
+        "param1": param1,
+        "param2": param2,
+        "param3": param3,
+    })
+    print("test/api response:", data)
 
-register_handler("test_button", test_button)
+register_handler("test_button1", test_button1)
+register_handler("test_button2", test_button2)

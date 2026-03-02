@@ -51,6 +51,11 @@ class page:
         session.pop(key, None)
 
     def get_content(self):
+        path_key = request.path.lstrip("/")
+        if path_key in self.rest_api_mapping:
+            method_name = self.rest_api_mapping[path_key]
+            return getattr(self, method_name)()
+
         __html = html(
             head_widget(title=self.title),
             body_widget(
@@ -59,4 +64,4 @@ class page:
                 self.pyscript
             )
         )
-        return __html
+        return str(__html)
