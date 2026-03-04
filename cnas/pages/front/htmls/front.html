@@ -1,0 +1,14 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">{{ title }}</h1>
+    <p class="subtitle">{{ content }}</p>
+    {% if user_email %}
+    <p class="mb-4">Logged in as <strong>{{ user_email }}</strong>.</p>
+    {% endif %}
+    <div class="buttons">
+      <a href="/gallery" class="button is-primary">Gallery</a>
+      <a href="/music" class="button is-link">Music</a>
+      <a href="/test" class="button is-light">Test</a>
+    </div>
+  </div>
+</section>

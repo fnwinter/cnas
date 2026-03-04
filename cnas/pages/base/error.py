@@ -1,4 +1,4 @@
-from pages.page import page
+from pages.base.page import page
 
 from components.elements.html import html
 from components.elements.div import div

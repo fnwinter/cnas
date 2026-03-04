@@ -1,6 +1,6 @@
 import os
 
-from pages.page import page
+from pages.base.page import page
 
 from util.file_util import is_image_file
 from util.config_path import get_gallery_path

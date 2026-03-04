@@ -1,7 +1,7 @@
 from flask import jsonify
 from jinja2 import Template
 
-from pages.page import page
+from pages.base.page import page
 from pages.system.html import html_file
 from pages.system.pyscript import pyscript
 from pages.system.rest_call import rest_call

@@ -1,7 +1,7 @@
 from flask import send_from_directory
 
-from pages.system.index import index
-from pages.system.error import error
+from pages.base.error import error
+from pages.front.front import front
 
 from pages.gallaery.gallery import gallery
 from pages.music.music import music
@@ -18,8 +18,8 @@ def route(app):
 
     """
     @app.route("/")
-    def index_page() -> str:
-        return str(index())
+    def index_page():
+        return front().load_scripts().body_content().get_content()
 
     @app.route("/error")
     def error_page() -> str:

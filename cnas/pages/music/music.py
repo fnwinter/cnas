@@ -1,6 +1,6 @@
 import os
 
-from pages.page import page
+from pages.base.page import page
 
 from util.config_path import get_music_path
 
