@@ -16,8 +16,8 @@ class index(page):
 
     def __str__(self):
         # Check login state
-        user_id = self.get_session("user_id")
-        if user_id is None:
+        user_email = self.get_session("user_email")
+        if user_email is None:
             # Not logged in: redirect to login page
             return self.redirect_to_login()
         

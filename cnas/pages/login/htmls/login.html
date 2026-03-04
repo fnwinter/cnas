@@ -1,257 +1,56 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - CNAS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    .login-container {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-    }
-    .login-box {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-    }
-    .logo {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .logo i {
-      font-size: 3rem;
-      color: #667eea;
-      margin-bottom: 1rem;
-    }
-    .field:not(:last-child) {
-      margin-bottom: 1.5rem;
-    }
-    .button.is-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border: none;
-      transition: all 0.3s ease;
-    }
-    .button.is-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-    .input:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 0.125em rgba(102, 126, 234, 0.25);
-    }
-    .help-links {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-    .help-links a {
-      color: #667eea;
-      text-decoration: none;
-      margin: 0 0.5rem;
-      font-size: 0.9rem;
-    }
-    .help-links a:hover {
-      text-decoration: underline;
-    }
-    .divider {
-      margin: 1.5rem 0;
-      text-align: center;
-      position: relative;
-    }
-    .divider::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: #dbdbdb;
-    }
-    .divider span {
-      background: white;
-      padding: 0 1rem;
-      color: #7a7a7a;
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="login-container">
-    <section class="hero is-fullheight">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns is-centered">
-            <div class="column is-4-desktop is-6-tablet">
-              <div class="login-box">
-                <!-- Logo and title -->
-                <div class="logo">
-                  <i class="fas fa-user-circle"></i>
-                  <h1 class="title has-text-centered has-text-grey-dark">Login</h1>
-                  <p class="subtitle is-6 has-text-centered has-text-grey">Sign in with your CNAS account</p>
-                </div>
-
-                <!-- Login form -->
-                <form id="loginForm">
-                  <!-- Email field -->
-                  <div class="field">
-                    <label class="label has-text-grey-dark">
-                      <span class="icon is-small">
-                        <i class="fas fa-envelope"></i>
-                      </span>
-                      Email
-                    </label>
-                    <div class="control has-icons-left">
-                      <input 
-                        class="input" 
-                        type="email" 
-                        id="email"
-                        placeholder="example@email.com" 
-                        required
-                      >
-                      <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- Password field -->
-                  <div class="field">
-                    <label class="label has-text-grey-dark">
-                      <span class="icon is-small">
-                        <i class="fas fa-lock"></i>
-                      </span>
-                      Password
-                    </label>
-                    <div class="control has-icons-left">
-                      <input 
-                        class="input" 
-                        type="password" 
-                        id="password"
-                        placeholder="••••••••" 
-                        required
-                      >
-                      <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- Remember me checkbox -->
-                  <div class="field">
-                    <div class="control">
-                      <label class="checkbox">
-                        <input type="checkbox" id="rememberMe">
-                        Remember me
-                      </label>
-                    </div>
-                  </div>
-
-                  <!-- Login button -->
-                  <div class="field">
-                    <div class="control">
-                      <button type="submit" class="button is-primary is-fullwidth is-medium">
-                        <span class="icon">
-                          <i class="fas fa-sign-in-alt"></i>
-                        </span>
-                        <span>Login</span>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-
-                <!-- Divider -->
-                <div class="divider">
-                  <span>or</span>
-                </div>
-
-                <!-- Help links -->
-                <div class="help-links">
-                  <a href="create_account.html">
-                    <span class="icon is-small">
-                      <i class="fas fa-user-plus"></i>
-                    </span>
-                    Create account
-                  </a>
-                  <span class="has-text-grey">|</span>
-                  <a href="lost_pwd.html">
-                    <span class="icon is-small">
-                      <i class="fas fa-key"></i>
-                    </span>
-                    Forgot password
-                  </a>
-                </div>
+<style>
+  .login-container { min-height: 100vh; }
+  .login-box { background: white; border-radius: 10px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); padding: 2rem; }
+</style>
+<div class="login-container">
+  <section class="hero is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-4-desktop is-6-tablet">
+            <div class="login-box">
+              <div class="logo">
+                <h1 class="title has-text-centered has-text-grey-dark">Login</h1>
+                <p class="subtitle is-6 has-text-centered has-text-grey">Sign in with admin account</p>
               </div>
+
+              <form id="loginForm">
+                <div class="field">
+                  <label class="label has-text-grey-dark">ID</label>
+                  <div class="control">
+                    <input class="input" type="text" id="login_id" placeholder="Admin ID" required>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label has-text-grey-dark">Password</label>
+                  <div class="control">
+                    <input class="input" type="password" id="login_password" placeholder="••••••••" required>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <div class="control">
+                    <button type="submit" class="button is-primary is-fullwidth is-medium">Login</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </div>
-
-  <!-- JavaScript -->
-  <script>
-
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const rememberMe = document.getElementById('rememberMe').checked;
-      
-      if (!email || !password) {
-        alert('Please enter both email and password.');
-        return;
-      }
-
-      let passwordHash;
-      try {
-        passwordHash = await hashPassword(password);
-      } catch (err) {
-        alert(err.message || 'An error occurred while processing the password.');
-        return;
-      }
-
-      // API call (send only hashed password)
-      fetch('/api/login_api', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          email: email, 
-          password: passwordHash, 
-          rememberMe: rememberMe 
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          // Login success
-          alert('Login successful!');
-          window.location.href = '/'; // Redirect to main page
-        } else {
-          // Login failed
-          alert('Login failed: ' + (data.message || 'Please check your email or password.'));
-        }
-      })
-      .catch(error => {
-        console.error('Login error:', error);
-        alert('An error occurred during login. Please try again.');
-      });
-    });
-
-    // Input field focus effect
-    document.querySelectorAll('.input').forEach(input => {
-      input.addEventListener('focus', function() {
-        this.parentElement.classList.add('is-focused');
-      });
-      
-      input.addEventListener('blur', function() {
-        this.parentElement.classList.remove('is-focused');
-      });
-    });
-  </script>
-</body>
-</html>
+    </div>
+  </section>
+</div>
+<script>
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var id = document.getElementById('login_id').value.trim();
+    var password = document.getElementById('login_password').value;
+    if (!id || !password) {
+      alert('Please enter both ID and password.');
+      return;
+    }
+    callPython('login', id, password);
+  });
+</script>

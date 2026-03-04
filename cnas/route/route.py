@@ -6,7 +6,6 @@ from pages.system.error import error
 from pages.gallaery.gallery import gallery
 from pages.music.music import music
 from pages.login.login import login
-from pages.login.login_api import login_api
 from pages.test.test_page import test_page
 
 from util.config import CONFIG
@@ -27,13 +26,9 @@ def route(app):
         return str(error("error page"))
 
     @app.route("/login")
-    @app.route("/login/api", methods=['POST'])
-    def login_page() -> str:
-        return str(login())
-
-    @app.route("/login_api", methods=['POST'])
-    def login_api_page():
-        return login_api().check_login()
+    @app.route("/login/api", methods=["POST"])
+    def login_page():
+        return login().load_scripts().body_content().get_content()
 
     @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:

@@ -1,15 +1,29 @@
 import json
 
-from pyscript import when
-from pyscript import document
+from pyscript import fetch
 from pyscript import window
 
-try:
-    import pyodide_js
-    pyodide_js.loadPackage('cryptography')
+from dispatch_event import register_handler
 
-except Exception as e:
-    print(f"Error loading pyodide_js, pyscript package: {str(e)}")
 
-def test():
-    print("test")
+async def login_handler(login_id: str, password: str) -> None:
+    """Send id/password to server. Server compares with config admin id/password via hash_string; on match, login success."""
+    payload = json.dumps({"id": login_id, "password": password})
+    try:
+        resp = await fetch(
+            "/login/api",
+            method="POST",
+            body=payload,
+            headers={"Content-Type": "application/json"},
+        )
+        text = await resp.text()
+        result = json.loads(text) if text else {}
+        if result.get("success"):
+            window.location.href = "/"
+        else:
+            window.alert(result.get("message", "Login failed."))
+    except Exception as e:
+        window.alert("Login error: " + str(e))
+
+
+register_handler("login", login_handler)

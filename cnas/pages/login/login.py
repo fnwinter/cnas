@@ -1,19 +1,53 @@
+from flask import jsonify, request
+
+from jinja2 import Template
+
 from pages.page import page
+from pages.system.html import html_file
 from pages.system.pyscript import pyscript
+from pages.system.rest_call import rest_call
 
-from components.elements.html import html
-from components.elements.body import body
-from components.elements.para import para
-from components.elements.div import div
+from util.config import CONFIG
+from util.hash_string import verify_string
 
-from components.elements.button import button
-
-from components.widgets.head_widget import head_widget
 
 class login(page):
-    def __init__(self, filename="login/htmls/login.html"):
-        super().__init__(filename)
+    def __init__(self):
+        super().__init__()
+        super().set_title("Login")
 
+    @html_file("htmls/login.html")
     @pyscript("login_pyscript.py")
-    def __str__(self):
-        return ""
+    def load_scripts(self):
+        return self
+
+    @rest_call("login/api")
+    def post_login(self):
+        """Accept id/password, verify against config admin_id/admin_password (hash_string), set session on success."""
+        data = request.get_json()
+        if not data:
+            return jsonify({"success": False, "message": "No request data."}), 200
+
+        id_val = (data.get("id") or "").strip()
+        password_val = data.get("password") or ""
+
+        if not id_val or not password_val:
+            return jsonify({"success": False, "message": "Please enter both ID and password."}), 200
+
+        if not self._verify_admin(id_val, password_val):
+            return jsonify({"success": False, "message": "Invalid ID or password."}), 200
+
+        self.set_session("user_email", id_val)
+        return jsonify({"success": True, "message": "Login successful."}), 200
+
+    def _verify_admin(self, id_val: str, password_val: str) -> bool:
+        """Compare id/password with config admin_id/admin_password using hash_string (verify_string)."""
+        stored_id_hash = CONFIG.get("admin_id")
+        stored_password_hash = CONFIG.get("admin_password")
+        if not stored_id_hash or not stored_password_hash:
+            return False
+        return verify_string(id_val, stored_id_hash) and verify_string(password_val, stored_password_hash)
+
+    def body_content(self):
+        self.html = Template(self.html).render()
+        return self
