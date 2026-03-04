@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, session, redirect
 
 from jinja2 import Template
 
@@ -21,7 +21,7 @@ class login(page):
     def load_scripts(self):
         return self
 
-    @rest_call("login/api")
+    @rest_call("login/login")
     def post_login(self):
         """Accept id/password, verify against config admin_id/admin_password (hash_string), set session on success."""
         data = request.get_json()
@@ -39,6 +39,12 @@ class login(page):
 
         self.set_session("user_email", id_val)
         return jsonify({"success": True, "message": "Login successful."}), 200
+
+    @rest_call("login/logout")
+    def post_logout(self):
+        """Clear session and redirect to login page."""
+        session.clear()
+        return redirect("/login")
 
     def _verify_admin(self, id_val: str, password_val: str) -> bool:
         """Compare id/password with config admin_id/admin_password using hash_string (verify_string)."""

@@ -11,7 +11,7 @@ async def login_handler(login_id: str, password: str) -> None:
     payload = json.dumps({"id": login_id, "password": password})
     try:
         resp = await fetch(
-            "/login/api",
+            "/login/login",
             method="POST",
             body=payload,
             headers={"Content-Type": "application/json"},

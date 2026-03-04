@@ -26,7 +26,8 @@ def route(app):
         return str(error("error page"))
 
     @app.route("/login")
-    @app.route("/login/api", methods=["POST"])
+    @app.route("/login/login", methods=["POST"])
+    @app.route("/login/logout", methods=["POST"])
     def login_page():
         return login().load_scripts().body_content().get_content()
 
