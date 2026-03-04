@@ -71,12 +71,10 @@ class page:
         if getattr(self, "_need_login", False) and not self.get_session("user_email"):
             return self._redirect_to_login()
 
+        need_loading = self.pyscript != "" and self.pyscript is not None
+
         __html = html(
             head_widget(title=self.title),
-            body_widget(
-            ).set_content(
-                self.html +
-                self.pyscript
-            )
-        )
+            body_widget(need_loading).set_content(
+                self.html + self.pyscript))
         return str(__html)
