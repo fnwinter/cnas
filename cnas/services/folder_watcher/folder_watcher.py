@@ -4,12 +4,12 @@ import logging
 from pathlib import Path
 from typing import Callable
 
-from watchdog.events import (
+from watchdog.events import (  # type: ignore
     FileSystemEvent,
     FileSystemEventHandler,
     FileMovedEvent,
 )
-from watchdog.observers import Observer
+from watchdog.observers import Observer  # type: ignore
 
 logger = logging.getLogger(__name__)
 

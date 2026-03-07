@@ -11,5 +11,5 @@ def service_process_task():
 
 
 def service_process():
-    background_process = multiprocessing.Process(target=background_task, daemon=True)
+    background_process = multiprocessing.Process(target=service_process_task, daemon=True)
     background_process.start()
