@@ -1,15 +1,36 @@
 import multiprocessing
 import time
+from queue import Empty
 
+from pages.system.cmd_message_queue import CmdMessageQueue
 from services.thumbnail import generate_thumbnail
 
-def service_process_task():
+
+def service_process_task(
+    cmd_queue: multiprocessing.Queue,
+    response_queue: multiprocessing.Queue,
+) -> None:
     while True:
+        while True:
+            try:
+                request_id, msg = cmd_queue.get(timeout=1.0)
+                print("service_process_task event received:", msg)
+                if response_queue is not None and request_id is not None:
+                    result = {"status": "ok", "event": msg, "received": True}
+                    response_queue.put((request_id, result))
+            except Empty:
+                break
         print("service process working...")
-        generate_thumbnail()
-        time.sleep(100)
+        #generate_thumbnail()
+        #time.sleep(100)
 
-
-def service_process():
-    background_process = multiprocessing.Process(target=service_process_task, daemon=True)
+def service_process() -> None:
+    cmd_queue: multiprocessing.Queue = multiprocessing.Queue()
+    response_queue: multiprocessing.Queue = multiprocessing.Queue()
+    CmdMessageQueue.set_queues(cmd_queue, response_queue)
+    background_process = multiprocessing.Process(
+        target=service_process_task,
+        args=(cmd_queue, response_queue),
+        daemon=True,
+    )
     background_process.start()

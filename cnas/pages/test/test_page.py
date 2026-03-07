@@ -3,6 +3,7 @@ import os
 from jinja2 import Template
 
 from pages.base.page import page
+from pages.system.cmd_message_queue import CmdMessageQueue
 from pages.system.html import html_file
 from pages.system.pyscript import pyscript
 from pages.system.rest_call import rest_call
@@ -28,8 +29,11 @@ class test_page(page):
     @rest_call("test/api_command")
     def rest_api_command(self):
         try:
-            print("test/api_command called")
-            return jsonify({"status": "ok"}), 200
+            event = {"event": "test_command", "source": "ls command button"}
+            result = CmdMessageQueue.send_message(event)
+            if result is None:
+                return jsonify({"status": "timeout", "message": "no response from service"}), 504
+            return jsonify({"status": "ok", "message": "command sent", "result": result}), 200
         except Exception as e:
             return jsonify({"status": "error", "message": str(e)}), 500
 
