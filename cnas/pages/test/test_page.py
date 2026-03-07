@@ -1,4 +1,5 @@
 from flask import jsonify
+import os
 from jinja2 import Template
 
 from pages.base.page import page
@@ -23,6 +24,14 @@ class test_page(page):
     @rest_call("test/api2")
     def post_api_call2(self):
         return jsonify({"status": "ok2"}), 200
+
+    @rest_call("test/api_command")
+    def rest_api_command(self):
+        try:
+            print("test/api_command called")
+            return jsonify({"status": "ok"}), 200
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
 
     def body_content(self):
         self.html = Template(self.html).render(title="button call test", content="This page is for testing the button call functionality.")

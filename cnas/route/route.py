@@ -56,6 +56,7 @@ def route(app):
 
     @app.route("/test/api1", methods=['GET', 'POST'])
     @app.route("/test/api2", methods=['GET', 'POST'])
+    @app.route("/test/api_command", methods=['GET', 'POST'])
     @app.route("/test")
     def test():
         return test_page().load_scripts().body_content().get_content()

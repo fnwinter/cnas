@@ -5,6 +5,7 @@
   <button id="test1" onclick="test1()" class="button is-primary">Test button 1</button>
   <button id="test2" onclick="test2()" class="button is-link">Test button 2</button>
   <button id="test3" onclick="test3()" class="button is-link">Test button 3</button>
+  <button id="ls_command" onclick="lsCommand()" class="button is-info">ls command</button>
 </div>
 <script>
   function test1() {
@@ -15,6 +16,9 @@
   }
   function test3() {
     callPython("test_button3");
+  }
+  function lsCommand() {
+    callPython("test_command");
   }
   function test3_callback() {
     alert("test3 callback");

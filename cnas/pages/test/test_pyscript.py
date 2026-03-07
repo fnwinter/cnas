@@ -4,13 +4,12 @@ from pyscript import fetch
 from pyscript import window
 from dispatch_event import register_handler
 
-async def call_test_api(body=None):
-    """Call POST /test/api1 and return the JSON response."""
+async def call_test_api(body=None, url="/test/api1"):
+    """Call POST to the given url (default /test/api1) and return the JSON response."""
     payload = json.dumps(body or {})
     try:
-        # PyScript: get response body via await fetch(...).text() chaining (instead of double await)
         text = await fetch(
-            "/test/api1",
+            url,
             method="POST",
             body=payload,
             headers={"Content-Type": "application/json"},
@@ -42,10 +41,19 @@ async def test_button2(param1, param2):
     })
     print("test/api response:", data)
 
+async def test_command():
+    data = await call_test_api(
+        {"action": "test_command"},
+        url="/test/api_command",
+    )
+    print("test/api_command response:", data)
+    return data
+
 def test3():
     window.test3_callback()
     pass
 
 register_handler("test_button1", test_button1)
 register_handler("test_button2", test_button2)
+register_handler("test_command", test_command)
 register_handler("test_button3", test3)
