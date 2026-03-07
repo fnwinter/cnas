@@ -6,6 +6,7 @@ from util.system_path import get_gallery_thumbnail_path
 from util.config_path import get_gallery_path
 from util.file_util import is_image_file
 
+
 def correct_image_orientation(image):
     try:
         _exif = image.getexif()

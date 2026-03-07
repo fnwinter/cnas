@@ -1,7 +1,7 @@
 from flask import Flask
 
 from route.route import route
-from service.background import background
+from services.service import service_process
 from util.config import CONFIG
 from util.setup import setup
 
@@ -16,5 +16,5 @@ _secret_key = CONFIG.get("secret_key")
 app.secret_key = 'your_secret_key'\
     if _secret_key is None else _secret_key
 
-background()
+service_process()
 route(app)
