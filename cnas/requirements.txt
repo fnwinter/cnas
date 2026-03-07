@@ -21,3 +21,4 @@ tomlkit==0.13.2
 typing_extensions==4.12.2
 virtualenv==20.26.3
 Werkzeug==3.0.4
+watchdog==6.0.0
