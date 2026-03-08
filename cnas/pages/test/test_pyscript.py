@@ -1,31 +1,11 @@
-import json
-
-from pyscript import fetch
 from pyscript import window
 from dispatch_event import register_handler
-
-async def call_test_api(body=None, url="/test/api1"):
-    """Call POST to the given url (default /test/api1) and return the JSON response."""
-    payload = json.dumps(body or {})
-    try:
-        text = await fetch(
-            url,
-            method="POST",
-            body=payload,
-            headers={"Content-Type": "application/json"},
-        ).text()
-        result = json.loads(text) if text else None
-        print("test/api response:", result)
-        return result
-    except Exception as e:
-        print(f"Error calling test/api: {e}")
-        return None
-
+from call_rest_api import call_rest_api
 
 async def test_button1(param1):
     print("test_button is called")
     print(param1)
-    data = await call_test_api({
+    data = await call_rest_api({
         "action": "test_button1",
         "param1": param1,
     })
@@ -34,26 +14,27 @@ async def test_button1(param1):
 async def test_button2(param1, param2):
     print("test_button is called")
     print(param1, param2)
-    data = await call_test_api({
+    data = await call_rest_api({
         "action": "test_button2",
         "param1": param1,
         "param2": param2,
     })
     print("test/api response:", data)
 
+def test_button3():
+    window.test3_callback()
+    pass
+
 async def test_command():
-    data = await call_test_api(
+    data = await call_rest_api(
         {"action": "test_command"},
         url="/test/api_command",
     )
     print("test/api_command response:", data)
     return data
 
-def test3():
-    window.test3_callback()
-    pass
 
 register_handler("test_button1", test_button1)
 register_handler("test_button2", test_button2)
+register_handler("test_button3", test_button3)
 register_handler("test_command", test_command)
-register_handler("test_button3", test3)

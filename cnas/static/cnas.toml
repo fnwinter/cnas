@@ -7,3 +7,4 @@ packages = ["cryptography"]
 
 [files]
 "./scripts/dispatch_event.py" = "dispatch_event.py"
+"./scripts/call_rest_api.py" = "call_rest_api.py"

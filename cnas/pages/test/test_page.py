@@ -1,5 +1,4 @@
 from flask import jsonify
-import os
 from jinja2 import Template
 
 from pages.base.page import page
