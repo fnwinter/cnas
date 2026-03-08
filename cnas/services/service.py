@@ -20,9 +20,6 @@ def service_process_task(
                     response_queue.put((request_id, result))
             except Empty:
                 break
-        print("service process working...")
-        #generate_thumbnail()
-        #time.sleep(100)
 
 def service_process() -> None:
     cmd_queue: multiprocessing.Queue = multiprocessing.Queue()

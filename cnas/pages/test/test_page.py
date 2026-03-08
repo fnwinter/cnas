@@ -33,6 +33,7 @@ class test_page(page):
             result = CmdMessageQueue.send_message(event)
             if result is None:
                 return jsonify({"status": "timeout", "message": "no response from service"}), 504
+            print("test/api_command response:", result)
             return jsonify({"status": "ok", "message": "command sent", "result": result}), 200
         except Exception as e:
             return jsonify({"status": "error", "message": str(e)}), 500
