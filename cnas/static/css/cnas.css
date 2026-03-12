@@ -1,5 +1,76 @@
 /* cnas css */
 
+/* Site color theme: white background, black text, accents #81A6C6 #AACDDC #F3E3D0 #D2C4B4 */
+:root {
+  --cnas-bg: #ffffff;
+  --cnas-text: #000000;
+  --cnas-primary: #81A6C6;
+  --cnas-secondary: #AACDDC;
+  --cnas-beige: #F3E3D0;
+  --cnas-tan: #D2C4B4;
+}
+
+body {
+  background-color: var(--cnas-bg);
+  color: var(--cnas-text);
+}
+
+.button.is-primary {
+  background-color: var(--cnas-primary);
+  border-color: var(--cnas-primary);
+}
+.button.is-primary:hover {
+  background-color: var(--cnas-secondary);
+  border-color: var(--cnas-secondary);
+}
+
+/* Input / Edit box: light background and border */
+.input,
+.textarea {
+  background-color: var(--cnas-beige);
+  border-color: var(--cnas-tan);
+  color: var(--cnas-text);
+}
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Editor / content box: beige background, black text */
+.box {
+  background-color: var(--cnas-beige) !important;
+  color: var(--cnas-text) !important;
+}
+.box .title,
+.box .subtitle,
+.box .label,
+.box .content,
+.box p,
+.box .has-text-grey,
+.box .has-text-grey-dark,
+.box .has-text-grey-light {
+  color: var(--cnas-text) !important;
+}
+
+/* Grey text utilities → black (all text black) */
+.has-text-grey,
+.has-text-grey-dark,
+.has-text-grey-light {
+  color: var(--cnas-text) !important;
+}
+
+/* Front/main content: all text black (Welcome, subtitle, Logged in as...) */
+.title,
+.subtitle,
+.section .title,
+.section .subtitle,
+.section p,
+.section p strong,
+p,
+strong {
+  color: var(--cnas-text) !important;
+}
+
 .rounded {
   border-radius: 15px;
 }
