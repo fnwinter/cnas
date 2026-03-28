@@ -51,7 +51,7 @@ fi
 
 echo "# run cherrynas"
 pushd cnas
-flask --app cnas run --host=0.0.0.0 --port=8090
+flask --app cnas run --host=0.0.0.0 --port=8090 &
 popd
 
 popd
