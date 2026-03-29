@@ -6,6 +6,7 @@ from pages.front.front import front
 from pages.gallaery.gallery import gallery
 from pages.music.music import music
 from pages.login.login import login
+from pages.system_status.system_status_page import system_status_page
 from pages.test.test_page import test_page
 
 from util.config import CONFIG
@@ -53,6 +54,11 @@ def route(app):
     def music_file(filename):
         directory = CONFIG.get('music_path')
         return send_from_directory(directory, filename)
+
+    @app.route("/system_status/api_mdstat", methods=["GET", "POST"])
+    @app.route("/system_status")
+    def system_status():
+        return system_status_page().load_scripts().body_content().get_content()
 
     @app.route("/test/api1", methods=['GET', 'POST'])
     @app.route("/test/api2", methods=['GET', 'POST'])

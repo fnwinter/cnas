@@ -1,0 +1,20 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">{{ title }}</h1>
+    <p class="subtitle">{{ content }}</p>
+    <div class="buttons">
+      <a href="/" class="button is-light">Front</a>
+      <a href="/test" class="button is-link">Test</a>
+      <button type="button" id="mdstat_refresh" onclick="mdstatShow()" class="button is-info">cat /proc/mdstat</button>
+    </div>
+    <div class="mdstat-result-block mt-5">
+      <p class="is-size-7 has-text-weight-semibold mb-2">/proc/mdstat</p>
+      <pre id="mdstat_result" class="p-3 has-background-light is-size-7" style="white-space: pre-wrap; word-break: break-word; max-height: 24rem; overflow: auto;"></pre>
+    </div>
+  </div>
+</section>
+<script>
+  function mdstatShow() {
+    callPython("system_mdstat");
+  }
+</script>
