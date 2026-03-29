@@ -3,6 +3,7 @@ import time
 from queue import Empty
 
 from pages.system.cmd_message_queue import CmdMessageQueue
+from services.command_handler import CmdHandler
 from services.thumbnail import generate_thumbnail
 
 
@@ -16,7 +17,7 @@ def service_process_task(
                 request_id, msg = cmd_queue.get(timeout=1.0)
                 print("service_process_task event received:", msg)
                 if response_queue is not None and request_id is not None:
-                    result = {"status": "ok", "event": msg, "received": True}
+                    result = CmdHandler.handle(msg)
                     response_queue.put((request_id, result))
             except Empty:
                 break

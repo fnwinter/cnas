@@ -4,6 +4,7 @@ pushd "$SCRIPT_DIR"
 
 DO_UPDATE=false
 DO_INSTALL=false
+DO_KILL=false
 
 for arg in "$@"; do
   case "$arg" in
@@ -13,8 +14,21 @@ for arg in "$@"; do
     --install)
       DO_INSTALL=true
       ;;
+    --kill)
+      DO_KILL=true
+      ;;
   esac
 done
+
+if [ "$DO_KILL" = true ]; then
+  echo "# kill running cnas (flask --app cnas run)"
+  if pkill -f "flask --app cnas run" 2>/dev/null; then
+    echo "sent SIGTERM to matching process(es)"
+  else
+    echo "no matching flask cnas process found (or pkill unavailable)"
+  fi
+  exit 0
+fi
 
 echo "# update code"
 if [ "$DO_UPDATE" = true ]; then

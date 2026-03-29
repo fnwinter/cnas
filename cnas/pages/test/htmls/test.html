@@ -7,6 +7,11 @@
   <button id="test3" onclick="test3()" class="button is-link">Test button 3</button>
   <button id="ls_command" onclick="lsCommand()" class="button is-info">ls command</button>
 </div>
+
+<div class="ls-command-result-block mt-5">
+  <p class="is-size-7 has-text-weight-semibold mb-2">ls command 결과</p>
+  <pre id="ls_command_result" class="p-3 has-background-light is-size-7" style="white-space: pre-wrap; word-break: break-word; max-height: 20rem; overflow: auto;"></pre>
+</div>
 <script>
   function test1() {
     callPython("test_button1", "test1");
