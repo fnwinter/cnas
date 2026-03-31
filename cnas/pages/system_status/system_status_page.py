@@ -2,10 +2,10 @@ from flask import jsonify
 from jinja2 import Template
 
 from pages.base.page import page
-from pages.system.cmd_message_queue import CmdMessageQueue
-from pages.system.html import html_file
-from pages.system.pyscript import pyscript
-from pages.system.rest_call import rest_call
+from pages.base.system.cmd_message_queue import CmdMessageQueue
+from pages.base.system.html import html_file
+from pages.base.system.pyscript import pyscript
+from pages.base.system.rest_call import rest_call
 
 
 class system_status_page(page):

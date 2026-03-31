@@ -3,9 +3,9 @@ from flask import jsonify, request, session, redirect
 from jinja2 import Template
 
 from pages.base.page import page
-from pages.system.html import html_file
-from pages.system.pyscript import pyscript
-from pages.system.rest_call import rest_call
+from pages.base.system.html import html_file
+from pages.base.system.pyscript import pyscript
+from pages.base.system.rest_call import rest_call
 
 from util.config import CONFIG
 from util.hash_string import verify_string

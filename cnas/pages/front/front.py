@@ -1,7 +1,7 @@
 from jinja2 import Template
 
 from pages.base.page import page
-from pages.system.html import html_file
+from pages.base.system.html import html_file
 
 
 class front(page):
