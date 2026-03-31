@@ -6,6 +6,7 @@ from pages.front.front import front
 from pages.gallaery.gallery import gallery
 from pages.music.music import music
 from pages.login.login import login
+from pages.storage_status.storage_status_page import storage_status_page
 from pages.system_status.system_status_page import system_status_page
 from pages.test.test_page import test_page
 
@@ -59,6 +60,11 @@ def route(app):
     @app.route("/system_status")
     def system_status():
         return system_status_page().load_scripts().body_content().get_content()
+
+    @app.route("/storage_status/api_df_h", methods=["GET", "POST"])
+    @app.route("/storage_status")
+    def storage_status():
+        return storage_status_page().load_scripts().body_content().get_content()
 
     @app.route("/test/api1", methods=['GET', 'POST'])
     @app.route("/test/api2", methods=['GET', 'POST'])

@@ -1,0 +1,20 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">{{ title }}</h1>
+    <p class="subtitle">{{ content }}</p>
+    <div class="buttons">
+      <button type="button" id="storage_check_status" onclick="storageCheckStatus()" class="button is-info">Check status</button>
+      <a href="/" class="button is-light">Front</a>
+      <a href="/test" class="button is-link">Test</a>
+    </div>
+    <div class="storage-df-result-block mt-5">
+      <p class="is-size-7 has-text-weight-semibold mb-2">df -h</p>
+      <pre id="storage_df_result" class="p-3 has-background-light is-size-7" style="white-space: pre-wrap; word-break: break-word; max-height: 24rem; overflow: auto;"></pre>
+    </div>
+  </div>
+</section>
+<script>
+  function storageCheckStatus() {
+    callPython("storage_check_status");
+  }
+</script>
