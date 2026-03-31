@@ -29,6 +29,17 @@ class system_status_page(page):
         except Exception as e:
             return jsonify({"status": "error", "message": str(e)}), 500
 
+    @rest_call("system_status/api_ps_aux")
+    def rest_api_ps_aux(self):
+        try:
+            event = {"event": "ps_aux_command", "source": "system_status ps aux button"}
+            result = CmdMessageQueue.send_message(event, timeout=120.0)
+            if result is None:
+                return jsonify({"status": "timeout", "message": "no response from service"}), 504
+            return jsonify({"status": "ok", "message": "ps aux", "result": result}), 200
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
+
     def body_content(self):
         self.html = Template(self.html).render(
             title="System status",

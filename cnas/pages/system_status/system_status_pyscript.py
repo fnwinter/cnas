@@ -43,4 +43,24 @@ async def system_mdstat():
     return data
 
 
+async def system_ps_aux():
+    out_el = document.querySelector("#ps_aux_result")
+    if out_el is not None:
+        out_el.textContent = "Loading…"
+
+    data = await call_rest_api(
+        {"action": "ps_aux"},
+        url="/system_status/api_ps_aux",
+    )
+
+    if out_el is not None:
+        if data is None:
+            out_el.textContent = "No response from server."
+        else:
+            out_el.textContent = _format_command_response_for_display(data)
+
+    return data
+
+
 register_handler("system_mdstat", system_mdstat)
+register_handler("system_ps_aux", system_ps_aux)

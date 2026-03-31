@@ -57,6 +57,7 @@ def route(app):
         return send_from_directory(directory, filename)
 
     @app.route("/system_status/api_mdstat", methods=["GET", "POST"])
+    @app.route("/system_status/api_ps_aux", methods=["GET", "POST"])
     @app.route("/system_status")
     def system_status():
         return system_status_page().load_scripts().body_content().get_content()

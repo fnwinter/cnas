@@ -12,6 +12,7 @@ class CmdHandler:
     EVENT_TEST_COMMAND = "test_command"
     EVENT_MDSTAT_COMMAND = "mdstat_command"
     EVENT_DF_H_COMMAND = "df_h_command"
+    EVENT_PS_AUX_COMMAND = "ps_aux_command"
 
     @classmethod
     def handle(cls, message: Any) -> dict[str, Any]:
@@ -21,6 +22,8 @@ class CmdHandler:
             return cls._handle_mdstat_command(message)
         if isinstance(message, dict) and message.get("event") == cls.EVENT_DF_H_COMMAND:
             return cls._handle_df_h_command(message)
+        if isinstance(message, dict) and message.get("event") == cls.EVENT_PS_AUX_COMMAND:
+            return cls._handle_ps_aux_command(message)
         return {"status": "ok", "event": message, "received": True}
 
     @classmethod
@@ -80,6 +83,27 @@ class CmdHandler:
         return {
             "status": "ok" if proc.returncode == 0 else "error",
             "event": cls.EVENT_DF_H_COMMAND,
+            "received": True,
+            "result": output,
+            "returncode": proc.returncode,
+            "source": message.get("source"),
+        }
+
+    @classmethod
+    def _handle_ps_aux_command(cls, message: dict[str, Any]) -> dict[str, Any]:
+        proc = subprocess.run(
+            "ps aux",
+            shell=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=90,
+        )
+        output = (proc.stdout or "") + (proc.stderr or "")
+        return {
+            "status": "ok" if proc.returncode == 0 else "error",
+            "event": cls.EVENT_PS_AUX_COMMAND,
             "received": True,
             "result": output,
             "returncode": proc.returncode,

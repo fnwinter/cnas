@@ -6,15 +6,23 @@
       <a href="/" class="button is-light">Front</a>
       <a href="/test" class="button is-link">Test</a>
       <button type="button" id="mdstat_refresh" onclick="mdstatShow()" class="button is-info">cat /proc/mdstat</button>
+      <button type="button" id="ps_aux_refresh" onclick="psAuxShow()" class="button is-info is-light">ps aux</button>
     </div>
     <div class="mdstat-result-block mt-5">
       <p class="is-size-7 has-text-weight-semibold mb-2">/proc/mdstat</p>
       <pre id="mdstat_result" class="p-3 has-background-light is-size-7" style="white-space: pre-wrap; word-break: break-word; max-height: 24rem; overflow: auto;"></pre>
+    </div>
+    <div class="ps-aux-result-block mt-5">
+      <p class="is-size-7 has-text-weight-semibold mb-2">ps aux (process list)</p>
+      <pre id="ps_aux_result" class="p-3 has-background-light is-size-7" style="white-space: pre-wrap; word-break: break-word; max-height: 32rem; overflow: auto;"></pre>
     </div>
   </div>
 </section>
 <script>
   function mdstatShow() {
     callPython("system_mdstat");
+  }
+  function psAuxShow() {
+    callPython("system_ps_aux");
   }
 </script>
