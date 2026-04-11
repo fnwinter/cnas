@@ -1,0 +1,37 @@
+{{ title }}
+{{ content }}
+
+<div class="buttons">
+  <button type="button" class="button is-primary" onclick="minecraftInstallJava()">install java server</button>
+  <button type="button" class="button is-link" onclick="minecraftStartJava()">start java server</button>
+  <button type="button" class="button is-warning" onclick="minecraftStopJava()">stop java server</button>
+  <button type="button" class="button is-primary" onclick="minecraftInstallBedrock()">install bedrock server</button>
+  <button type="button" class="button is-link" onclick="minecraftStartBedrock()">start bedrock server</button>
+  <button type="button" class="button is-danger" onclick="minecraftStopBedrock()">stop bedrock server</button>
+</div>
+
+<div class="minecraft-command-result-block mt-5">
+  <p class="is-size-7 has-text-weight-semibold mb-2">실행 결과</p>
+  <pre id="minecraft_command_result" class="p-3 has-background-light is-size-7" style="white-space: pre-wrap; word-break: break-word; max-height: 24rem; overflow: auto;"></pre>
+</div>
+
+<script>
+  function minecraftInstallJava() {
+    callPython("minecraft_run", "install_java");
+  }
+  function minecraftStartJava() {
+    callPython("minecraft_run", "start_java");
+  }
+  function minecraftStopJava() {
+    callPython("minecraft_run", "stop_java");
+  }
+  function minecraftInstallBedrock() {
+    callPython("minecraft_run", "install_bedrock");
+  }
+  function minecraftStartBedrock() {
+    callPython("minecraft_run", "start_bedrock");
+  }
+  function minecraftStopBedrock() {
+    callPython("minecraft_run", "stop_bedrock");
+  }
+</script>

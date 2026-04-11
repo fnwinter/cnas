@@ -8,6 +8,7 @@ from pages.music.music import music
 from pages.login.login import login
 from pages.storage_status.storage_status_page import storage_status_page
 from pages.system_status.system_status_page import system_status_page
+from pages.minecraft.minecraft_page import minecraft_page
 from pages.test.test_page import test_page
 
 from util.config import CONFIG
@@ -66,6 +67,11 @@ def route(app):
     @app.route("/storage_status")
     def storage_status():
         return storage_status_page().load_scripts().body_content().get_content()
+
+    @app.route("/minecraft/api_run", methods=["GET", "POST"])
+    @app.route("/minecraft")
+    def minecraft():
+        return minecraft_page().load_scripts().body_content().get_content()
 
     @app.route("/test/api1", methods=['GET', 'POST'])
     @app.route("/test/api2", methods=['GET', 'POST'])
