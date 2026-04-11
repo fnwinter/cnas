@@ -8,3 +8,4 @@
 /bedrock/*/*
 !bedrock/install_bedrock_server.sh
 !bedrock/run_bedrock_server.sh
+!bedrock/kill_bedrock_server.sh
