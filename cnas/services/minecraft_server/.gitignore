@@ -1,0 +1,10 @@
+/java/*
+/java/*/*
+!java/install_minecraft_server.sh
+!java/run_minecraft_server.sh
+!java/minecraft_server.26.1.1.jar
+
+/bedrock/*
+/bedrock/*/*
+!bedrock/install_bedrock_server.sh
+!bedrock/run_bedrock_server.sh
