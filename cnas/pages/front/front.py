@@ -15,10 +15,8 @@ class front(page):
         return self
 
     def body_content(self):
-        user_email = self.get_session("user_email")
         self.html = Template(self.html).render(
             title="Welcome",
             content="This is the front page. You can access Gallery, Music, or Test.",
-            user_email=user_email or "",
         )
         return self

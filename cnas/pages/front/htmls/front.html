@@ -2,9 +2,6 @@
   <div class="container">
     <h1 class="title">{{ title }}</h1>
     <p class="subtitle">{{ content }}</p>
-    {% if user_email %}
-    <p class="mb-4">Logged in as <strong>{{ user_email }}</strong>.</p>
-    {% endif %}
     <div class="buttons">
       <a href="/gallery" class="button is-primary">Gallery</a>
       <a href="/music" class="button is-link">Music</a>
@@ -12,9 +9,6 @@
       <a href="/system_status" class="button is-info is-light">system_status</a>
       <a href="/storage_status" class="button is-info is-light">storage_status</a>
       <a href="/minecraft" class="button is-info is-light">minecraft servers</a>
-      <form method="POST" action="/login/logout" style="display: inline;">
-        <button type="submit" class="button is-danger">Logout</button>
-      </form>
     </div>
   </div>
 </section>

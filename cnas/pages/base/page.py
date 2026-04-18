@@ -3,6 +3,7 @@ from flask import request, session
 
 from components.elements.html import html
 from components.widgets.head_widget import head_widget
+from components.widgets.navibar_widget import navibar_widget
 from components.widgets.body_widget import body_widget
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,8 +14,9 @@ def _collect_rest_api_mapping(cls) -> dict:
     mapping = {}
     for c in reversed(cls.__mro__):
         for name, attr in getattr(c, "__dict__", {}).items():
-            if callable(attr) and getattr(attr, "_rest_api_path", None) is not None:
-                mapping[attr._rest_api_path] = name
+            api_path = getattr(attr, "_rest_api_path", None)
+            if callable(attr) and api_path is not None:
+                mapping[api_path] = name
     return mapping
 
 
@@ -62,7 +64,7 @@ class page:
         with open(redirect_path, "r", encoding="utf-8") as f:
             return f.read()
 
-    def get_content(self):
+    def get_content(self, navibar=True):
         path_key = request.path.lstrip("/")
         if path_key in self.rest_api_mapping:
             method_name = self.rest_api_mapping[path_key]
@@ -75,6 +77,7 @@ class page:
 
         __html = html(
             head_widget(title=self.title),
+            navibar_widget().set_auth(self.get_session("user_email") or "") if navibar else None,
             body_widget(need_loading).set_content(
                 self.html + self.pyscript))
         return str(__html)

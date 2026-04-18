@@ -33,11 +33,11 @@ def route(app):
     @app.route("/login/login", methods=["POST"])
     @app.route("/login/logout", methods=["POST"])
     def login_page():
-        return login().load_scripts().body_content().get_content()
+        return login().load_scripts().body_content().get_content(navibar=False)
 
     @app.route("/lost_pwd")
     def lost_pwd_page():
-        return lost_pwd().load_scripts().body_content().get_content()
+        return lost_pwd().load_scripts().body_content().get_content(navibar=False)
 
     @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:
