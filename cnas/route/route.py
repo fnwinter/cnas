@@ -6,6 +6,7 @@ from pages.front.front import front
 from pages.gallaery.gallery import gallery
 from pages.music.music import music
 from pages.login.login import login
+from pages.login.lost_pwd import lost_pwd
 from pages.storage_status.storage_status_page import storage_status_page
 from pages.system_status.system_status_page import system_status_page
 from pages.minecraft.minecraft_page import minecraft_page
@@ -33,6 +34,10 @@ def route(app):
     @app.route("/login/logout", methods=["POST"])
     def login_page():
         return login().load_scripts().body_content().get_content()
+
+    @app.route("/lost_pwd")
+    def lost_pwd_page():
+        return lost_pwd().load_scripts().body_content().get_content()
 
     @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:

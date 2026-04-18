@@ -1,21 +1,36 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forgot Password - CNAS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     .reset-container {
-      background: #ffffff;
       min-height: 100vh;
+      background: #ffffff;
+      color: #000000;
     }
     .reset-box {
       background: white;
       border-radius: 10px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
       padding: 2rem;
+    }
+    .reset-container .button.is-primary {
+      background-color: #81A6C6;
+      border-color: #81A6C6;
+    }
+    .reset-container .button.is-primary:hover {
+      background-color: #AACDDC;
+      border-color: #AACDDC;
+      transform: none;
+      box-shadow: none;
+    }
+    .reset-container .input {
+      background-color: #F3E3D0;
+      border-color: #D2C4B4;
+      color: #000000;
+    }
+    .reset-container .input::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+    .reset-container .input:focus {
+      border-color: #81A6C6;
+      box-shadow: 0 0 0 0.125em rgba(129, 166, 198, 0.25);
     }
     .logo {
       text-align: center;
@@ -28,19 +43,6 @@
     }
     .field:not(:last-child) {
       margin-bottom: 1.5rem;
-    }
-    .button.is-primary {
-      background: linear-gradient(135deg, #81A6C6 0%, #AACDDC 100%);
-      border: none;
-      transition: all 0.3s ease;
-    }
-    .button.is-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(129, 166, 198, 0.4);
-    }
-    .input:focus {
-      border-color: #81A6C6;
-      box-shadow: 0 0 0 0.125em rgba(129, 166, 198, 0.25);
     }
     .help-links {
       text-align: center;
@@ -128,8 +130,6 @@
       border-radius: 4px;
     }
   </style>
-</head>
-<body>
   <div class="reset-container">
     <section class="hero is-fullheight">
       <div class="hero-body">
@@ -304,22 +304,20 @@
                     </div>
                   </form>
                 </div>
-
                 <!-- Divider -->
                 <div class="divider">
                   <span>or</span>
                 </div>
-
                 <!-- Help links -->
                 <div class="help-links">
-                  <a href="login.html">
+                  <a href="login">
                     <span class="icon is-small">
                       <i class="fas fa-sign-in-alt"></i>
                     </span>
                     Back to login
                   </a>
                   <span class="has-text-grey">|</span>
-                  <a href="create_account.html">
+                  <a href="create_account">
                     <span class="icon is-small">
                       <i class="fas fa-user-plus"></i>
                     </span>
@@ -439,5 +437,3 @@
       }
     });
   </script>
-</body>
-</html>
