@@ -7,5 +7,5 @@
 /bedrock/*
 /bedrock/*/*
 !bedrock/install_bedrock_server.sh
-!bedrock/run_bedrock_server.sh
-!bedrock/kill_bedrock_server.sh
+!bedrock/start_bedrock_server.sh
+!bedrock/stop_bedrock_server.sh
