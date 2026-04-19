@@ -5,7 +5,9 @@ class body_widget(tag):
         super().__init__(*args, **kwargs)
         self.append("<button id='call_python'></button>")
         self.append("<dialog id='loading'>")
-        self.append("    <p>Loading...</p>")
+        self.append("    <div class='loading-dialog-panel'>")
+        self.append("        <p class='loading-dialog-text'>Loading...</p>")
+        self.append("    </div>")
         self.append("</dialog>")
         if show_loading:
             self.append("<script>showLoading();</script>")
