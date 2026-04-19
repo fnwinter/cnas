@@ -17,6 +17,6 @@ class front(page):
     def body_content(self):
         self.html = Template(self.html).render(
             title="Welcome",
-            content="This is the front page. You can access Gallery, Music, or Test.",
+            content="This is the front page. You can access Gallery, Music, Test, or PDF viewer.",
         )
         return self

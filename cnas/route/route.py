@@ -11,6 +11,7 @@ from pages.storage_status.storage_status_page import storage_status_page
 from pages.system_status.system_status_page import system_status_page
 from pages.minecraft.minecraft_page import minecraft_page
 from pages.test.test_page import test_page
+from pages.pdf_viewer.pdf_viewer import pdf_viewer_page
 
 from util.config import CONFIG
 from util.system_path import get_gallery_thumbnail_path
@@ -84,3 +85,7 @@ def route(app):
     @app.route("/test")
     def test():
         return test_page().load_scripts().body_content().get_content()
+
+    @app.route("/pdf_viewer")
+    def pdf_viewer():
+        return pdf_viewer_page().load_scripts().body_content().get_content()
