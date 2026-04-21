@@ -41,7 +41,7 @@ class front(page):
 
         self.html = Template(self.html).render(
             title="Welcome",
-            content="This is the front page. You can access Gallery, Music, Test, or PDF viewer.",
+            content="Front page of the CNAS system.",
             buttons=buttons_html,
         )
         return self
