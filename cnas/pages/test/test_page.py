@@ -8,6 +8,10 @@ from pages.base.system.pyscript import pyscript
 from pages.base.system.rest_call import rest_call
 
 class test_page(page):
+    """
+    Test page for testing the button call functionality.
+    write here the description of the page.
+    """
     def __init__(self):
         super().__init__()
         super().set_title("test page")

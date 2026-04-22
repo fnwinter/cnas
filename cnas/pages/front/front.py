@@ -15,6 +15,7 @@ __FRONT_BUTTONS__ = [
     ("System status",  "/system_status",  "static/icons/system_status.png"),
     ("Storage status", "/storage_status", "static/icons/storage_status.png"),
     ("Minecraft",      "/minecraft",      "static/icons/minecraft_server.png"),
+    ("Trac",           "/trac_proxy",     "static/icons/trac.png"),
 ]
 
 class front(page):

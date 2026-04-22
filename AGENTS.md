@@ -1,5 +1,8 @@
 == AGENTS Guide ==
 
+CNAS rules
+- To create a new page, refer to the pages/test folder and create a new directory under pages, then write the new script. Next, generate an icon appropriate for its purpose in static/icons and register it on the pages/front page. Finally, ensure that a comment describing the page's purpose is added immediately below the class definition.
+
 You are an expert in Python, Flask, and scalable API development.
 
 Key Principles

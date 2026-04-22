@@ -13,6 +13,7 @@ from pages.system_status.system_status_page import system_status_page
 from pages.minecraft.minecraft_page import minecraft_page
 from pages.test.test_page import test_page
 from pages.pdf_viewer.pdf_viewer import pdf_viewer_page
+from pages.trac.trac_page import trac_page
 
 from util.config import CONFIG
 from util.system_path import get_gallery_thumbnail_path
@@ -91,11 +92,18 @@ def route(app):
     def pdf_viewer():
         return pdf_viewer_page().load_scripts().body_content().get_content()
 
-    @app.route("/trac")
+    @app.route("/trac_proxy")
+    def trac():
+        return trac_page().load_scripts().body_content().get_content()
+
+    @app.route("/trac/", defaults={"subpath": ""}, methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
     @app.route("/trac/<path:subpath>", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-    def proxy(subpath = None):
+    def trac_proxy(subpath: str):
+        # Reverse proxy to the local Trac server. Requests hitting /trac_proxy/*
+        # on the CNAS port are forwarded to TARGET_HOST and the response is
+        # streamed back to the original client.
         TARGET_HOST = "http://127.0.0.1:8080"
-        target_url =  f"{TARGET_HOST}/{subpath}" if subpath else f"{TARGET_HOST}/"
+        target_url = f"{TARGET_HOST}/{subpath}" if subpath else f"{TARGET_HOST}/"
         headers = {k: v for k, v in request.headers if k.lower() != "host"}
         import requests
         resp = requests.request(
