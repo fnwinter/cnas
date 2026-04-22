@@ -96,7 +96,7 @@ def route(app):
     def trac():
         return trac_page().load_scripts().body_content().get_content()
 
-    @app.route("/trac/", defaults={"subpath": ""}, methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+    @app.route("/trac")
     @app.route("/trac/<path:subpath>", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
     def trac_proxy(subpath: str):
         # Reverse proxy to the local Trac server. Requests hitting /trac_proxy/*
