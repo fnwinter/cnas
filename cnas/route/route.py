@@ -1,4 +1,5 @@
 from flask import send_from_directory
+from flask import request, Response
 
 from pages.base.error import error
 from pages.front.front import front
@@ -89,3 +90,27 @@ def route(app):
     @app.route("/pdf_viewer")
     def pdf_viewer():
         return pdf_viewer_page().load_scripts().body_content().get_content()
+
+    @app.route("/trac")
+    @app.route("/trac/<path:subpath>", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+    def proxy(subpath = None):
+        TARGET_HOST = "http://127.0.0.1:8080"
+        target_url =  f"{TARGET_HOST}/{subpath}" if subpath else f"{TARGET_HOST}/"
+        headers = {k: v for k, v in request.headers if k.lower() != "host"}
+        import requests
+        resp = requests.request(
+            method=request.method,
+            url=target_url,
+            headers=headers,
+            params=request.args.to_dict(),
+            data=request.get_data(),
+            cookies=request.cookies,
+            allow_redirects=False,
+            stream=True,
+        )
+        excluded_headers = ["content-encoding", "content-length", "transfer-encoding", "connection"]
+        response_headers = [
+            (name, value) for name, value in resp.raw.headers.items()
+            if name.lower() not in excluded_headers
+        ]
+        return Response(resp.content, resp.status_code, response_headers)
