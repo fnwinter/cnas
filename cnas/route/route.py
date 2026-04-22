@@ -96,14 +96,14 @@ def route(app):
     def trac():
         return trac_page().load_scripts().body_content().get_content()
 
-    @app.route("/trac")
+    @app.route("/trac", defaults={"subpath": ""})
     @app.route("/trac/<path:subpath>", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
     def trac_proxy(subpath: str):
         # Reverse proxy to the local Trac server. Requests hitting /trac_proxy/*
         # on the CNAS port are forwarded to TARGET_HOST and the response is
         # streamed back to the original client.
-        TARGET_HOST = "http://127.0.0.1:8080"
-        target_url = f"{TARGET_HOST}/{subpath}" if subpath else f"{TARGET_HOST}/"
+        TARGET_HOST = "http://192.168.29.205:8080/"
+        target_url = f"{TARGET_HOST}/trac/{subpath}" if subpath else f"{TARGET_HOST}/trac"
         headers = {k: v for k, v in request.headers if k.lower() != "host"}
         import requests
         resp = requests.request(
