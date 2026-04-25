@@ -37,6 +37,8 @@ class gallery(page):
     def set_current_path(self):
         if not self.current_path:
             self.current_path = self.gallery_path
+        print(f"self.current_path: {self.current_path}")
+        print(f"self.gallery_path: {self.gallery_path}")
         if not rel_path(self.current_path, self.gallery_path):
             self.current_path = self.gallery_path
         if not os.path.exists(self.current_path):

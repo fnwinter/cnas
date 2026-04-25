@@ -50,6 +50,12 @@ class login(page):
         """Compare id/password with config admin_id/admin_password using hash_string (verify_string)."""
         stored_id_hash = CONFIG.get("admin_id")
         stored_password_hash = CONFIG.get("admin_password")
+        debug_mode = CONFIG.get("debug_mode")
+        if debug_mode:
+            print(f"stored_id_hash: {stored_id_hash}")
+            print(f"stored_password_hash: {stored_password_hash}")
+            print(f"id_val: {id_val}")
+            print(f"password_val: {password_val}")
         if not stored_id_hash or not stored_password_hash:
             return False
         return verify_string(id_val, stored_id_hash) and verify_string(password_val, stored_password_hash)

@@ -5,6 +5,7 @@ pushd "$SCRIPT_DIR"
 DO_UPDATE=false
 DO_INSTALL=false
 DO_KILL=false
+DO_BACKGROUND=false
 
 for arg in "$@"; do
   case "$arg" in
@@ -16,6 +17,9 @@ for arg in "$@"; do
       ;;
     --kill)
       DO_KILL=true
+      ;;
+    --background)
+      DO_BACKGROUND=true
       ;;
   esac
 done
@@ -65,7 +69,11 @@ fi
 
 echo "# run cherrynas"
 pushd cnas
-flask --app cnas run --host=0.0.0.0 --port=8090 &
+if [ "$DO_BACKGROUND" = true ]; then
+  flask --app cnas run --host=0.0.0.0 --port=8090 &
+else
+  flask --app cnas run --host=0.0.0.0 --port=8090
+fi
 popd
 
 popd

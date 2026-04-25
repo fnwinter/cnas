@@ -46,6 +46,42 @@ def _prompt_admin_credentials() -> tuple[str, str]:
     return admin_id, password
 
 
+def _get_default_gallery_path() -> str:
+    """Return the default gallery path used when setup input is skipped."""
+    return os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "..",
+            "test_assets",
+            "images",
+        )
+    )
+
+
+def _prompt_gallery_path() -> str:
+    """Prompt for gallery_path. Return the default path when input is empty."""
+    default_gallery_path = _get_default_gallery_path()
+
+    print("==========================")
+    print("=== Setup Gallery Path ===")
+    print("==========================")
+    while True:
+        gallery_path = input(
+            f"Gallery Path [default: {default_gallery_path}]: > "
+        ).strip()
+
+        if not gallery_path:
+            return default_gallery_path
+
+        gallery_path = os.path.abspath(os.path.expanduser(gallery_path))
+        if not os.path.isdir(gallery_path):
+            print("Gallery Path must be an existing directory. Try again.")
+            continue
+
+        return gallery_path
+
+
 def setup() -> bool:
     """
     Setup the CNAS: ensure ~/.cnas and config.json exist (via config),
@@ -71,6 +107,15 @@ def setup() -> bool:
             email, admin_password = _prompt_admin_credentials()
             cfg.set("admin_id", hash_string(email))
             cfg.set("admin_password", hash_string(admin_password))
+            cfg.save()
+        except (ValueError, EOFError) as e:
+            print(e)
+            return False
+
+    # 5. Ensure gallery_path; use test_assets/images when input is skipped
+    if not cfg.get("gallery_path"):
+        try:
+            cfg.set("gallery_path", _prompt_gallery_path())
             cfg.save()
         except (ValueError, EOFError) as e:
             print(e)
