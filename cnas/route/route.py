@@ -44,7 +44,7 @@ def route(app):
 
     @app.route("/gallery", methods=['GET', 'POST'])
     def gallery_page() -> str:
-        return str(gallery())
+        return gallery().load_scripts().body_content().get_content()
 
     @app.route('/gallery_file/<path:filename>')
     def gallery_file(filename):

@@ -1,5 +1,7 @@
 import os
 
+from jinja2 import Template
+
 from pages.base.page import page
 
 from util.file_util import is_image_file
@@ -7,38 +9,46 @@ from util.config_path import get_gallery_path
 from util.system_path import get_gallery_thumbnail_path
 from util.path_util import rel_path
 
-from components.elements.html import html
 from components.elements.section import section
 from components.elements.div import div
 from components.elements.para import para
 from components.elements.br import br
 
-from components.widgets.head_widget import head_widget
-from components.widgets.body_widget import body_widget
-from components.widgets.navibar_widget import navibar_widget
 from components.widgets.photo_widget import photo_widget
-from components.widgets.footer_widget import footer_widget
 
 from components.widgets.image_widget import image_widget
 
+__GALLERY_TEMPLATE__ = """
+{{ content }}
+{{ modal }}
+"""
+
+
 class gallery(page):
+    """
+    Gallery page for browsing images from the configured gallery path.
+    """
     def __init__(self):
         super().__init__()
+        super().set_title("Gallery")
         self.files = []
 
-        self.gallery_path = get_gallery_path()
+        gallery_path = get_gallery_path()
+        self.gallery_path = os.path.abspath(gallery_path) if gallery_path else ""
         self.thumbnail_path = get_gallery_thumbnail_path()
-        self.current_path = self.get_session("current_path")
+        session_path = self.get_session("current_path")
+        self.current_path = session_path if isinstance(session_path, str) else self.gallery_path
         self.r_path = "."
 
         self.set_current_path()
         self.get_files()
 
     def set_current_path(self):
+        if not self.gallery_path or not os.path.isdir(self.gallery_path):
+            self.current_path = ""
+            return
         if not self.current_path:
             self.current_path = self.gallery_path
-        print(f"self.current_path: {self.current_path}")
-        print(f"self.gallery_path: {self.gallery_path}")
         if not rel_path(self.current_path, self.gallery_path):
             self.current_path = self.gallery_path
         if not os.path.exists(self.current_path):
@@ -49,6 +59,8 @@ class gallery(page):
             return
 
         _path = self.json_data.get("path")
+        if not isinstance(_path, str):
+            return
         _full = os.path.abspath(os.path.join(self.current_path, _path))
 
         if os.path.isdir(_full):
@@ -56,7 +68,11 @@ class gallery(page):
             self.set_session("current_path", _full)
 
     def get_files(self):
+        if not self.current_path or not os.path.isdir(self.current_path):
+            return
         self.r_path = rel_path(self.current_path, self.gallery_path)
+        if not self.r_path:
+            self.r_path = "."
 
         if self.current_path != self.gallery_path:
             self.files.append(
@@ -91,7 +107,10 @@ class gallery(page):
                 self.files.append(
                     photo_widget(src="static/images/no_cache.png"))
 
-    def __str__(self):
+    def load_scripts(self):
+        return self
+
+    def body_content(self):
         _title_div = div(
             para(class_="title is-1 is-spaced").set_content("Gallery"),
             para(class_="subtitle is-3").set_content(f"/gallery/{self.r_path}"),
@@ -111,23 +130,11 @@ class gallery(page):
 
         _modal = image_widget()
 
-        return str(
-            html(
-                head_widget(title="Gallery"),
-                body_widget(
-                    navibar_widget().set_menu({
-                        "Create Folder":"",
-                        "-":"divider",
-                        "Select":"/",
-                        "Deselect":"",
-                        "Delete":"",
-                        "--":"divider",
-                        "Download":"",
-                        "Upload":"",
-                      }),
-                    _section,
-                    _modal,
-                    footer_widget()
-                )
-            )
+        self.html = Template(__GALLERY_TEMPLATE__).render(
+            content=str(_section),
+            modal=str(_modal),
         )
+        return self
+
+    def __str__(self):
+        return self.load_scripts().body_content().get_content()
