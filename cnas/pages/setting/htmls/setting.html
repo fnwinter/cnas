@@ -1,0 +1,35 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">{{ title }}</h1>
+    <p class="subtitle">{{ content }}</p>
+
+    <h2 class="title is-4 mt-5">Folder</h2>
+    <p class="is-size-7 has-text-grey mb-3">Leave a field blank to keep its current value.</p>
+
+    <div class="field">
+      <label class="label" for="gallery_path">Gallery path</label>
+      <div class="control">
+        <input id="gallery_path" class="input" type="text" value="{{ gallery_path }}" placeholder="/absolute/path/to/gallery" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="music_path">Music path</label>
+      <div class="control">
+        <input id="music_path" class="input" type="text" value="{{ music_path }}" placeholder="/absolute/path/to/music" />
+      </div>
+    </div>
+
+    <div class="buttons mt-4">
+      <button type="button" id="setting_save" onclick="settingSave()" class="button is-primary">Save</button>
+      <a href="/" class="button is-light">Front</a>
+    </div>
+
+    <p id="setting_result" class="is-size-7 mt-3"></p>
+  </div>
+</section>
+<script>
+  function settingSave() {
+    callPython("save_folders");
+  }
+</script>

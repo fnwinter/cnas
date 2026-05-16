@@ -1,10 +1,13 @@
 import os
-from flask import request, session
+from flask import request, session, jsonify
 
 from components.elements.html import html
 from components.widgets.head_widget import head_widget
 from components.widgets.navibar_widget import navibar_widget
 from components.widgets.body_widget import body_widget
+
+from util.config import CONFIG
+from util.hash_string import verify_string
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -28,6 +31,7 @@ class page:
         self.api_result = None
         self.json_data = {}
         self._need_login = False
+        self._need_admin = False
         if request.is_json:
             self.json_data = request.get_json()
         if self.filename is not None:
@@ -44,6 +48,25 @@ class page:
         """When True, get_content() redirects to /login if user is not logged in."""
         self._need_login = value
         return self
+
+    def need_admin(self, value: bool):
+        """When True, get_content() requires the session user to match the admin account.
+        Non-admin REST API calls return 403 JSON; page navigation redirects to /login.
+        """
+        self._need_admin = value
+        if value:
+            self._need_login = True
+        return self
+
+    def _is_admin(self) -> bool:
+        """Return True when the logged-in user's email matches the configured admin_id hash."""
+        user_email = self.get_session("user_email")
+        if not user_email:
+            return False
+        stored_id_hash = CONFIG.get("admin_id")
+        if not stored_id_hash:
+            return False
+        return verify_string(user_email, stored_id_hash)
 
     def set_pyscript(self, pyscript):
         self.pyscript = pyscript
@@ -66,7 +89,14 @@ class page:
 
     def get_content(self, navibar=True):
         path_key = request.path.lstrip("/")
-        if path_key in self.rest_api_mapping:
+        is_api = path_key in self.rest_api_mapping
+
+        if getattr(self, "_need_admin", False) and not self._is_admin():
+            if is_api:
+                return jsonify({"status": "error", "message": "Admin only."}), 403
+            return self._redirect_to_login()
+
+        if is_api:
             method_name = self.rest_api_mapping[path_key]
             return getattr(self, method_name)()
 

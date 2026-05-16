@@ -14,6 +14,7 @@ from pages.minecraft.minecraft_page import minecraft_page
 from pages.test.test_page import test_page
 from pages.pdf_viewer.pdf_viewer import pdf_viewer_page
 from pages.file_manager.file_manager_page import file_manager_page
+from pages.setting.setting_page import setting_page
 from pages.trac.trac_page import trac_page
 
 from util.config import CONFIG
@@ -96,6 +97,11 @@ def route(app):
     @app.route("/file_manager")
     def file_manager():
         return file_manager_page().load_scripts().body_content().get_content()
+
+    @app.route("/setting/api_save_folders", methods=["POST"])
+    @app.route("/setting")
+    def setting():
+        return setting_page().load_scripts().body_content().get_content()
 
     @app.route("/trac_proxy")
     def trac():
