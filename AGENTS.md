@@ -5,7 +5,7 @@
 - Finally, ensure that a comment describing the page's purpose is added immediately below the class definition.
 
 # Folder structure
-
+```
 root
 ├── cnas            cnas root folder
 │   ├── componets   html rendering components
@@ -22,6 +22,7 @@ root
 │   ├── musics
 │   └── videos
 └── run.sh
+```
 
 # Rule files
 
