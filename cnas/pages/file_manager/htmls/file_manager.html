@@ -1,0 +1,15 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">{{ title }}</h1>
+    <p class="subtitle">{{ content }}</p>
+    <div class="buttons">
+      <button type="button" id="file_manager_open" onclick="fileManagerOpen()" class="button is-info">Open</button>
+      <a href="/" class="button is-light">Front</a>
+    </div>
+  </div>
+</section>
+<script>
+  function fileManagerOpen() {
+    callPython("file_manager_open");
+  }
+</script>

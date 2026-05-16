@@ -12,6 +12,7 @@ __FRONT_BUTTONS__ = [
     ("Music",          "/music",          "static/icons/music.png"),
     ("Test",           "/test",           "static/icons/test.png"),
     ("PDF viewer",     "/pdf_viewer",     "static/icons/pdf_viewer.png"),
+    ("File manager",   "/file_manager",   "static/icons/file_manager.png"),
     ("System status",  "/system_status",  "static/icons/system_status.png"),
     ("Storage status", "/storage_status", "static/icons/storage_status.png"),
     ("Minecraft",      "/minecraft",      "static/icons/minecraft_server.png"),
