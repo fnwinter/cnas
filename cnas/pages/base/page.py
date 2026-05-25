@@ -13,11 +13,14 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def _collect_rest_api_mapping(cls) -> dict:
-    """Collect methods decorated with @rest_call from this class and bases; return {api_path: method_name} dict."""
+    """Collect @rest_call methods from this class and bases.
+
+    Returns {api_path: method_name}.
+    """
     mapping = {}
     for c in reversed(cls.__mro__):
         for name, attr in getattr(c, "__dict__", {}).items():
-            api_path = getattr(attr, "_rest_api_path", None)
+            api_path = getattr(attr, "rest_api_path", None)
             if callable(attr) and api_path is not None:
                 mapping[api_path] = name
     return mapping
@@ -28,10 +31,9 @@ class page:
         self.rest_api_mapping = _collect_rest_api_mapping(self.__class__)
         self.filename = os.path.join(SCRIPT_DIR, filename) if filename is not None else None
         self.pyscript = ""
-        self.api_result = None
         self.json_data = {}
-        self._need_login = False
-        self._need_admin = False
+        self._access = None
+        self.title = ""
         if request.is_json:
             self.json_data = request.get_json()
         if self.filename is not None:
@@ -44,18 +46,24 @@ class page:
         self.title = title
         return self
 
+    def set_body_html(self, html_content: str):
+        self.html = html_content
+        return self
+
     def need_login(self, value: bool):
         """When True, get_content() redirects to /login if user is not logged in."""
-        self._need_login = value
+        if value and self._access != "admin":
+            self._access = "login"
+        elif not value and self._access == "login":
+            self._access = None
         return self
 
     def need_admin(self, value: bool):
         """When True, get_content() requires the session user to match the admin account.
+
         Non-admin REST API calls return 403 JSON; page navigation redirects to /login.
         """
-        self._need_admin = value
-        if value:
-            self._need_login = True
+        self._access = "admin" if value else None
         return self
 
     def _is_admin(self) -> bool:
@@ -91,7 +99,7 @@ class page:
         path_key = request.path.lstrip("/")
         is_api = path_key in self.rest_api_mapping
 
-        if getattr(self, "_need_admin", False) and not self._is_admin():
+        if self._access == "admin" and not self._is_admin():
             if is_api:
                 return jsonify({"status": "error", "message": "Admin only."}), 403
             return self._redirect_to_login()
@@ -100,7 +108,7 @@ class page:
             method_name = self.rest_api_mapping[path_key]
             return getattr(self, method_name)()
 
-        if getattr(self, "_need_login", False) and not self.get_session("user_email"):
+        if self._access in ("login", "admin") and not self.get_session("user_email"):
             return self._redirect_to_login()
 
         need_loading = self.pyscript != "" and self.pyscript is not None

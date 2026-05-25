@@ -42,9 +42,8 @@ class front(page):
             for i, (_label, _href, _src) in enumerate(__FRONT_BUTTONS__)
         )
 
-        self.html = Template(self.html).render(
+        return self.set_body_html(Template(self.html).render(
             title="Welcome",
             content="Front page of the CNAS system.",
             buttons=buttons_html,
-        )
-        return self
+        ))

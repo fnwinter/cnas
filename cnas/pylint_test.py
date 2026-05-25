@@ -11,6 +11,7 @@ def run_pylint_on_directory(directory: str):
             if file.endswith('.py'):
                 file_path = os.path.join(root, file)
                 try:
+                    print(f"Running pylint on {file_path}")
                     output = subprocess.run(['pylint', file_path],
                                             capture_output=True,
                                             text=True)

@@ -32,5 +32,3 @@ if __name__ == "__main__":
         lines[4] = f"VERSION = \"{increase_version()}\"\n"
         f.write("".join(lines))
     make_commit()
-.join(lines))
-    make_commit()

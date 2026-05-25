@@ -130,7 +130,7 @@ class CmdHandler:
         }
 
     @classmethod
-    def _handle_minecraft_script(cls, message: dict[str, Any]) -> dict[str, Any]:
+    def _handle_minecraft_script(cls, message: dict[str, Any]) -> dict[str, Any]:  # pylint: disable=too-many-locals
         rel = message.get("script_key")
         if not isinstance(rel, str) or rel not in cls._MINECRAFT_SCRIPTS:
             return {
@@ -168,7 +168,7 @@ class CmdHandler:
         script_dir = os.path.dirname(script_path)
 
         if cfg.get("background"):
-            proc = subprocess.Popen(
+            proc = subprocess.Popen(  # pylint: disable=consider-using-with
                 ["/bin/sh", script_path],
                 cwd=script_dir,
                 stdout=subprocess.DEVNULL,
@@ -202,7 +202,11 @@ class CmdHandler:
             for stream in (e.stdout, e.stderr):
                 if not stream:
                     continue
-                chunks.append(stream if isinstance(stream, str) else stream.decode("utf-8", errors="replace"))
+                if isinstance(stream, str):
+                    decoded = stream
+                else:
+                    decoded = stream.decode("utf-8", errors="replace")
+                chunks.append(decoded)
             out = "\n".join(chunks).strip()
             msg = f"script timed out after {timeout}s"
             if out:

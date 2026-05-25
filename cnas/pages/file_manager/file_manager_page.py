@@ -20,8 +20,7 @@ class file_manager_page(page):
         return self
 
     def body_content(self):
-        self.html = Template(self.html).render(
+        return self.set_body_html(Template(self.html).render(
             title="File manager",
             content="Browse and manage files on the NAS storage.",
-        )
-        return self
+        ))

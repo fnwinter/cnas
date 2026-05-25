@@ -1,10 +1,8 @@
 import multiprocessing
-import time
 from queue import Empty
 
 from pages.base.system.cmd_message_queue import CmdMessageQueue
 from services.command_handler import CmdHandler
-from services.thumbnail import generate_thumbnail
 
 
 def service_process_task(

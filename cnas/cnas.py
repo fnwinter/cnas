@@ -1,3 +1,5 @@
+import sys
+
 from flask import Flask
 
 from route.route import route
@@ -7,7 +9,7 @@ from util.setup import setup
 
 if not setup():
     print("setup failed")
-    exit(1)
+    sys.exit(1)
 
 app = Flask(__name__)
 

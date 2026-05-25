@@ -130,11 +130,10 @@ class gallery(page):
 
         _modal = image_widget()
 
-        self.html = Template(__GALLERY_TEMPLATE__).render(
+        return self.set_body_html(Template(__GALLERY_TEMPLATE__).render(
             content=str(_section),
             modal=str(_modal),
-        )
-        return self
+        ))
 
     def __str__(self):
         return self.load_scripts().body_content().get_content()

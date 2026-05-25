@@ -28,7 +28,7 @@ class setting_page(page):
 
     @rest_call("setting/api_save_folders")
     def rest_save_folders(self):
-        """Validate and persist gallery_path / music_path to CONFIG. Empty field leaves the value unchanged."""
+        """Validate and persist gallery_path / music_path to CONFIG."""
         data = request.get_json(silent=True) or {}
         gallery_path = (data.get("gallery_path") or "").strip()
         music_path = (data.get("music_path") or "").strip()
@@ -36,13 +36,15 @@ class setting_page(page):
         if gallery_path:
             gallery_path = os.path.abspath(os.path.expanduser(gallery_path))
             if not os.path.isdir(gallery_path):
-                return jsonify({"status": "error", "message": f"Gallery path is not a directory: {gallery_path}"}), 400
+                message = f"Gallery path is not a directory: {gallery_path}"
+                return jsonify({"status": "error", "message": message}), 400
             CONFIG.set("gallery_path", gallery_path)
 
         if music_path:
             music_path = os.path.abspath(os.path.expanduser(music_path))
             if not os.path.isdir(music_path):
-                return jsonify({"status": "error", "message": f"Music path is not a directory: {music_path}"}), 400
+                message = f"Music path is not a directory: {music_path}"
+                return jsonify({"status": "error", "message": message}), 400
             CONFIG.set("music_path", music_path)
 
         CONFIG.save()
@@ -54,10 +56,9 @@ class setting_page(page):
         }), 200
 
     def body_content(self):
-        self.html = Template(self.html).render(
+        return self.set_body_html(Template(self.html).render(
             title="Setting",
             content="Configure folder paths used by CNAS features.",
             gallery_path=CONFIG.get("gallery_path") or "",
             music_path=CONFIG.get("music_path") or "",
-        )
-        return self
+        ))

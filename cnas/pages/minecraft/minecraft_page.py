@@ -55,8 +55,10 @@ class minecraft_page(page):
             return jsonify({"status": "error", "message": str(e)}), 500
 
     def body_content(self):
-        self.html = Template(self.html).render(
+        return self.set_body_html(Template(self.html).render(
             title="Minecraft servers",
-            content="Run install / start / stop scripts under services/minecraft_server (Java and Bedrock).",
-        )
-        return self
+            content=(
+                "Run install / start / stop scripts under "
+                "services/minecraft_server (Java and Bedrock)."
+            ),
+        ))

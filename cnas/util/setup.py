@@ -19,7 +19,7 @@ def _is_valid_email(value: str) -> bool:
 
 
 def _prompt_admin_credentials() -> tuple[str, str]:
-    """Prompt for email (admin_id) and admin_password (masked, twice). Return (email, admin_password)."""
+    """Prompt for email (admin_id) and admin_password. Return (email, admin_password)."""
     print("===============================")
     print("=== Setup Admin Credentials ===")
     print("===============================")

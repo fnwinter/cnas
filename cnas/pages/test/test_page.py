@@ -42,5 +42,7 @@ class test_page(page):
             return jsonify({"status": "error", "message": str(e)}), 500
 
     def body_content(self):
-        self.html = Template(self.html).render(title="button call test", content="This page is for testing the button call functionality.")
-        return self
+        return self.set_body_html(Template(self.html).render(
+            title="button call test",
+            content="This page is for testing the button call functionality.",
+        ))

@@ -30,8 +30,7 @@ class storage_status_page(page):
             return jsonify({"status": "error", "message": str(e)}), 500
 
     def body_content(self):
-        self.html = Template(self.html).render(
+        return self.set_body_html(Template(self.html).render(
             title="Storage status",
             content="Check disk usage with df -h on the NAS host.",
-        )
-        return self
+        ))

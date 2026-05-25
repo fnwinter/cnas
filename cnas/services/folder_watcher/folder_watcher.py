@@ -23,29 +23,26 @@ class FolderWatcher:
     def __init__(
         self,
         watch_path: str | Path,
-        on_created: Callable[[str], None] | None = None,
-        on_modified: Callable[[str], None] | None = None,
-        on_deleted: Callable[[str], None] | None = None,
-        on_moved: Callable[[str, str], None] | None = None,
+        callbacks: dict[str, Callable | None] | None = None,
         recursive: bool = True,
     ) -> None:
         """
         Args:
             watch_path: Directory path to watch.
-            on_created: Called with absolute path when a file/dir is created.
-            on_modified: Called with absolute path when a file/dir is modified.
-            on_deleted: Called with absolute path when a file/dir is deleted.
-            on_moved: Called with (src_path, dest_path) when a file/dir is moved.
+            callbacks: Optional dict with created, modified, deleted, moved handlers.
             recursive: If True, watch subdirectories as well.
         """
         self._watch_path = Path(watch_path).resolve()
         if not self._watch_path.is_dir():
             raise NotADirectoryError(f"watch_path must be a directory: {self._watch_path}")
 
-        self._on_created = on_created
-        self._on_modified = on_modified
-        self._on_deleted = on_deleted
-        self._on_moved = on_moved
+        callback_map = callbacks or {}
+        self._callbacks = {
+            "created": callback_map.get("created"),
+            "modified": callback_map.get("modified"),
+            "deleted": callback_map.get("deleted"),
+            "moved": callback_map.get("moved"),
+        }
         self._recursive = recursive
         self._observer = Observer()
         self._handler = _FolderEventHandler(self)
@@ -58,7 +55,11 @@ class FolderWatcher:
             recursive=self._recursive,
         )
         self._observer.start()
-        logger.info("FolderWatcher started for %s (recursive=%s)", self._watch_path, self._recursive)
+        logger.info(
+            "FolderWatcher started for %s (recursive=%s)",
+            self._watch_path,
+            self._recursive,
+        )
 
     def stop(self) -> None:
         """Stop the observer and wait for the thread to finish."""
@@ -66,31 +67,35 @@ class FolderWatcher:
         self._observer.join()
         logger.info("FolderWatcher stopped for %s", self._watch_path)
 
-    def _dispatch_created(self, path: str) -> None:
-        if self._on_created:
+    def dispatch_created(self, path: str) -> None:
+        callback = self._callbacks.get("created")
+        if callback:
             try:
-                self._on_created(path)
+                callback(path)
             except Exception as exc:
                 logger.exception("on_created callback failed for %s: %s", path, exc)
 
-    def _dispatch_modified(self, path: str) -> None:
-        if self._on_modified:
+    def dispatch_modified(self, path: str) -> None:
+        callback = self._callbacks.get("modified")
+        if callback:
             try:
-                self._on_modified(path)
+                callback(path)
             except Exception as exc:
                 logger.exception("on_modified callback failed for %s: %s", path, exc)
 
-    def _dispatch_deleted(self, path: str) -> None:
-        if self._on_deleted:
+    def dispatch_deleted(self, path: str) -> None:
+        callback = self._callbacks.get("deleted")
+        if callback:
             try:
-                self._on_deleted(path)
+                callback(path)
             except Exception as exc:
                 logger.exception("on_deleted callback failed for %s: %s", path, exc)
 
-    def _dispatch_moved(self, src_path: str, dest_path: str) -> None:
-        if self._on_moved:
+    def dispatch_moved(self, src_path: str, dest_path: str) -> None:
+        callback = self._callbacks.get("moved")
+        if callback:
             try:
-                self._on_moved(src_path, dest_path)
+                callback(src_path, dest_path)
             except Exception as exc:
                 logger.exception(
                     "on_moved callback failed for %s -> %s: %s",
@@ -114,21 +119,21 @@ class _FolderEventHandler(FileSystemEventHandler):
     def on_created(self, event: FileSystemEvent) -> None:
         if event.is_directory:
             return
-        self._watcher._dispatch_created(self._abs_path(event))
+        self._watcher.dispatch_created(self._abs_path(event))
 
     def on_modified(self, event: FileSystemEvent) -> None:
         if event.is_directory:
             return
-        self._watcher._dispatch_modified(self._abs_path(event))
+        self._watcher.dispatch_modified(self._abs_path(event))
 
     def on_deleted(self, event: FileSystemEvent) -> None:
         if event.is_directory:
             return
-        self._watcher._dispatch_deleted(Path(event.src_path).resolve().as_posix())
+        self._watcher.dispatch_deleted(Path(event.src_path).resolve().as_posix())
 
     def on_moved(self, event: FileMovedEvent) -> None:
         if event.is_directory:
             return
         src = str(Path(event.src_path).resolve())
         dest = str(Path(event.dest_path).resolve())
-        self._watcher._dispatch_moved(src, dest)
+        self._watcher.dispatch_moved(src, dest)

@@ -23,7 +23,7 @@ class login(page):
 
     @rest_call("login/login")
     def post_login(self):
-        """Accept id/password, verify against config admin_id/admin_password (hash_string), set session on success."""
+        """Accept id/password and verify against config admin_id/admin_password."""
         data = request.get_json()
         if not data:
             return jsonify({"success": False, "message": "No request data."}), 200
@@ -47,7 +47,7 @@ class login(page):
         return redirect("/login")
 
     def _verify_admin(self, id_val: str, password_val: str) -> bool:
-        """Compare id/password with config admin_id/admin_password using hash_string (verify_string)."""
+        """Compare id/password with config admin_id/admin_password via verify_string."""
         stored_id_hash = CONFIG.get("admin_id")
         stored_password_hash = CONFIG.get("admin_password")
         debug_mode = CONFIG.get("debug_mode")
@@ -58,8 +58,10 @@ class login(page):
             print(f"password_val: {password_val}")
         if not stored_id_hash or not stored_password_hash:
             return False
-        return verify_string(id_val, stored_id_hash) and verify_string(password_val, stored_password_hash)
+        return (
+            verify_string(id_val, stored_id_hash)
+            and verify_string(password_val, stored_password_hash)
+        )
 
     def body_content(self):
-        self.html = Template(self.html).render()
-        return self
+        return self.set_body_html(Template(self.html).render())

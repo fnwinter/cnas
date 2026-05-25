@@ -7,7 +7,7 @@ from dispatch_event import register_handler
 
 
 async def login_handler(login_id: str, password: str) -> None:
-    """Send id/password to server. Server compares with config admin id/password via hash_string; on match, login success."""
+    """Send id/password to server; on match, redirect to home."""
     payload = json.dumps({"id": login_id, "password": password})
     try:
         resp = await fetch(

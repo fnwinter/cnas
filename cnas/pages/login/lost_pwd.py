@@ -14,5 +14,4 @@ class lost_pwd(page):
         return self
 
     def body_content(self):
-        self.html = Template(self.html).render()
-        return self
+        return self.set_body_html(Template(self.html).render())

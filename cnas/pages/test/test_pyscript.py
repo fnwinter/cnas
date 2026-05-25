@@ -26,11 +26,10 @@ async def test_button2(param1, param2):
 
 def test_button3():
     window.test3_callback()
-    pass
 
 
 def _format_command_response_for_display(data: dict) -> str:
-    """Single-line JSON for metadata; only nested command stdout (`result.result`) stays multiline."""
+    """Format API response; nested command stdout stays multiline."""
     inner = data.get("result")
     if isinstance(inner, dict) and "result" in inner:
         stdout = inner.get("result")

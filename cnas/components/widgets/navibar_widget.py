@@ -8,7 +8,8 @@ __NAVIBAR_HEAD__ =\
   <nav class="navbar cnas-navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <img class="cnas-navbar-logo" src="static/images/cherry.png" alt="CNAS logo" width="40" height="40"/>
+        <img class="cnas-navbar-logo" src="static/images/cherry.png"
+             alt="CNAS logo" width="40" height="40"/>
       </a>
     </div>
 
@@ -77,7 +78,9 @@ class navibar_widget(tag):
         super().__init__(*args, **kwargs)
         self.drop_list = []
         self.auth_html = ""
-        self.set_content(__NAVIBAR_HEAD__ + __NAVIBAR_TAIL__.replace("__NAVIBAR_AUTH__", self.auth_html)).make_element()
+        navbar_html = __NAVIBAR_HEAD__ + __NAVIBAR_TAIL__.replace(
+            "__NAVIBAR_AUTH__", self.auth_html)
+        self.set_content(navbar_html).make_element()
 
     def set_auth(self, user_email: str):
         if not user_email:
@@ -100,7 +103,10 @@ class navibar_widget(tag):
 
     def _render_navbar(self):
         _drop_str = "".join(str(d) for d in self.drop_list)
-        _more_str = __NAVIBAR_MORE__.replace("__NAVIBAR_MORE_ITEMS__", _drop_str) if _drop_str else ""
+        if _drop_str:
+            _more_str = __NAVIBAR_MORE__.replace("__NAVIBAR_MORE_ITEMS__", _drop_str)
+        else:
+            _more_str = ""
         _tail_str = __NAVIBAR_TAIL__.replace("__NAVIBAR_AUTH__", self.auth_html)
         self.set_content(__NAVIBAR_HEAD__ + _more_str + _tail_str).make_element()
         return self
