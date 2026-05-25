@@ -2,7 +2,7 @@
 import os
 import subprocess
 
-VERSION = "0.0.44"
+VERSION = "0.0.45"
 
 
 def increase_version():
@@ -31,4 +31,6 @@ if __name__ == "__main__":
         f.seek(0)
         lines[4] = f"VERSION = \"{increase_version()}\"\n"
         f.write("".join(lines))
+    make_commit()
+.join(lines))
     make_commit()
