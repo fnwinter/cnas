@@ -30,7 +30,7 @@ jobs:
         echo "------------------------------"
         echo "Run test"
         echo "------------------------------"
-        ./doc_test.py
+        python3 ./doc_test.py
         popd
     - name: Run pylint
       run: |
@@ -38,7 +38,7 @@ jobs:
         echo "------------------------------"
         echo "Run pylint"
         echo "------------------------------"
-        ./pylint_test.py
+        python3 ./pylint_test.py
         popd
     - name: Version up
       run: |
@@ -55,7 +55,7 @@ jobs:
         echo "------------------------------"
         echo "Setup"
         echo "------------------------------"
-        python setup.py sdist
+        python3 setup.py sdist
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
