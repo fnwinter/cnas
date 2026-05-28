@@ -8,16 +8,16 @@ from components.widgets.icon_widget import icon_widget
 # Destinations shown on the front page. Each entry: (label, href, icon_src)
 # NOTE: only cherry.png exists today; replace icon paths when assets are added.
 __FRONT_BUTTONS__ = [
-    ("Gallery",        "/gallery",        "static/icons/gallery.png"),
-    ("Music",          "/music",          "static/icons/music.png"),
-    ("Test",           "/test",           "static/icons/test.png"),
-    ("PDF viewer",     "/pdf_viewer",     "static/icons/pdf_viewer.png"),
-    ("File manager",   "/file_manager",   "static/icons/file_manager.png"),
-    ("System status",  "/system_status",  "static/icons/system_status.png"),
-    ("Storage status", "/storage_status", "static/icons/storage_status.png"),
-    ("Minecraft",      "/minecraft",      "static/icons/minecraft_server.png"),
-    ("Trac",           "/trac_proxy",     "static/icons/trac.png"),
-    ("Setting",        "/setting",        "static/icons/setting.png"),
+    ("Gallery",        "/gallery",        "static/icons/front_page/gallery.png"),
+    ("Music",          "/music",          "static/icons/front_page/music.png"),
+    ("Test",           "/test",           "static/icons/front_page/test.png"),
+    ("PDF viewer",     "/pdf_viewer",     "static/icons/front_page/pdf_viewer.png"),
+    ("File manager",   "/file_manager",   "static/icons/front_page/file_manager.png"),
+    ("System status",  "/system_status",  "static/icons/front_page/system_status.png"),
+    ("Storage status", "/storage_status", "static/icons/front_page/storage_status.png"),
+    ("Minecraft",      "/minecraft",      "static/icons/front_page/minecraft_server.png"),
+    ("Trac",           "/trac_proxy",     "static/icons/front_page/trac.png"),
+    ("Setting",        "/setting",        "static/icons/front_page/setting.png"),
 ]
 
 class front(page):
